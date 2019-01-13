@@ -65,9 +65,8 @@ class BarPlotCanvas(BaseCanvas):
         self.axes.plot(x, outcome_mean, 'r--')
         self.axes.set_xticks(x)
         self.axes.set_xticklabels(x_values, rotation=270)
-        self._update_figure()
-
         datacursor(hover=True, formatter='{label}: {height:.0f}'.format)
+        self._update_figure()
 
 
 class LinePlotCanvas(BaseCanvas):
