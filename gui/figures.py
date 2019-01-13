@@ -6,6 +6,7 @@ from matplotlib import pyplot
 from matplotlib.backends.backend_qt5 import NavigationToolbar2QT as NavigationToolbar
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 import numpy as np
+from mpldatacursor import datacursor
 
 
 class BaseCanvas(QWidget):
@@ -65,6 +66,8 @@ class BarPlotCanvas(BaseCanvas):
         self.axes.set_xticks(x)
         self.axes.set_xticklabels(x_values, rotation=270)
         self._update_figure()
+
+        datacursor(hover=True, formatter='{label}: {height:.0f}'.format)
 
 
 class LinePlotCanvas(BaseCanvas):
