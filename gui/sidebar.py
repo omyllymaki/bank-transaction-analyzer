@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import List
 
 import pandas as pd
+from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog
 
@@ -46,8 +47,15 @@ class SideBar(QWidget):
     def _handle_load_data(self):
         file_paths = self._get_file_paths()
         self.cleaned_data = load_and_clean_data(file_paths)
+        self._set_dates_based_on_data()
         self.analyze_button.setDisabled(False)
         self._handle_analyze_data()
+
+    def _set_dates_based_on_data(self):
+        datetime_min = self.cleaned_data.time.min()
+        datetime_max = self.cleaned_data.time.max()
+        self.min_date_selector.setSelectedDate(QtCore.QDate(datetime_min.year, datetime_min.month, datetime_min.day))
+        self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
 
     def _handle_analyze_data(self):
         analyzed_data = self.analyzer.analyze_data(self.cleaned_data,
