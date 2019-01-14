@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict
+from typing import Dict, List
 
 import pandas as pd
 
@@ -16,6 +16,14 @@ class DataAnalyzer:
         data = self._calculate_indicators(data)
         data = self._calculate_grouped_data(data)
         return data
+
+    def _calculate_grouped_data(self, data: pd.DataFrame) -> Dict[str, pd.DataFrame]:
+        output = {
+            'by_event': data,
+            'by_year': self._group_data_by_columns(data, ['year']),
+            'by_year_and_month': self._group_data_by_columns(data, ['year', 'month']),
+        }
+        return output
 
     @staticmethod
     def _filter_data(data: pd.DataFrame,
@@ -47,28 +55,10 @@ class DataAnalyzer:
         data['cumulative_ratio'] = data['cumulative_outcome'] / data['cumulative_income']
         return data
 
-    @staticmethod
-    def _calculate_grouped_data(data: pd.DataFrame) -> Dict[str, pd.DataFrame]:
-        yearly_data = pd.DataFrame()
-        yearly_data['total'] = data.groupby(['year']).sum()['value']
-        yearly_data['income'] = data.groupby(['year']).sum()['income']
-        yearly_data['outcome'] = data.groupby(['year']).sum()['outcome']
-        yearly_data['total_cumulative'] = yearly_data['total'].cumsum()
-
-        monthly_data = pd.DataFrame()
-        monthly_data['total'] = data.groupby(['year', 'month']).sum()['value']
-        monthly_data['income'] = data.groupby(['year', 'month']).sum()['income']
-        monthly_data['outcome'] = data.groupby(['year', 'month']).sum()['outcome']
-        monthly_data['total_cumulative'] = monthly_data['total'].cumsum()
-
-        data_grouped_by_target = data.groupby('target', as_index=False).sum()
-        data_grouped_by_target = data_grouped_by_target.sort_values('outcome', ascending=False)
-        data_grouped_by_target['ratio'] = data_grouped_by_target['outcome'] / data['outcome'].sum()
-
-        output = {
-            'by_event': data,
-            'by_year': yearly_data,
-            'by_year_and_month': monthly_data,
-            'by_target': data_grouped_by_target,
-        }
-        return output
+    def _group_data_by_columns(self, data: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
+        grouped_data = pd.DataFrame()
+        grouped_data['total'] = data.groupby(columns).sum()['value']
+        grouped_data['income'] = data.groupby(columns).sum()['income']
+        grouped_data['outcome'] = data.groupby(columns).sum()['outcome']
+        grouped_data['total_cumulative'] = grouped_data['total'].cumsum()
+        return grouped_data
