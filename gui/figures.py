@@ -59,13 +59,15 @@ class BarPlotCanvas(BaseCanvas):
         x = np.array([k for k in range(len(income))])
 
         self._initialize_figure()
-        self.axes.bar(x - 0.1, income, width=0.2, color='b', label='Income')
+        income_plot = self.axes.bar(x - 0.1, income, width=0.2, color='b', label='Income')
         self.axes.plot(x, income_mean, 'b--')
-        self.axes.bar(x + 0.1, outcome, width=0.2, color='r', label='Outcome')
+        outcome_plot = self.axes.bar(x + 0.1, outcome, width=0.2, color='r', label='Outcome')
         self.axes.plot(x, outcome_mean, 'r--')
         self.axes.set_xticks(x)
         self.axes.set_xticklabels(x_values, rotation=270)
-        datacursor(hover=True, formatter='{label}: {height:.0f}'.format)
+        datacursor(income_plot, hover=True, formatter='{height:.0f} EUR'.format)
+        datacursor(outcome_plot, hover=True, formatter='{height:.0f} EUR'.format)
+        self.axes.legend()
         self._update_figure()
 
 
@@ -77,7 +79,11 @@ class LinePlotCanvas(BaseCanvas):
     def plot(self, data: pd.DataFrame):
         x = data['time']
         self._initialize_figure()
-        self.axes.plot(x, data['cumulative_value'], '-')
-        self.axes.plot(x, data['cumulative_income'], 'b-', markersize=3, label='Income')
-        self.axes.plot(x, data['cumulative_outcome'], 'r-', markersize=3, label='Outcome')
+        difference_plot = self.axes.plot(x, data['cumulative_value'], 'g-', label='Difference')
+        income_plot = self.axes.plot(x, data['cumulative_income'], 'b-', label='Income')
+        outcome_plot = self.axes.plot(x, data['cumulative_outcome'], 'r-', label='Outcome')
+        self.axes.legend()
+        datacursor(difference_plot, hover=True)
+        datacursor(income_plot, hover=True)
+        datacursor(outcome_plot, hover=True)
         self._update_figure()
