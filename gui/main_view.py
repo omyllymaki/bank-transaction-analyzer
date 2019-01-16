@@ -3,7 +3,7 @@ from typing import Dict
 import pandas as pd
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 
-from gui.plotter import Plotter
+from gui.figures import Plotter
 from gui.sidebar import SideBar
 
 

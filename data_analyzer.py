@@ -60,5 +60,6 @@ class DataAnalyzer:
         grouped_data['total'] = data.groupby(columns).sum()['value']
         grouped_data['income'] = data.groupby(columns).sum()['income']
         grouped_data['outcome'] = data.groupby(columns).sum()['outcome']
+        grouped_data['ratio'] = grouped_data['outcome'] / grouped_data['income']
         grouped_data['total_cumulative'] = grouped_data['total'].cumsum()
         return grouped_data

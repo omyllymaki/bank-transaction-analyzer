@@ -1,89 +1,83 @@
-from abc import abstractmethod
+from typing import Dict
 
 import pandas as pd
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
-from matplotlib import pyplot
-from matplotlib.backends.backend_qt5 import NavigationToolbar2QT as NavigationToolbar
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-import numpy as np
-from mpldatacursor import datacursor
+from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
+
+from gui.canvases import IncomeAndOutcomeBarCanvas, IncomeAndOutcomeLineCanvas, ProfitBarCanvas, ProfitLineCanvas
 
 
-class BaseCanvas(QWidget):
-    def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
+class Plotter(QWidget):
+    def __init__(self):
         super().__init__()
 
-        self.figure_title = figure_title
-        self.x_axis_title = x_axis_title
-        self.y_axis_title = y_axis_title
-        self.figure, self.axes = pyplot.subplots()
-        self.canvas = FigureCanvas(self.figure)
-        self.toolbar = NavigationToolbar(self.canvas, self)
+        self.content = QTabWidget()
+        self.figure_yearly_data = YearlyFigure()
+        self.figure_monthly_data = MonthlyFigure()
+        self.figure_daily_data = DailyFigure()
+        self.content.addTab(self.figure_yearly_data, 'By year')
+        self.content.addTab(self.figure_monthly_data, 'By month')
+        self.content.addTab(self.figure_daily_data, 'By day')
         self._set_layout()
 
-    def _update_figure(self):
-        self.toolbar.update()
-        self.canvas.draw()
+    def _set_layout(self):
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.content)
+
+    def plot_data(self, data: Dict[str, pd.DataFrame]):
+        self.figure_yearly_data.plot(data['by_year'])
+        self.figure_monthly_data.plot(data['by_year_and_month'])
+        self.figure_daily_data.plot(data['by_event'])
+
+
+class YearlyFigure(QTabWidget):
+    def __init__(self):
+        super().__init__()
+        self.figure_income_and_outcome = IncomeAndOutcomeBarCanvas('Income & Outcome per year', '', 'Amount (EUR)')
+        self.figure_profit = ProfitBarCanvas('Profit', 'Year', 'Amount (EUR)')
+        self._set_layout()
 
     def _set_layout(self):
-        layout = QVBoxLayout()
-        layout.addWidget(self.canvas)
-        layout.addWidget(self.toolbar)
-        self.setLayout(layout)
-
-    def _initialize_figure(self):
-        self.figure.clf()
-        self.axes = self.figure.add_subplot(111)
-        self.axes.set_title(self.figure_title)
-        self.axes.set_xlabel(self.x_axis_title)
-        self.axes.set_ylabel(self.y_axis_title)
-        self.axes.grid()
-        self.canvas.draw()
-
-    @abstractmethod
-    def plot(self, *args):
-        raise NotImplementedError
-
-
-class BarPlotCanvas(BaseCanvas):
-    def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
-        super().__init__(figure_title, x_axis_title, y_axis_title)
-        self._initialize_figure()
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.figure_income_and_outcome)
+        self.layout.addWidget(self.figure_profit)
+        self.setLayout(self.layout)
 
     def plot(self, data: pd.DataFrame):
-        x_values = data.index
-        income = data['income']
-        income_mean = [np.mean(income) for k in x_values]
-        outcome = data['outcome']
-        outcome_mean = [np.mean(outcome) for k in x_values]
-        x = np.array([k for k in range(len(income))])
-
-        self._initialize_figure()
-        income_plot = self.axes.bar(x - 0.1, income, width=0.2, color='b', label='Income')
-        self.axes.plot(x, income_mean, 'b--')
-        outcome_plot = self.axes.bar(x + 0.1, outcome, width=0.2, color='r', label='Outcome')
-        self.axes.plot(x, outcome_mean, 'r--')
-        self.axes.set_xticks(x)
-        self.axes.set_xticklabels(x_values, rotation=270)
-        datacursor(income_plot, hover=True, formatter='{height:.0f} EUR'.format)
-        datacursor(outcome_plot, hover=True, formatter='{height:.0f} EUR'.format)
-        self.axes.legend()
-        self._update_figure()
+        self.figure_income_and_outcome.plot(data['income'], data['outcome'])
+        self.figure_profit.plot(data['total'], data.index)
 
 
-class LinePlotCanvas(BaseCanvas):
-    def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
-        super().__init__(figure_title, x_axis_title, y_axis_title)
-        self._initialize_figure()
+class MonthlyFigure(QTabWidget):
+    def __init__(self):
+        super().__init__()
+        self.figure_income_and_outcome = IncomeAndOutcomeBarCanvas('Income & Outcome per month', '', 'Amount (EUR)')
+        self.figure_profit = ProfitBarCanvas('Profit', 'Month', 'Amount (EUR)')
+        self._set_layout()
+
+    def _set_layout(self):
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.figure_income_and_outcome)
+        self.layout.addWidget(self.figure_profit)
+        self.setLayout(self.layout)
 
     def plot(self, data: pd.DataFrame):
-        x = data['time']
-        self._initialize_figure()
-        difference_plot = self.axes.plot(x, data['cumulative_value'], 'g-', label='Difference')
-        income_plot = self.axes.plot(x, data['cumulative_income'], 'b-', label='Income')
-        outcome_plot = self.axes.plot(x, data['cumulative_outcome'], 'r-', label='Outcome')
-        self.axes.legend()
-        datacursor(difference_plot, hover=True)
-        datacursor(income_plot, hover=True)
-        datacursor(outcome_plot, hover=True)
-        self._update_figure()
+        self.figure_income_and_outcome.plot(data['income'], data['outcome'])
+        self.figure_profit.plot(data['total'], data.index)
+
+
+class DailyFigure(QTabWidget):
+    def __init__(self):
+        super().__init__()
+        self.figure_income_and_outcome = IncomeAndOutcomeLineCanvas('Income & Outcome', 'Time', 'Amount (EUR)')
+        self.figure_profit = ProfitLineCanvas('Profit', 'Time', 'Amount (EUR)')
+        self._set_layout()
+
+    def _set_layout(self):
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.figure_income_and_outcome)
+        self.layout.addWidget(self.figure_profit)
+        self.setLayout(self.layout)
+
+    def plot(self, data: pd.DataFrame):
+        self.figure_income_and_outcome.plot(data['time'], data['cumulative_income'], data['cumulative_outcome'])
+        self.figure_profit.plot(data['time'], data['cumulative_value'])
