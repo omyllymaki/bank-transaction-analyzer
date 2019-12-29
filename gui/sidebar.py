@@ -47,6 +47,8 @@ class SideBar(QWidget):
 
     def _handle_load_data(self):
         file_paths = self._get_file_paths()
+        if not file_paths:
+            return None
         self.cleaned_data = load_and_clean_data(file_paths)
         self._set_dates_based_on_data()
         self.analyze_button.setDisabled(False)
