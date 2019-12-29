@@ -4,3 +4,7 @@ DROP_DATA = {
     'Saaja/Maksaja': ['x','y'],
     'Tapahtuma': ['z']
 }
+
+# Default dir that will opened when data is loaded
+# Current script folder will be used if None
+DEFAULT_DATA_DIR = None

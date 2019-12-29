@@ -6,6 +6,7 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog
 
+from config import DEFAULT_DATA_DIR
 from data_analyzer import DataAnalyzer
 from load_and_clean_data import load_and_clean_data
 
@@ -66,7 +67,7 @@ class SideBar(QWidget):
         self.analyze_button_clicked.emit(analyzed_data)
 
     def _get_file_paths(self) -> List[str]:
-        file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis')
+        file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis', directory=DEFAULT_DATA_DIR)
         return file_paths
 
     def _get_min_date(self) -> datetime:
