@@ -97,11 +97,9 @@ class IncomeAndOutcomeLineCanvas(BaseCanvas):
 
     def plot(self, x: List[datetime], income: np.ndarray, outcome: np.ndarray):
         self._initialize_figure()
-        income_plot = self.axes.plot(x, income, 'b-', label='Income')
-        outcome_plot = self.axes.plot(x, outcome, 'r-', label='Outcome')
+        income_plot = self.axes.plot(x, income, 'b.', label='Income')
+        outcome_plot = self.axes.plot(x, outcome, 'r.', label='Outcome')
         self.axes.legend()
-        datacursor(income_plot, hover=True)
-        datacursor(outcome_plot, hover=True)
         self._update_figure()
 
 
@@ -112,6 +110,5 @@ class ProfitLineCanvas(BaseCanvas):
 
     def plot(self, x: List[datetime], ratio: np.ndarray):
         self._initialize_figure()
-        ratio_plot = self.axes.plot(x, ratio, 'b-')
-        datacursor(ratio_plot, hover=True)
+        ratio_plot = self.axes.plot(x, ratio, 'b.')
         self._update_figure()
