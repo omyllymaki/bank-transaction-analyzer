@@ -1,10 +1,11 @@
 from typing import Dict
 
 import pandas as pd
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
 
 from gui.canvases import IncomeAndOutcomeBarCanvas, IncomeAndOutcomeLineCanvas, ProfitBarCanvas, ProfitLineCanvas
+from gui.dataframe_model import DataFrameModel
 
 
 class Plotter(QWidget):
@@ -26,11 +27,11 @@ class Plotter(QWidget):
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.content)
 
-    def plot_data(self, data: Dict[str, pd.DataFrame]):
-        self.figure_yearly_data.plot(data['by_year'])
-        self.figure_monthly_data.plot(data['by_year_and_month'])
-        self.figure_daily_data.plot(data['by_event'])
-        self.event_table.plot(data['by_event'])
+    def show_data(self, data: Dict[str, pd.DataFrame]):
+        self.figure_yearly_data.show_data(data['by_year'])
+        self.figure_monthly_data.show_data(data['by_year_and_month'])
+        self.figure_daily_data.show_data(data['by_event'])
+        self.event_table.show_data(data['by_event'])
 
 
 class YearlyFigure(QTabWidget):
@@ -46,7 +47,7 @@ class YearlyFigure(QTabWidget):
         self.layout.addWidget(self.figure_profit)
         self.setLayout(self.layout)
 
-    def plot(self, data: pd.DataFrame):
+    def show_data(self, data: pd.DataFrame):
         self.figure_income_and_outcome.plot(data['income'], data['outcome'])
         self.figure_profit.plot(data['total'], data.index)
 
@@ -64,7 +65,7 @@ class MonthlyFigure(QTabWidget):
         self.layout.addWidget(self.figure_profit)
         self.setLayout(self.layout)
 
-    def plot(self, data: pd.DataFrame):
+    def show_data(self, data: pd.DataFrame):
         self.figure_income_and_outcome.plot(data['income'], data['outcome'])
         self.figure_profit.plot(data['total'], data.index)
 
@@ -82,7 +83,7 @@ class DailyFigure(QTabWidget):
         self.layout.addWidget(self.figure_profit)
         self.setLayout(self.layout)
 
-    def plot(self, data: pd.DataFrame):
+    def show_data(self, data: pd.DataFrame):
         self.figure_income_and_outcome.plot(data['time'], data['cumulative_income'], data['cumulative_outcome'])
         self.figure_profit.plot(data['time'], data['cumulative_value'])
 
@@ -99,69 +100,6 @@ class EventTable(QTabWidget):
         self.layout.addWidget(self.table_view)
         self.setLayout(self.layout)
 
-    def plot(self, data):
+    def show_data(self, data):
         model = DataFrameModel(data)
         self.table_view.setModel(model)
-
-
-class DataFrameModel(QtCore.QAbstractTableModel):
-    DtypeRole = QtCore.Qt.UserRole + 1000
-    ValueRole = QtCore.Qt.UserRole + 1001
-
-    def __init__(self, df=pd.DataFrame(), parent=None):
-        super(DataFrameModel, self).__init__(parent)
-        self._dataframe = df
-
-    def setDataFrame(self, dataframe):
-        self.beginResetModel()
-        self._dataframe = dataframe.copy()
-        self.endResetModel()
-
-    def dataFrame(self):
-        return self._dataframe
-
-    dataFrame = QtCore.pyqtProperty(pd.DataFrame, fget=dataFrame, fset=setDataFrame)
-
-    @QtCore.pyqtSlot(int, QtCore.Qt.Orientation, result=str)
-    def headerData(self, section: int, orientation: QtCore.Qt.Orientation, role: int = QtCore.Qt.DisplayRole):
-        if role == QtCore.Qt.DisplayRole:
-            if orientation == QtCore.Qt.Horizontal:
-                return self._dataframe.columns[section]
-            else:
-                return str(self._dataframe.index[section])
-        return QtCore.QVariant()
-
-    def rowCount(self, parent=QtCore.QModelIndex()):
-        if parent.isValid():
-            return 0
-        return len(self._dataframe.index)
-
-    def columnCount(self, parent=QtCore.QModelIndex()):
-        if parent.isValid():
-            return 0
-        return self._dataframe.columns.size
-
-    def data(self, index, role=QtCore.Qt.DisplayRole):
-        if not index.isValid() or not (0 <= index.row() < self.rowCount() \
-                                       and 0 <= index.column() < self.columnCount()):
-            return QtCore.QVariant()
-        row = self._dataframe.index[index.row()]
-        col = self._dataframe.columns[index.column()]
-        dt = self._dataframe[col].dtype
-
-        val = self._dataframe.iloc[row][col]
-        if role == QtCore.Qt.DisplayRole:
-            return str(val)
-        elif role == DataFrameModel.ValueRole:
-            return val
-        if role == DataFrameModel.DtypeRole:
-            return dt
-        return QtCore.QVariant()
-
-    def roleNames(self):
-        roles = {
-            QtCore.Qt.DisplayRole: b'display',
-            DataFrameModel.DtypeRole: b'dtype',
-            DataFrameModel.ValueRole: b'value'
-        }
-        return roles
