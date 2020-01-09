@@ -7,7 +7,9 @@ from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
 from gui.canvases import IncomeAndOutcomeBarCanvas, IncomeAndOutcomeLineCanvas, ProfitBarCanvas, ProfitLineCanvas
 from gui.dataframe_model import DataFrameModel
 
-SHOW_COLUMNS = ["target", "account_number", "value", "time", "cumulative_income", "cumulative_outcome", "cumulative_value"]
+SHOW_COLUMNS = ["target", "account_number", "value", "time", "cumulative_income", "cumulative_outcome",
+                "cumulative_value", "message"]
+
 
 class Plotter(QWidget):
     def __init__(self):

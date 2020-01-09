@@ -13,6 +13,7 @@ class DataCleaner:
         data_cleaned = pd.DataFrame()
         data_cleaned['target'] = data['Saaja/Maksaja']
         data_cleaned['account_number'] = data['account_number']
+        data_cleaned['message'] = data['Viesti']
         data_cleaned['value'] = data['Määrä'].apply(self.convert_string_to_float)
         data_cleaned['time'] = data['Kirjauspäivä'].apply(self.convert_string_to_datetime)
         data_cleaned['year'] = data_cleaned['time'].apply(self.get_year)
