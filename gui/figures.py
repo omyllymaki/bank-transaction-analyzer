@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
 from gui.canvases import IncomeAndOutcomeBarCanvas, IncomeAndOutcomeLineCanvas, ProfitBarCanvas, ProfitLineCanvas
 from gui.dataframe_model import DataFrameModel
 
+SHOW_COLUMNS = ["target", "account_number", "value", "time", "cumulative_income", "cumulative_outcome", "cumulative_value"]
 
 class Plotter(QWidget):
     def __init__(self):
@@ -31,7 +32,7 @@ class Plotter(QWidget):
         self.figure_yearly_data.show_data(data['by_year'])
         self.figure_monthly_data.show_data(data['by_year_and_month'])
         self.figure_daily_data.show_data(data['by_event'])
-        self.event_table.show_data(data['by_event'])
+        self.event_table.show_data(data['by_event'][SHOW_COLUMNS])
 
 
 class YearlyFigure(QTabWidget):
