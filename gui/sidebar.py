@@ -23,6 +23,7 @@ class SideBar(QWidget):
         self.max_date_selector = QCalendarWidget(self)
         self.target_line = QLineEdit(self)
         self.account_number_line = QLineEdit(self)
+        self.message_line = QLineEdit(self)
         self.min_value_line = QLineEdit(self)
         self.max_value_line = QLineEdit(self)
         self.analyze_button = QPushButton('Analyze data')
@@ -45,6 +46,8 @@ class SideBar(QWidget):
         self.layout.addWidget(self.target_line)
         self.layout.addWidget(QLabel('Account number contains'))
         self.layout.addWidget(self.account_number_line)
+        self.layout.addWidget(QLabel('Message contains'))
+        self.layout.addWidget(self.message_line)
         self.layout.addWidget(self.analyze_button)
         self.layout.addWidget(self.load_button)
 
@@ -68,12 +71,12 @@ class SideBar(QWidget):
         self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
 
     def _handle_analyze_data(self):
-        print(self._get_min_value())
         analyzed_data = self.analyzer.analyze_data(self.cleaned_data,
                                                    min_date=self._get_min_date(),
                                                    max_date=self._get_max_date(),
                                                    target=self._get_target(),
                                                    account_number=self._get_account_number(),
+                                                   message=self._get_message(),
                                                    min_value=self._get_min_value(),
                                                    max_value=self._get_max_value())
         if analyzed_data["by_event"].empty:
@@ -96,6 +99,9 @@ class SideBar(QWidget):
 
     def _get_account_number(self) -> str:
         return self.account_number_line.text()
+
+    def _get_message(self) -> str:
+        return self.message_line.text()
 
     def _get_min_value(self) -> float:
         try:

@@ -13,8 +13,9 @@ class DataAnalyzer:
                      min_value: float = None,
                      max_value: float = None,
                      target: str = None,
-                     account_number: str = None) -> Dict[str, pd.DataFrame]:
-        data = self._filter_data(data, min_date, max_date, min_value, max_value, target, account_number)
+                     account_number: str = None,
+                     message: str = None) -> Dict[str, pd.DataFrame]:
+        data = self._filter_data(data, min_date, max_date, min_value, max_value, target, account_number, message)
         data = self._calculate_indicators(data)
         data = self._calculate_grouped_data(data)
         return data
@@ -35,6 +36,7 @@ class DataAnalyzer:
                      max_value: float = None,
                      target: str = None,
                      account_number: str = None,
+                     message: str = None,
                      ) -> pd.DataFrame:
         if min_date is not None:
             data = data[data['time'] >= min_date]
@@ -44,8 +46,9 @@ class DataAnalyzer:
             data = data[data['target'].str.contains(target, na=False)]
         if account_number is not None:
             data = data[data['account_number'].str.contains(account_number, na=False)]
+        if message is not None:
+            data = data[data['message'].str.contains(message, na=False)]
         if min_value is not None:
-            print(min_value)
             data = data[data['value'] >= min_value]
         if max_value is not None:
             data = data[data['value'] <= max_value]
