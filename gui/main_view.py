@@ -25,4 +25,4 @@ class MainView(QWidget):
         self.sidebar.analyze_button_clicked.connect(self._handle_plotting)
 
     def _handle_plotting(self, data: Dict[str, pd.DataFrame]):
-        self.plotter.plot_data(data)
+        self.plotter.show_data(data)
