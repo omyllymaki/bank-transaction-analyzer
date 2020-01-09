@@ -10,9 +10,11 @@ class DataAnalyzer:
                      data: pd.DataFrame,
                      min_date: datetime = None,
                      max_date: datetime = None,
+                     min_value: float = None,
+                     max_value: float = None,
                      target: str = None,
                      account_number: str = None) -> Dict[str, pd.DataFrame]:
-        data = self._filter_data(data, min_date, max_date, target, account_number)
+        data = self._filter_data(data, min_date, max_date, min_value, max_value, target, account_number)
         data = self._calculate_indicators(data)
         data = self._calculate_grouped_data(data)
         return data
@@ -29,17 +31,24 @@ class DataAnalyzer:
     def _filter_data(data: pd.DataFrame,
                      min_date: datetime = None,
                      max_date: datetime = None,
+                     min_value: float = None,
+                     max_value: float = None,
                      target: str = None,
                      account_number: str = None,
                      ) -> pd.DataFrame:
-        if min_date:
-            data = data[data['time'] > min_date]
-        if max_date:
-            data = data[data['time'] < max_date]
-        if target:
+        if min_date is not None:
+            data = data[data['time'] >= min_date]
+        if max_date is not None:
+            data = data[data['time'] <= max_date]
+        if target is not None:
             data = data[data['target'].str.contains(target, na=False)]
-        if account_number:
+        if account_number is not None:
             data = data[data['account_number'].str.contains(account_number, na=False)]
+        if min_value is not None:
+            print(min_value)
+            data = data[data['value'] >= min_value]
+        if max_value is not None:
+            data = data[data['value'] <= max_value]
         return data
 
     @staticmethod

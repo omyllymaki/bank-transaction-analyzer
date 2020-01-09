@@ -23,6 +23,8 @@ class SideBar(QWidget):
         self.max_date_selector = QCalendarWidget(self)
         self.target_line = QLineEdit(self)
         self.account_number_line = QLineEdit(self)
+        self.min_value_line = QLineEdit(self)
+        self.max_value_line = QLineEdit(self)
         self.analyze_button = QPushButton('Analyze data')
         self.load_button = QPushButton('Load data')
         self.analyze_button.setDisabled(True)
@@ -35,6 +37,10 @@ class SideBar(QWidget):
         self.layout.addWidget(self.min_date_selector)
         self.layout.addWidget(QLabel('Max date'))
         self.layout.addWidget(self.max_date_selector)
+        self.layout.addWidget(QLabel('Min value'))
+        self.layout.addWidget(self.min_value_line)
+        self.layout.addWidget(QLabel('Max value'))
+        self.layout.addWidget(self.max_value_line)
         self.layout.addWidget(QLabel('Target contains'))
         self.layout.addWidget(self.target_line)
         self.layout.addWidget(QLabel('Account number contains'))
@@ -62,11 +68,14 @@ class SideBar(QWidget):
         self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
 
     def _handle_analyze_data(self):
+        print(self._get_min_value())
         analyzed_data = self.analyzer.analyze_data(self.cleaned_data,
                                                    min_date=self._get_min_date(),
                                                    max_date=self._get_max_date(),
                                                    target=self._get_target(),
-                                                   account_number=self._get_account_number())
+                                                   account_number=self._get_account_number(),
+                                                   min_value=self._get_min_value(),
+                                                   max_value=self._get_max_value())
         if analyzed_data["by_event"].empty:
             show_warning("Warning", "No data to analyze")
         else:
@@ -87,3 +96,15 @@ class SideBar(QWidget):
 
     def _get_account_number(self) -> str:
         return self.account_number_line.text()
+
+    def _get_min_value(self) -> float:
+        try:
+            return float(self.min_value_line.text())
+        except (ValueError, TypeError):
+            return None
+
+    def _get_max_value(self) -> float:
+        try:
+            return float(self.max_value_line.text())
+        except (ValueError, TypeError):
+            return None
