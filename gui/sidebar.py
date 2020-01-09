@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLine
 
 from config import DEFAULT_DATA_DIR
 from data_analyzer import DataAnalyzer
+from gui.dialog_boxes import show_warning
 from load_and_clean_data import load_and_clean_data
 
 
@@ -66,7 +67,10 @@ class SideBar(QWidget):
                                                    max_date=self._get_max_date(),
                                                    target=self._get_target(),
                                                    account_number=self._get_account_number())
-        self.analyze_button_clicked.emit(analyzed_data)
+        if analyzed_data["by_event"].empty:
+            show_warning("Warning", "No data to analyze")
+        else:
+            self.analyze_button_clicked.emit(analyzed_data)
 
     def _get_file_paths(self) -> List[str]:
         file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis', directory=DEFAULT_DATA_DIR)
