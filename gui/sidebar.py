@@ -7,9 +7,9 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog
 
 from config import DEFAULT_DATA_DIR
-from data_analyzer import DataAnalyzer
+from data_processing.data_analyzer import DataAnalyzer
 from gui.dialog_boxes import show_warning
-from load_and_clean_data import load_and_clean_data
+from data_processing.load_and_clean_data import load_and_clean_data
 
 
 class SideBar(QWidget):

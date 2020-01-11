@@ -3,8 +3,8 @@ from typing import List
 import pandas as pd
 
 from config import DROP_DATA
-from data_cleaner import DataCleaner
-from data_loader import DataLoader
+from data_processing.data_cleaner import DataCleaner
+from data_processing.data_loader import DataLoader
 
 
 def load_and_clean_data(file_paths: List[str]) -> pd.DataFrame:
