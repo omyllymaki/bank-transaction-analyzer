@@ -40,8 +40,9 @@ class Plotter(QWidget):
 class YearlyFigure(QTabWidget):
     def __init__(self):
         super().__init__()
-        self.figure_income_and_outcome = IncomeAndOutcomeBarCanvas('Income & Outcome per year', '', 'Amount (EUR)')
-        self.figure_profit = ProfitBarCanvas('Profit', 'Year', 'Amount (EUR)')
+        self.figure_income_and_outcome = IncomeAndOutcomeBarCanvas(figure_title='Income & Outcome per year',
+                                                                   y_axis_title='Amount (EUR)')
+        self.figure_profit = ProfitBarCanvas(figure_title='Profit', y_axis_title='Amount (EUR)')
         self._set_layout()
 
     def _set_layout(self):
@@ -51,15 +52,16 @@ class YearlyFigure(QTabWidget):
         self.setLayout(self.layout)
 
     def show_data(self, data: pd.DataFrame):
-        self.figure_income_and_outcome.plot(data['income'], data['outcome'])
+        self.figure_income_and_outcome.plot(data['income'], data['outcome'], data.index)
         self.figure_profit.plot(data['total'], data.index)
 
 
 class MonthlyFigure(QTabWidget):
     def __init__(self):
         super().__init__()
-        self.figure_income_and_outcome = IncomeAndOutcomeBarCanvas('Income & Outcome per month', '', 'Amount (EUR)')
-        self.figure_profit = ProfitBarCanvas('Profit', 'Month', 'Amount (EUR)')
+        self.figure_income_and_outcome = IncomeAndOutcomeBarCanvas(figure_title='Income & Outcome per month',
+                                                                   y_axis_title='Amount (EUR)')
+        self.figure_profit = ProfitBarCanvas(figure_title='Profit', y_axis_title='Amount (EUR)')
         self._set_layout()
 
     def _set_layout(self):
@@ -69,15 +71,16 @@ class MonthlyFigure(QTabWidget):
         self.setLayout(self.layout)
 
     def show_data(self, data: pd.DataFrame):
-        self.figure_income_and_outcome.plot(data['income'], data['outcome'])
+        self.figure_income_and_outcome.plot(data['income'], data['outcome'], data.index)
         self.figure_profit.plot(data['total'], data.index)
 
 
 class DailyFigure(QTabWidget):
     def __init__(self):
         super().__init__()
-        self.figure_income_and_outcome = IncomeAndOutcomeLineCanvas('Income & Outcome', 'Time', 'Amount (EUR)')
-        self.figure_profit = ProfitLineCanvas('Profit', 'Time', 'Amount (EUR)')
+        self.figure_income_and_outcome = IncomeAndOutcomeLineCanvas(figure_title='Income & Outcome',
+                                                                    y_axis_title='Amount (EUR)')
+        self.figure_profit = ProfitLineCanvas(figure_title='Profit', y_axis_title='Amount (EUR)')
         self._set_layout()
 
     def _set_layout(self):

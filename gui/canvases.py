@@ -40,6 +40,7 @@ class BaseCanvas(QWidget):
         self.axes.set_xlabel(self.x_axis_title)
         self.axes.set_ylabel(self.y_axis_title)
         self.axes.grid()
+        self.figure.subplots_adjust(bottom=0.2)
         self.canvas.draw()
 
     @abstractmethod
@@ -56,7 +57,7 @@ class IncomeAndOutcomeBarCanvas(BaseCanvas):
         income_mean = [np.mean(income) for k in income]
         outcome_mean = [np.mean(outcome) for k in outcome]
         x = np.array([k for k in range(len(income))])
-        if not x_labels:
+        if x_labels is None:
             x_labels = ['' for k in income]
 
         self._initialize_figure()
@@ -65,7 +66,7 @@ class IncomeAndOutcomeBarCanvas(BaseCanvas):
         outcome_plot = self.axes.bar(x + 0.1, outcome, width=0.2, color='r', label='Outcome')
         self.axes.plot(x, outcome_mean, 'r--')
         self.axes.set_xticks(x)
-        self.axes.set_xticklabels(x_labels, rotation=270)
+        self.axes.set_xticklabels(x_labels, rotation=-60)
         datacursor(income_plot, hover=True, formatter='{height:.0f} EUR'.format)
         datacursor(outcome_plot, hover=True, formatter='{height:.0f} EUR'.format)
         self.axes.legend()
@@ -85,7 +86,7 @@ class ProfitBarCanvas(BaseCanvas):
         ratio_plot = self.axes.bar(x, ratio, width=0.2, color='b')
         self.axes.plot(x, ratio_mean, 'b--')
         self.axes.set_xticks(x)
-        self.axes.set_xticklabels(x_labels, rotation=270)
+        self.axes.set_xticklabels(x_labels, rotation=-60)
         datacursor(ratio_plot, hover=True, formatter='{height:.2f}'.format)
         self._update_figure()
 
