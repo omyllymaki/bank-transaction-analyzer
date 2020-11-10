@@ -43,11 +43,11 @@ class DataAnalyzer:
         if max_date is not None:
             data = data[data['time'] <= max_date]
         if target is not None:
-            data = data[data['target'].str.contains(target, na=False)]
+            data = data[data['target'].str.contains(target.strip(), na=False, case=False)]
         if account_number is not None:
-            data = data[data['account_number'].str.contains(account_number, na=False)]
+            data = data[data['account_number'].str.contains(account_number.strip(), na=False)]
         if message is not None:
-            data = data[data['message'].str.contains(message, na=False)]
+            data = data[data['message'].str.contains(message.strip(), na=False, case=False)]
         if min_value is not None:
             data = data[data['value'] >= min_value]
         if max_value is not None:
