@@ -2,7 +2,7 @@ from typing import Dict
 
 import pandas as pd
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QRadioButton
 
 from gui.canvases import IncomeAndOutcomeBarCanvas, IncomeAndOutcomeLineCanvas, ProfitBarCanvas, ProfitLineCanvas
 from gui.dataframe_model import DataFrameModel
@@ -99,13 +99,30 @@ class EventTable(QTabWidget):
         super().__init__()
         self.table_view = QtWidgets.QTableView()
         self.table_view.setObjectName("tableView")
+        self.group_by_target_button = QRadioButton("Group by target")
         self._set_layout()
+        self._set_connections()
+        self.group_by_target = False
 
     def _set_layout(self):
         self.layout = QVBoxLayout()
+        self.layout.addWidget(self.button)
         self.layout.addWidget(self.table_view)
         self.setLayout(self.layout)
 
+    def _set_connections(self):
+        self.group_by_target_button.toggled.connect(self._handle_grouping_button_toggle)
+
+    def _handle_grouping_button_toggle(self):
+        if self.button.isChecked():
+            self.group_by_target = True
+        else:
+            self.group_by_target = False
+
     def show_data(self, data):
-        model = DataFrameModel(data)
+        if self.group_by_target:
+            grouped_data = data.groupby("target", as_index=False).sum()[["target", "value"]].sort_values("value")
+            model = DataFrameModel(grouped_data)
+        else:
+            model = DataFrameModel(data)
         self.table_view.setModel(model)
