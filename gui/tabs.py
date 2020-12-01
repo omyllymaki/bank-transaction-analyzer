@@ -106,7 +106,7 @@ class EventTable(QTabWidget):
 
     def _set_layout(self):
         self.layout = QVBoxLayout()
-        self.layout.addWidget(self.button)
+        self.layout.addWidget(self.group_by_target_button)
         self.layout.addWidget(self.table_view)
         self.setLayout(self.layout)
 
@@ -114,7 +114,7 @@ class EventTable(QTabWidget):
         self.group_by_target_button.toggled.connect(self._handle_grouping_button_toggle)
 
     def _handle_grouping_button_toggle(self):
-        if self.button.isChecked():
+        if self.group_by_target_button.isChecked():
             self.group_by_target = True
         else:
             self.group_by_target = False
