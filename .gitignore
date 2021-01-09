@@ -105,5 +105,6 @@ ENV/
 
 # Other
 .idea/
+.vscode/
 git_ignore_this_dir
-config.py
+config_personal.py

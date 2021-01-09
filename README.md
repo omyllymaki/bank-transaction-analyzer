@@ -2,7 +2,7 @@
 Account Analyzer provides analysis and visualization of Nordea internet bank data. 
 
 ## Before usage
-Fill parameters to config_example.py and save it as config.py
+Fill parameters to config.py.
 
 ## Running program
 Start GUI program from command line by typing python main.py.
