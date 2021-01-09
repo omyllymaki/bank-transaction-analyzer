@@ -2,12 +2,20 @@
 Account Analyzer provides analysis and visualization of Nordea internet bank data. 
 
 ## Before usage
-Fill parameters to config.py.
 
-## Running program
-Start GUI program from command line by typing python main.py.
+* Install Python >= 3.6.
+* Install requirements.
+* Fill parameters to config.py.
 
 ## Usage
-* Load button opens file dialog where you can choose multiple files for analysis
-* Analyze button analyses data, with given parameters, and updates figures 
 
+* Export your data from Nordea internet bank (Tilit / Tilitapahtumat ja tilin tiedot / Tapahtumaluettelo).
+* Start GUI program from command line by typing python main.py.
+* Load data with load button which opens file dialog where you can choose multiple files for analysis.
+* Set filter values and analyze you data by pressing Analyze data; this updates the figures.
+
+## Example (with simulated data)
+
+<p align="center">
+<img src="figures/example.jpg" width="800px" />
+</p>
