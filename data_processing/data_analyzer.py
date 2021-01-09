@@ -39,9 +39,9 @@ class DataAnalyzer:
                      message: str = None,
                      ) -> pd.DataFrame:
         if min_date is not None:
-            data = data[data['time'] >= min_date]
+            data = data[data['time'] >= pd.to_datetime(min_date)]
         if max_date is not None:
-            data = data[data['time'] <= max_date]
+            data = data[data['time'] <= pd.to_datetime(max_date)]
         if target is not None:
             data = data[data['target'].str.contains(target.strip(), na=False, case=False)]
         if account_number is not None:
