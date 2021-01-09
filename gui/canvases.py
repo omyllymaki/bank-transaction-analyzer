@@ -60,13 +60,19 @@ class IncomeAndOutcomeBarCanvas(BaseCanvas):
         if x_labels is None:
             x_labels = ['' for k in income]
 
+        n = int(x.shape[0] / 15)
+        if n == 0:
+            n = 1
+        x_subset = x[::n]
+        x_labels_subset = x_labels[::n]
+
         self._initialize_figure()
         income_plot = self.axes.bar(x - 0.1, income, width=0.2, color='b', label='Income')
         self.axes.plot(x, income_mean, 'b--')
         outcome_plot = self.axes.bar(x + 0.1, outcome, width=0.2, color='r', label='Outcome')
         self.axes.plot(x, outcome_mean, 'r--')
-        self.axes.set_xticks(x)
-        self.axes.set_xticklabels(x_labels, rotation=-60)
+        self.axes.set_xticks(x_subset)
+        self.axes.set_xticklabels(x_labels_subset, rotation=-60)
         datacursor(income_plot, hover=True, formatter='{height:.0f} EUR'.format)
         datacursor(outcome_plot, hover=True, formatter='{height:.0f} EUR'.format)
         self.axes.legend()
@@ -82,11 +88,17 @@ class ProfitBarCanvas(BaseCanvas):
         ratio_mean = [np.mean(ratio) for k in ratio]
         x = np.array([k for k in range(len(ratio))])
 
+        n = int(x.shape[0] / 15)
+        if n == 0:
+            n = 1
+        x_subset = x[::n]
+        x_labels_subset = x_labels[::n]
+
         self._initialize_figure()
         ratio_plot = self.axes.bar(x, ratio, width=0.2, color='b')
         self.axes.plot(x, ratio_mean, 'b--')
-        self.axes.set_xticks(x)
-        self.axes.set_xticklabels(x_labels, rotation=-60)
+        self.axes.set_xticks(x_subset)
+        self.axes.set_xticklabels(x_labels_subset, rotation=-60)
         datacursor(ratio_plot, hover=True, formatter='{height:.2f}'.format)
         self._update_figure()
 
