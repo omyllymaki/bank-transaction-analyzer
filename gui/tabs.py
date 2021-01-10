@@ -81,7 +81,10 @@ class IncomeAndOutcomeTab(QTabWidget):
         self.figure_income_and_outcome.plot(analysed_data['income'],
                                             analysed_data['outcome'],
                                             analysed_data.index.tolist())
+
         self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
+
+
 
 
 class IndicatorsTab(QTabWidget):

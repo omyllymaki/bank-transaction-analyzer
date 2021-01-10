@@ -6,13 +6,14 @@ import pandas as pd
 class DataAnalyzer:
 
     def analyze_data(self,
-                     original_data: pd.DataFrame,
+                     data: pd.DataFrame,
                      group_data_by: List[str] = None) -> pd.DataFrame:
 
-        data = self._fill_missing_days(original_data)
+        if data.shape[0] > 0:
+            data = self._fill_missing_days(data)
         data = self._calculate_indicators(data)
         if group_data_by is None:
-            return data
+            return self._group_data_by_columns(data, ["day"])
         else:
             return self._group_data_by_columns(data, group_data_by)
 
