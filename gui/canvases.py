@@ -40,7 +40,7 @@ class BaseCanvas(QWidget):
         self.axes.set_xlabel(self.x_axis_title)
         self.axes.set_ylabel(self.y_axis_title)
         self.axes.grid()
-        self.figure.subplots_adjust(bottom=0.2)
+        self.figure.subplots_adjust(bottom=0.3)
         self.canvas.draw()
 
     @abstractmethod
@@ -48,17 +48,19 @@ class BaseCanvas(QWidget):
         raise NotImplementedError
 
 
-class IncomeAndOutcomeBarCanvas(BaseCanvas):
-    def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
+class DoubleBarCanvas(BaseCanvas):
+    def __init__(self, figure_title='', x_axis_title='', y_axis_title='', y1_label="", y2_label=""):
         super().__init__(figure_title, x_axis_title, y_axis_title)
+        self.y1_label = y1_label
+        self.y2_label = y2_label
         self._initialize_figure()
 
-    def plot(self, income: np.ndarray, outcome: np.ndarray, x_labels: List[str] = None):
-        income_mean = [np.mean(income) for k in income]
-        outcome_mean = [np.mean(outcome) for k in outcome]
-        x = np.array([k for k in range(len(income))])
+    def plot(self, y1: np.ndarray, y2: np.ndarray, x_labels: List[str] = None):
+        income_mean = [np.mean(y1) for k in y1]
+        outcome_mean = [np.mean(y2) for k in y2]
+        x = np.array([k for k in range(len(y1))])
         if x_labels is None:
-            x_labels = ['' for k in income]
+            x_labels = ['' for k in y1]
 
         n = int(x.shape[0] / 15)
         if n == 0:
@@ -67,19 +69,19 @@ class IncomeAndOutcomeBarCanvas(BaseCanvas):
         x_labels_subset = x_labels[::n]
 
         self._initialize_figure()
-        income_plot = self.axes.bar(x - 0.1, income, width=0.2, color='b', label='Income')
+        y1_plot = self.axes.bar(x - 0.1, y1, width=0.2, color='b', label=self.y1_label)
         self.axes.plot(x, income_mean, 'b--')
-        outcome_plot = self.axes.bar(x + 0.1, outcome, width=0.2, color='r', label='Outcome')
+        y2_plot = self.axes.bar(x + 0.1, y2, width=0.2, color='r', label=self.y2_label)
         self.axes.plot(x, outcome_mean, 'r--')
         self.axes.set_xticks(x_subset)
         self.axes.set_xticklabels(x_labels_subset, rotation=-60)
-        datacursor(income_plot, hover=True, formatter='{height:.0f} EUR'.format)
-        datacursor(outcome_plot, hover=True, formatter='{height:.0f} EUR'.format)
+        datacursor(y1_plot, hover=True, formatter='{height:.0f} EUR'.format)
+        datacursor(y2_plot, hover=True, formatter='{height:.0f} EUR'.format)
         self.axes.legend()
         self._update_figure()
 
 
-class ProfitBarCanvas(BaseCanvas):
+class BarCanvas(BaseCanvas):
     def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
         super().__init__(figure_title, x_axis_title, y_axis_title)
         self._initialize_figure()

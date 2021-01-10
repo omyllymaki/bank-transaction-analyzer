@@ -1,5 +1,4 @@
-from datetime import datetime
-from typing import Dict, List
+from typing import List
 
 import pandas as pd
 
@@ -8,50 +7,25 @@ class DataAnalyzer:
 
     def analyze_data(self,
                      data: pd.DataFrame,
-                     min_date: datetime = None,
-                     max_date: datetime = None,
-                     min_value: float = None,
-                     max_value: float = None,
-                     target: str = None,
-                     account_number: str = None,
-                     message: str = None) -> Dict[str, pd.DataFrame]:
-        data = self._filter_data(data, min_date, max_date, min_value, max_value, target, account_number, message)
-        data = self._calculate_indicators(data)
-        data = self._calculate_grouped_data(data)
-        return data
+                     group_data_by: List[str] = None) -> pd.DataFrame:
 
-    def _calculate_grouped_data(self, data: pd.DataFrame) -> Dict[str, pd.DataFrame]:
-        output = {
-            'by_event': data,
-            'by_year': self._group_data_by_columns(data, ['year']),
-            'by_year_and_month': self._group_data_by_columns(data, ['year', 'month']),
-        }
-        return output
+        if data.shape[0] > 0:
+            data = self._fill_missing_days(data)
+        data = self._calculate_indicators(data)
+        if group_data_by is None:
+            return self._group_data_by_columns(data, ["day"])
+        else:
+            return self._group_data_by_columns(data, group_data_by)
 
     @staticmethod
-    def _filter_data(data: pd.DataFrame,
-                     min_date: datetime = None,
-                     max_date: datetime = None,
-                     min_value: float = None,
-                     max_value: float = None,
-                     target: str = None,
-                     account_number: str = None,
-                     message: str = None,
-                     ) -> pd.DataFrame:
-        if min_date is not None:
-            data = data[data['time'] >= pd.to_datetime(min_date)]
-        if max_date is not None:
-            data = data[data['time'] <= pd.to_datetime(max_date)]
-        if target is not None:
-            data = data[data['target'].str.contains(target.strip(), na=False, case=False)]
-        if account_number is not None:
-            data = data[data['account_number'].str.contains(account_number.strip(), na=False)]
-        if message is not None:
-            data = data[data['message'].str.contains(message.strip(), na=False, case=False)]
-        if min_value is not None:
-            data = data[data['value'] >= min_value]
-        if max_value is not None:
-            data = data[data['value'] <= max_value]
+    def _fill_missing_days(original_data: pd.DataFrame) -> pd.DataFrame:
+        data = pd.DataFrame()
+        grouped_data = original_data.groupby("time")
+        data["value"] = grouped_data["value"].sum()
+        data = data.asfreq('D').fillna(0)
+        data["year"] = data.index.year
+        data["month"] = data.index.month
+        data["day"] = data.index.day
         return data
 
     @staticmethod

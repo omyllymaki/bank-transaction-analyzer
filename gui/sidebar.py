@@ -6,18 +6,23 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog
 
-from config import DEFAULT_DATA_DIR
+from config import DEFAULT_DATA_DIR, DROP_DATA
 from data_processing.data_analyzer import DataAnalyzer
+from data_processing.data_filtering import DataFilter
 from gui.dialog_boxes import show_warning
-from data_processing.load_and_clean_data import load_and_clean_data
+from data_processing.load_clean_prefilter_data import load_clean_and_prefilter_data
 
 
 class SideBar(QWidget):
-    analyze_button_clicked = pyqtSignal(dict)
+    analyze_button_clicked = pyqtSignal(pd.DataFrame)
 
     def __init__(self):
         super().__init__()
-        self.analyzer = DataAnalyzer()
+
+        self.cleaned_data = None
+        self.filtered_data = None
+
+        self.filter = DataFilter()
         self.cleaned_data = pd.DataFrame()
         self.min_date_selector = QCalendarWidget(self)
         self.max_date_selector = QCalendarWidget(self)
@@ -59,7 +64,7 @@ class SideBar(QWidget):
         file_paths = self._get_file_paths()
         if not file_paths:
             return None
-        self.cleaned_data = load_and_clean_data(file_paths)
+        self.cleaned_data = load_clean_and_prefilter_data(file_paths, DROP_DATA)
         self._set_dates_based_on_data()
         self.analyze_button.setDisabled(False)
         self._handle_analyze_data()
@@ -71,18 +76,19 @@ class SideBar(QWidget):
         self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
 
     def _handle_analyze_data(self):
-        analyzed_data = self.analyzer.analyze_data(self.cleaned_data,
-                                                   min_date=self._get_min_date(),
-                                                   max_date=self._get_max_date(),
-                                                   target=self._get_target(),
-                                                   account_number=self._get_account_number(),
-                                                   message=self._get_message(),
-                                                   min_value=self._get_min_value(),
-                                                   max_value=self._get_max_value())
-        if analyzed_data["by_event"].empty:
+        self.filtered_data = self.filter.filter(self.cleaned_data,
+                                                min_date=self._get_min_date(),
+                                                max_date=self._get_max_date(),
+                                                target=self._get_target(),
+                                                account_number=self._get_account_number(),
+                                                message=self._get_message(),
+                                                min_value=self._get_min_value(),
+                                                max_value=self._get_max_value()
+                                                )
+        if self.filtered_data.empty:
             show_warning("Warning", "No data to analyze")
         else:
-            self.analyze_button_clicked.emit(analyzed_data)
+            self.analyze_button_clicked.emit(self.filtered_data)
 
     def _get_file_paths(self) -> List[str]:
         file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis', directory=DEFAULT_DATA_DIR)
