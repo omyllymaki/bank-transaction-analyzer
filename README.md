@@ -18,5 +18,9 @@ Account Analyzer provides analysis and visualization of Nordea internet bank dat
 ## Example (with simulated data)
 
 <p align="center">
-<img src="figures/example.jpg" width="800px" />
+<img src="figures/example_income_and_outcome.jpg" width="800px" />
+</p>
+
+<p align="center">
+<img src="figures/example_indicators.jpg" width="800px" />
 </p>
