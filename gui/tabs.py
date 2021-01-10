@@ -1,6 +1,6 @@
 import pandas as pd
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QRadioButton, QComboBox
+from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QRadioButton, QComboBox, QHBoxLayout, QLabel
 
 from config import INDICATORS
 from data_processing.data_analyzer import DataAnalyzer
@@ -9,7 +9,7 @@ from gui.canvases import IncomeAndOutcomeBarCanvas, ProfitBarCanvas
 from gui.dataframe_model import DataFrameModel
 
 SHOW_COLUMNS = ["target", "account_number", "value", "time", "cumulative_income", "cumulative_outcome",
-                "cumulative_value", "message"]
+                "cumulative_value", "message", "event"]
 
 
 class TabHandler(QWidget):
@@ -37,17 +37,17 @@ class TabHandler(QWidget):
 
 class IncomeAndOutcomeTab(QTabWidget):
     options = {
-        "year": ["year"],
-        "month": ["year", "month"],
-        "day": ["year", "month", "day"]
+        "Year": ["year"],
+        "Month": ["year", "month"],
+        "Day": ["year", "month", "day"]
     }
 
     def __init__(self):
         super().__init__()
         self.group_by = list(self.options.values())[0]
         self.analyser = DataAnalyzer()
-        self.options_selector = QComboBox()
-        self.options_selector.addItems(list(self.options.keys()))
+        self.grouping_option_selector = QComboBox()
+        self.grouping_option_selector.addItems(list(self.options.keys()))
         self.figure_income_and_outcome = IncomeAndOutcomeBarCanvas(figure_title='Income & Outcome',
                                                                    y_axis_title='Amount (EUR)')
         self.figure_profit = ProfitBarCanvas(figure_title='Profit',
@@ -57,29 +57,36 @@ class IncomeAndOutcomeTab(QTabWidget):
 
     def _set_layout(self):
         self.layout = QVBoxLayout()
-        self.layout.addWidget(self.options_selector)
+
+        grouping_layout = QHBoxLayout()
+        grouping_layout.addWidget(QLabel("Grouping"))
+        grouping_layout.addWidget(self.grouping_option_selector)
+
+        self.layout.addLayout(grouping_layout)
         self.layout.addWidget(self.figure_income_and_outcome)
         self.layout.addWidget(self.figure_profit)
         self.setLayout(self.layout)
 
     def _set_connections(self):
-        self.options_selector.currentIndexChanged.connect(self._option_changed)
+        self.grouping_option_selector.currentIndexChanged.connect(self._option_changed)
 
     def _option_changed(self):
-        option_text = self.options_selector.currentText()
+        option_text = self.grouping_option_selector.currentText()
         self.group_by = self.options[option_text]
 
     def show_data(self, data: pd.DataFrame):
         analysed_data = self.analyser.analyze_data(data, self.group_by)
-        self.figure_income_and_outcome.plot(analysed_data['income'], analysed_data['outcome'], analysed_data.index.tolist())
+        self.figure_income_and_outcome.plot(analysed_data['income'],
+                                            analysed_data['outcome'],
+                                            analysed_data.index.tolist())
         self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
 
 
 class IndicatorsTab(QTabWidget):
     grouping_options = {
-        "year": ["year"],
-        "month": ["year", "month"],
-        "day": ["year", "month", "day"]
+        "Year": ["year"],
+        "Month": ["year", "month"],
+        "Day": ["year", "month", "day"]
     }
 
     def __init__(self):
@@ -103,9 +110,19 @@ class IndicatorsTab(QTabWidget):
 
     def _set_layout(self):
         self.layout = QVBoxLayout()
-        self.layout.addWidget(self.grouping_option_selector)
-        self.layout.addWidget(self.indicator_selector)
+
+        grouping_layout = QHBoxLayout()
+        grouping_layout.addWidget(QLabel("Grouping"))
+        grouping_layout.addWidget(self.grouping_option_selector)
+        self.layout.addLayout(grouping_layout)
+
+        indicator_layout = QHBoxLayout()
+        indicator_layout.addWidget(QLabel("Indicator"))
+        indicator_layout.addWidget(self.indicator_selector)
+        self.layout.addLayout(indicator_layout)
+
         self.layout.addWidget(self.figure_profit)
+
         self.setLayout(self.layout)
 
     def _set_connections(self):
