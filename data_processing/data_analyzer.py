@@ -25,6 +25,7 @@ class DataAnalyzer:
         data = data.asfreq('D').fillna(0)
         data["year"] = data.index.year
         data["month"] = data.index.month
+        data["week"] = data.index.week
         data["day"] = data.index.day
         return data
 

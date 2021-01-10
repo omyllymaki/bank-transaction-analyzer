@@ -38,7 +38,8 @@ class IncomeAndOutcomeTab(QTabWidget):
     options = {
         "Year": ["year"],
         "Month": ["year", "month"],
-        "Day": ["year", "month", "day"]
+        "Week": ["year", "week"],
+        "Day": ["year", "month", "day"],
     }
 
     def __init__(self):
@@ -91,6 +92,7 @@ class IndicatorsTab(QTabWidget):
     grouping_options = {
         "Year": ["year"],
         "Month": ["year", "month"],
+        "Week": ["year", "week"],
         "Day": ["year", "month", "day"]
     }
 

@@ -17,6 +17,7 @@ class DataCleaner:
         data_cleaned['time'] = data['Kirjauspäivä'].apply(self.convert_string_to_datetime)
         data_cleaned['year'] = data_cleaned['time'].apply(self.get_year)
         data_cleaned['month'] = data_cleaned['time'].apply(self.get_month)
+        data_cleaned['week'] = data_cleaned['time'].apply(self.get_week)
         data_cleaned['day'] = data_cleaned['time'].apply(self.get_day)
         data_cleaned = data_cleaned.sort_values('time')
         return data_cleaned
@@ -41,6 +42,11 @@ class DataCleaner:
     def get_month(date_time: datetime) -> int:
         month = date_time.month
         return month
+
+    @staticmethod
+    def get_week(date_time: datetime) -> int:
+        week = date_time.isocalendar()[1]
+        return week
 
     @staticmethod
     def get_day(date_time: datetime) -> int:
