@@ -1,11 +1,11 @@
-from typing import Dict
-
 import pandas as pd
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QRadioButton, QComboBox
 
+from config import INDICATORS
 from data_processing.data_analyzer import DataAnalyzer
-from gui.canvases import IncomeAndOutcomeBarCanvas, IncomeAndOutcomeLineCanvas, ProfitBarCanvas, ProfitLineCanvas
+from data_processing.data_filtering import DataFilter
+from gui.canvases import IncomeAndOutcomeBarCanvas, ProfitBarCanvas
 from gui.dataframe_model import DataFrameModel
 
 SHOW_COLUMNS = ["target", "account_number", "value", "time", "cumulative_income", "cumulative_outcome",
@@ -18,8 +18,10 @@ class TabHandler(QWidget):
 
         self.content = QTabWidget()
         self.income_and_outcome = IncomeAndOutcomeTab()
+        self.indicators = IndicatorsTab()
         self.event_table = EventTableTab()
         self.content.addTab(self.income_and_outcome, 'Income/outcome')
+        self.content.addTab(self.indicators, 'Indicators')
         self.content.addTab(self.event_table, 'Events')
         self._set_layout()
 
@@ -29,6 +31,7 @@ class TabHandler(QWidget):
 
     def show_data(self, data: pd.DataFrame):
         self.income_and_outcome.show_data(data)
+        self.indicators.show_data(data)
         self.event_table.show_data(data[SHOW_COLUMNS])
 
 
@@ -65,12 +68,62 @@ class IncomeAndOutcomeTab(QTabWidget):
     def _option_changed(self):
         option_text = self.options_selector.currentText()
         self.group_by = self.options[option_text]
-        print(option_text)
 
     def show_data(self, data: pd.DataFrame):
         analysed_data = self.analyser.analyze_data(data, self.group_by)
-        self.figure_income_and_outcome.plot(analysed_data['income'], analysed_data['outcome'], analysed_data.index)
-        self.figure_profit.plot(analysed_data['total'], analysed_data.index)
+        self.figure_income_and_outcome.plot(analysed_data['income'], analysed_data['outcome'], analysed_data.index.tolist())
+        self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
+
+
+class IndicatorsTab(QTabWidget):
+    grouping_options = {
+        "year": ["year"],
+        "month": ["year", "month"],
+        "day": ["year", "month", "day"]
+    }
+
+    def __init__(self):
+        super().__init__()
+
+        self.group_by = list(self.grouping_options.values())[0]
+        self.indicator_pattern = list(INDICATORS.values())[0]
+        self.analyser = DataAnalyzer()
+        self.filter = DataFilter()
+
+        self.grouping_option_selector = QComboBox()
+        self.grouping_option_selector.addItems(list(self.grouping_options.keys()))
+
+        self.indicator_selector = QComboBox()
+        self.indicator_selector.addItems(list(INDICATORS.keys()))
+
+        self.figure_profit = ProfitBarCanvas(figure_title=f"",
+                                             y_axis_title='Amount (EUR)')
+        self._set_layout()
+        self._set_connections()
+
+    def _set_layout(self):
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.grouping_option_selector)
+        self.layout.addWidget(self.indicator_selector)
+        self.layout.addWidget(self.figure_profit)
+        self.setLayout(self.layout)
+
+    def _set_connections(self):
+        self.grouping_option_selector.currentIndexChanged.connect(self._grouping_option_changed)
+        self.indicator_selector.currentIndexChanged.connect(self._indicator_option_changed)
+
+    def _grouping_option_changed(self):
+        option_text = self.grouping_option_selector.currentText()
+        self.group_by = self.grouping_options[option_text]
+
+    def _indicator_option_changed(self):
+        option_text = self.indicator_selector.currentText()
+        self.indicator_pattern = INDICATORS[option_text]
+
+    def show_data(self, data: pd.DataFrame):
+        filtered_data = self.filter.filter(data, target=self.indicator_pattern)
+        analysed_data = self.analyser.analyze_data(filtered_data, self.group_by)
+        self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
 
 
 class EventTableTab(QTabWidget):
