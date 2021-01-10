@@ -6,13 +6,26 @@ import pandas as pd
 class DataAnalyzer:
 
     def analyze_data(self,
-                     data: pd.DataFrame,
+                     original_data: pd.DataFrame,
                      group_data_by: List[str] = None) -> pd.DataFrame:
+
+        data = self._fill_missing_days(original_data)
         data = self._calculate_indicators(data)
         if group_data_by is None:
             return data
         else:
             return self._group_data_by_columns(data, group_data_by)
+
+    @staticmethod
+    def _fill_missing_days(original_data: pd.DataFrame) -> pd.DataFrame:
+        data = pd.DataFrame()
+        grouped_data = original_data.groupby("time")
+        data["value"] = grouped_data["value"].sum()
+        data = data.asfreq('D').fillna(0)
+        data["year"] = data.index.year
+        data["month"] = data.index.month
+        data["day"] = data.index.day
+        return data
 
     @staticmethod
     def _calculate_indicators(data: pd.DataFrame) -> pd.DataFrame:

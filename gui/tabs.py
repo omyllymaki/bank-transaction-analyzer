@@ -8,8 +8,7 @@ from data_processing.data_filtering import DataFilter
 from gui.canvases import DoubleBarCanvas, BarCanvas
 from gui.dataframe_model import DataFrameModel
 
-SHOW_COLUMNS = ["target", "account_number", "value", "time", "cumulative_income", "cumulative_outcome",
-                "cumulative_value", "message", "event"]
+SHOW_COLUMNS = ["target", "account_number", "value", "time", "message", "event"]
 
 
 class TabHandler(QWidget):
@@ -44,6 +43,7 @@ class IncomeAndOutcomeTab(QTabWidget):
 
     def __init__(self):
         super().__init__()
+        self.option_text = None
         self.group_by = list(self.options.values())[0]
         self.analyser = DataAnalyzer()
         self.grouping_option_selector = QComboBox()
@@ -73,8 +73,8 @@ class IncomeAndOutcomeTab(QTabWidget):
         self.grouping_option_selector.currentIndexChanged.connect(self._option_changed)
 
     def _option_changed(self):
-        option_text = self.grouping_option_selector.currentText()
-        self.group_by = self.options[option_text]
+        self.option_text = self.grouping_option_selector.currentText()
+        self.group_by = self.options[self.option_text]
 
     def show_data(self, data: pd.DataFrame):
         analysed_data = self.analyser.analyze_data(data, self.group_by)
@@ -140,14 +140,8 @@ class IndicatorsTab(QTabWidget):
         self.indicator_pattern = INDICATORS[option_text]
 
     def show_data(self, data: pd.DataFrame):
-        time_data = data.groupby(self.group_by).first()
         filtered_data = self.filter.filter(data, target=self.indicator_pattern)
         analysed_data = self.analyser.analyze_data(filtered_data, self.group_by)
-
-        # Hacky way to make sure that all time values from original are preserved
-        # TODO: fix this
-        analysed_data = time_data.join(analysed_data, lsuffix="l_").fillna(0)
-
         self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
 
 
