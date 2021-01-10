@@ -86,8 +86,6 @@ class IncomeAndOutcomeTab(QTabWidget):
         self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
 
 
-
-
 class IndicatorsTab(QTabWidget):
     grouping_options = {
         "Year": ["year"],
@@ -110,8 +108,8 @@ class IndicatorsTab(QTabWidget):
         self.indicator_selector = QComboBox()
         self.indicator_selector.addItems(list(INDICATORS.keys()))
 
-        self.figure_profit = BarCanvas(figure_title=f"",
-                                       y_axis_title='Amount (EUR)')
+        self.figure_value = BarCanvas(y_axis_title='Amount (EUR)')
+        self.figure_cumulative = BarCanvas(y_axis_title='Cumulative amount (EUR)')
         self._set_layout()
         self._set_connections()
 
@@ -128,7 +126,8 @@ class IndicatorsTab(QTabWidget):
         indicator_layout.addWidget(self.indicator_selector)
         self.layout.addLayout(indicator_layout)
 
-        self.layout.addWidget(self.figure_profit)
+        self.layout.addWidget(self.figure_value)
+        self.layout.addWidget(self.figure_cumulative)
 
         self.setLayout(self.layout)
 
@@ -147,7 +146,8 @@ class IndicatorsTab(QTabWidget):
     def show_data(self, data: pd.DataFrame):
         filtered_data = self.filter.filter(data, target=self.indicator_pattern)
         analysed_data = self.analyser.analyze_data(filtered_data, self.group_by)
-        self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
+        self.figure_value.plot(analysed_data['total'], analysed_data.index.tolist())
+        self.figure_cumulative.plot(analysed_data['total_cumulative'], analysed_data.index.tolist(), plot_average=False)
 
 
 class EventTableTab(QTabWidget):

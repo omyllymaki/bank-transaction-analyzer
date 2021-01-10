@@ -55,9 +55,7 @@ class DoubleBarCanvas(BaseCanvas):
         self.y2_label = y2_label
         self._initialize_figure()
 
-    def plot(self, y1: np.ndarray, y2: np.ndarray, x_labels: List[str] = None):
-        income_mean = [np.mean(y1) for k in y1]
-        outcome_mean = [np.mean(y2) for k in y2]
+    def plot(self, y1: np.ndarray, y2: np.ndarray, x_labels: List[str] = None, plot_average=True):
         x = np.array([k for k in range(len(y1))])
         if x_labels is None:
             x_labels = ['' for k in y1]
@@ -69,10 +67,14 @@ class DoubleBarCanvas(BaseCanvas):
         x_labels_subset = x_labels[::n]
 
         self._initialize_figure()
-        y1_plot = self.axes.bar(x - 0.1, y1, width=0.2, color='b', label=self.y1_label)
-        self.axes.plot(x, income_mean, 'b--')
-        y2_plot = self.axes.bar(x + 0.1, y2, width=0.2, color='r', label=self.y2_label)
-        self.axes.plot(x, outcome_mean, 'r--')
+        y1_plot = self.axes.bar(x - 0.15, y1, width=0.3, color='b', label=self.y1_label)
+        if plot_average:
+            y1_mean = [np.mean(y1) for k in y1]
+            self.axes.plot(x, y1_mean, 'b--')
+        y2_plot = self.axes.bar(x + 0.15, y2, width=0.3, color='r', label=self.y2_label)
+        if plot_average:
+            y2_mean = [np.mean(y2) for k in y2]
+            self.axes.plot(x, y2_mean, 'r--')
         self.axes.set_xticks(x_subset)
         self.axes.set_xticklabels(x_labels_subset, rotation=-60)
         datacursor(y1_plot, hover=True, formatter='{height:.0f} EUR'.format)
@@ -86,9 +88,8 @@ class BarCanvas(BaseCanvas):
         super().__init__(figure_title, x_axis_title, y_axis_title)
         self._initialize_figure()
 
-    def plot(self, ratio: np.ndarray, x_labels: List[str]):
-        ratio_mean = [np.mean(ratio) for k in ratio]
-        x = np.array([k for k in range(len(ratio))])
+    def plot(self, y: np.ndarray, x_labels: List[str], plot_average=True):
+        x = np.array([k for k in range(len(y))])
 
         n = int(x.shape[0] / 15)
         if n == 0:
@@ -97,11 +98,13 @@ class BarCanvas(BaseCanvas):
         x_labels_subset = x_labels[::n]
 
         self._initialize_figure()
-        ratio_plot = self.axes.bar(x, ratio, width=0.2, color='b')
-        self.axes.plot(x, ratio_mean, 'b--')
+        y_plot = self.axes.bar(x, y, width=0.3, color='b')
+        if plot_average:
+            y_mean = [np.mean(y) for k in y]
+            self.axes.plot(x, y_mean, 'b--')
         self.axes.set_xticks(x_subset)
         self.axes.set_xticklabels(x_labels_subset, rotation=-60)
-        datacursor(ratio_plot, hover=True, formatter='{height:.2f}'.format)
+        datacursor(y_plot, hover=True, formatter='{height:.2f}'.format)
         self._update_figure()
 
 
