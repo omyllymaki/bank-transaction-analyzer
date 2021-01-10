@@ -40,7 +40,7 @@ class BaseCanvas(QWidget):
         self.axes.set_xlabel(self.x_axis_title)
         self.axes.set_ylabel(self.y_axis_title)
         self.axes.grid()
-        self.figure.subplots_adjust(bottom=0.2)
+        self.figure.subplots_adjust(bottom=0.3)
         self.canvas.draw()
 
     @abstractmethod

@@ -3,7 +3,7 @@ from typing import Dict
 import pandas as pd
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 
-from gui.tabs import Plotter
+from gui.tabs import TabHandler
 from gui.sidebar import SideBar
 
 
@@ -11,7 +11,7 @@ class MainView(QWidget):
     def __init__(self):
         super().__init__()
         self.sidebar = SideBar()
-        self.plotter = Plotter()
+        self.plotter = TabHandler()
         self._set_layout()
         self._set_connections()
 
@@ -24,5 +24,5 @@ class MainView(QWidget):
     def _set_connections(self):
         self.sidebar.analyze_button_clicked.connect(self._handle_plotting)
 
-    def _handle_plotting(self, data: Dict[str, pd.DataFrame]):
+    def _handle_plotting(self, data: pd.DataFrame):
         self.plotter.show_data(data)

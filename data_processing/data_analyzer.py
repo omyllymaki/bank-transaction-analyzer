@@ -1,5 +1,4 @@
-from datetime import datetime
-from typing import Dict, List
+from typing import List
 
 import pandas as pd
 
@@ -7,18 +6,13 @@ import pandas as pd
 class DataAnalyzer:
 
     def analyze_data(self,
-                     data: pd.DataFrame) -> Dict[str, pd.DataFrame]:
+                     data: pd.DataFrame,
+                     group_data_by: List[str] = None) -> pd.DataFrame:
         data = self._calculate_indicators(data)
-        data = self._calculate_grouped_data(data)
-        return data
-
-    def _calculate_grouped_data(self, data: pd.DataFrame) -> Dict[str, pd.DataFrame]:
-        output = {
-            'by_event': data,
-            'by_year': self._group_data_by_columns(data, ['year']),
-            'by_year_and_month': self._group_data_by_columns(data, ['year', 'month']),
-        }
-        return output
+        if group_data_by is None:
+            return data
+        else:
+            return self._group_data_by_columns(data, group_data_by)
 
     @staticmethod
     def _calculate_indicators(data: pd.DataFrame) -> pd.DataFrame:

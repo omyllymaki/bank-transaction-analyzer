@@ -14,7 +14,7 @@ from data_processing.load_clean_prefilter_data import load_clean_and_prefilter_d
 
 
 class SideBar(QWidget):
-    analyze_button_clicked = pyqtSignal(dict)
+    analyze_button_clicked = pyqtSignal(pd.DataFrame)
 
     def __init__(self):
         super().__init__()
@@ -23,7 +23,6 @@ class SideBar(QWidget):
         self.filtered_data = None
 
         self.filter = DataFilter()
-        self.analyzer = DataAnalyzer()
         self.cleaned_data = pd.DataFrame()
         self.min_date_selector = QCalendarWidget(self)
         self.max_date_selector = QCalendarWidget(self)
@@ -86,11 +85,10 @@ class SideBar(QWidget):
                                                 min_value=self._get_min_value(),
                                                 max_value=self._get_max_value()
                                                 )
-        analyzed_data = self.analyzer.analyze_data(self.filtered_data)
-        if analyzed_data["by_event"].empty:
+        if self.filtered_data.empty:
             show_warning("Warning", "No data to analyze")
         else:
-            self.analyze_button_clicked.emit(analyzed_data)
+            self.analyze_button_clicked.emit(self.filtered_data)
 
     def _get_file_paths(self) -> List[str]:
         file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis', directory=DEFAULT_DATA_DIR)
