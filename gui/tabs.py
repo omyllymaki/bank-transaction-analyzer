@@ -138,8 +138,14 @@ class IndicatorsTab(QTabWidget):
         self.indicator_pattern = INDICATORS[option_text]
 
     def show_data(self, data: pd.DataFrame):
+        time_data = data.groupby(self.group_by).first()
         filtered_data = self.filter.filter(data, target=self.indicator_pattern)
         analysed_data = self.analyser.analyze_data(filtered_data, self.group_by)
+
+        # Hacky way to make sure that all time values from original are preserved
+        # TODO: fix this
+        analysed_data = time_data.join(analysed_data, lsuffix="l_").fillna(0)
+
         self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
 
 
