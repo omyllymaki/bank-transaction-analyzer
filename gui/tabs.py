@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QRadioButton, QCom
 from config import INDICATORS
 from data_processing.data_analyzer import DataAnalyzer
 from data_processing.data_filtering import DataFilter
-from gui.canvases import IncomeAndOutcomeBarCanvas, ProfitBarCanvas
+from gui.canvases import DoubleBarCanvas, BarCanvas
 from gui.dataframe_model import DataFrameModel
 
 SHOW_COLUMNS = ["target", "account_number", "value", "time", "cumulative_income", "cumulative_outcome",
@@ -48,10 +48,12 @@ class IncomeAndOutcomeTab(QTabWidget):
         self.analyser = DataAnalyzer()
         self.grouping_option_selector = QComboBox()
         self.grouping_option_selector.addItems(list(self.options.keys()))
-        self.figure_income_and_outcome = IncomeAndOutcomeBarCanvas(figure_title='Income & Outcome',
-                                                                   y_axis_title='Amount (EUR)')
-        self.figure_profit = ProfitBarCanvas(figure_title='Profit',
-                                             y_axis_title='Amount (EUR)')
+        self.figure_income_and_outcome = DoubleBarCanvas(figure_title='Income & Outcome',
+                                                         y_axis_title='Amount (EUR)',
+                                                         y1_label="Income",
+                                                         y2_label="Outcome")
+        self.figure_profit = BarCanvas(figure_title='Profit',
+                                       y_axis_title='Amount (EUR)')
         self._set_layout()
         self._set_connections()
 
@@ -103,8 +105,8 @@ class IndicatorsTab(QTabWidget):
         self.indicator_selector = QComboBox()
         self.indicator_selector.addItems(list(INDICATORS.keys()))
 
-        self.figure_profit = ProfitBarCanvas(figure_title=f"",
-                                             y_axis_title='Amount (EUR)')
+        self.figure_profit = BarCanvas(figure_title=f"",
+                                       y_axis_title='Amount (EUR)')
         self._set_layout()
         self._set_connections()
 
