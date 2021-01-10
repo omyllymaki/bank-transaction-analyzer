@@ -7,17 +7,17 @@ import pandas as pd
 class DataCleaner:
 
     def clean_data(self,
-                   data: pd.DataFrame,
-                   drop_data: Dict[str, list]) -> pd.DataFrame:
-        data = self._reject_rows(data, drop_data)
+                   data: pd.DataFrame) -> pd.DataFrame:
         data_cleaned = pd.DataFrame()
         data_cleaned['target'] = data['Saaja/Maksaja']
         data_cleaned['account_number'] = data['account_number']
         data_cleaned['message'] = data['Viesti']
+        data_cleaned['event'] = data['Tapahtuma']
         data_cleaned['value'] = data['Määrä'].apply(self.convert_string_to_float)
         data_cleaned['time'] = data['Kirjauspäivä'].apply(self.convert_string_to_datetime)
         data_cleaned['year'] = data_cleaned['time'].apply(self.get_year)
         data_cleaned['month'] = data_cleaned['time'].apply(self.get_month)
+        data_cleaned['day'] = data_cleaned['time'].apply(self.get_day)
         data_cleaned = data_cleaned.sort_values('time')
         return data_cleaned
 
@@ -41,6 +41,11 @@ class DataCleaner:
     def get_month(date_time: datetime) -> int:
         month = date_time.month
         return month
+
+    @staticmethod
+    def get_day(date_time: datetime) -> int:
+        day = date_time.day
+        return day
 
     @staticmethod
     def convert_string_to_float(value: str) -> float:

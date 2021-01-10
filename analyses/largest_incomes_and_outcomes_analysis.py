@@ -3,13 +3,13 @@ from os import listdir
 
 import matplotlib.pyplot as plt
 
-from data_processing.load_and_clean_data import load_and_clean_data
+from data_processing.load_clean_prefilter_data import load_clean_and_prefilter_data
 
 # Path where txt files can be found
 PATH = "./data"
 
 files = [os.path.join(PATH, f) for f in listdir(PATH) if f.endswith(".txt")]
-data = load_and_clean_data(files)
+data = load_clean_and_prefilter_data(files)
 data.target = data.target.str.lower()
 
 data_grouped = data.groupby(by=["target"]).sum()

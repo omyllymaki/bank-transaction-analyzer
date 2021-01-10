@@ -4,7 +4,7 @@ from os import listdir
 import matplotlib.pyplot as plt
 import numpy as np
 
-from data_processing.load_and_clean_data import load_and_clean_data
+from data_processing.load_clean_prefilter_data import load_clean_and_prefilter_data
 
 # Grouping criteria; by default groups by year and month
 GROUP_BY = ["year", "month"]
@@ -22,7 +22,7 @@ INDICATORS = {
 }
 
 files = [os.path.join(PATH, f) for f in listdir(PATH) if f.endswith(".txt")]
-data = load_and_clean_data(files)
+data = load_clean_and_prefilter_data(files)
 data.target = data.target.str.lower()
 time_data = data.groupby(GROUP_BY).first()
 
