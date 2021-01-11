@@ -15,6 +15,8 @@ class DataCleaner:
         data_cleaned['event'] = data['Tapahtuma']
         data_cleaned['value'] = data['Määrä'].apply(self.convert_string_to_float)
         data_cleaned['time'] = data['Kirjauspäivä'].apply(self.convert_string_to_datetime)
+        str_columns = ['account_number', 'message', 'event', 'target']
+        data_cleaned[str_columns] = data_cleaned[str_columns].fillna("NA")
         data_cleaned['year'] = data_cleaned['time'].apply(self.get_year)
         data_cleaned['month'] = data_cleaned['time'].apply(self.get_month)
         data_cleaned['week'] = data_cleaned['time'].apply(self.get_week)
