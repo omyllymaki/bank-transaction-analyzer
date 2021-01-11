@@ -1,13 +1,13 @@
-from typing import List
+from typing import List, Tuple
 
 import pandas as pd
 
 
 class DataAnalyzer:
 
-    def analyze_data(self,
-                     data: pd.DataFrame,
-                     group_data_by: List[str] = None) -> pd.DataFrame:
+    def calculate_incomes_and_outcomes(self,
+                                       data: pd.DataFrame,
+                                       group_data_by: List[str] = None) -> pd.DataFrame:
 
         if data.shape[0] > 0:
             data = self._fill_missing_days(data)
@@ -16,6 +16,39 @@ class DataAnalyzer:
             return self._group_data_by_columns(data, ["day"])
         else:
             return self._group_data_by_columns(data, group_data_by)
+
+    @staticmethod
+    def calculate_top_incomes_and_outcomes(data: pd.DataFrame,
+                                           criteria="sum",
+                                           relative=False) -> Tuple[pd.Series, pd.Series]:
+
+        data.target = data.target.str.lower()
+        data = data[["target", "value"]]
+
+        if criteria == "mean":
+            values = data.groupby(by="target").mean()["value"]
+            incomes = values[values > 0]
+            outcomes = values[values < 0]
+        elif criteria == "sum":
+            values = data.groupby(by="target").sum()["value"]
+            incomes = values[values > 0]
+            outcomes = values[values < 0]
+        elif criteria == "max":
+            incomes = data.groupby(by="target").max()["value"]
+            outcomes = data.groupby(by="target").min()["value"]
+        else:
+            raise Exception("Unsupported method")
+
+        outcomes = abs(outcomes)
+
+        outcomes = outcomes.sort_values(ascending=False)
+        incomes = incomes.sort_values(ascending=False)
+
+        if relative:
+            outcomes = outcomes / outcomes.sum()
+            incomes = incomes / incomes.sum()
+
+        return incomes, outcomes
 
     @staticmethod
     def _fill_missing_days(original_data: pd.DataFrame) -> pd.DataFrame:

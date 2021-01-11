@@ -108,25 +108,13 @@ class BarCanvas(BaseCanvas):
         self._update_figure()
 
 
-class IncomeAndOutcomeLineCanvas(BaseCanvas):
+class BarHorizontalCanvas(BaseCanvas):
     def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
         super().__init__(figure_title, x_axis_title, y_axis_title)
         self._initialize_figure()
 
-    def plot(self, x: List[datetime], income: np.ndarray, outcome: np.ndarray):
+    def plot(self, y: np.ndarray, x_labels: List[str]):
         self._initialize_figure()
-        income_plot = self.axes.plot(x, income, 'b.', label='Income')
-        outcome_plot = self.axes.plot(x, outcome, 'r.', label='Outcome')
-        self.axes.legend()
-        self._update_figure()
-
-
-class ProfitLineCanvas(BaseCanvas):
-    def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
-        super().__init__(figure_title, x_axis_title, y_axis_title)
-        self._initialize_figure()
-
-    def plot(self, x: List[datetime], ratio: np.ndarray):
-        self._initialize_figure()
-        ratio_plot = self.axes.plot(x, ratio, 'b.')
+        y_plot = self.axes.barh(x_labels, y, color='b')
+        datacursor(y_plot, hover=True, formatter='{width:.2f}'.format)
         self._update_figure()
