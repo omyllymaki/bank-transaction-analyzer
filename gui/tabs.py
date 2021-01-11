@@ -18,7 +18,7 @@ class TabHandler(QWidget):
 
         self.content = QTabWidget()
         self.income_and_outcome_vs_time = IncomeAndOutcomeTab()
-        self.top_incomes_and_outcomes = TopIncomesAndOutComes()
+        self.top_incomes_and_outcomes = TopIncomesAndOutComesTab()
         self.indicators = IndicatorsTab()
         self.event_table = EventTableTab()
         self.content.addTab(self.income_and_outcome_vs_time, 'Income/outcome vs time')
@@ -38,7 +38,7 @@ class TabHandler(QWidget):
         self.event_table.show_data(data[SHOW_COLUMNS])
 
 
-class TopIncomesAndOutComes(QTabWidget):
+class TopIncomesAndOutComesTab(QTabWidget):
     criteria_options = ["sum", "mean", "max"]
     output_options = ["income", "outcome"]
 
@@ -56,9 +56,7 @@ class TopIncomesAndOutComes(QTabWidget):
         self.output_selector.addItems(self.output_options)
 
         self.min_value_line = QLineEdit(self)
-        self.min_value_line.setText("0")
         self.max_value_line = QLineEdit(self)
-        self.max_value_line.setText("100000")
         self.amount_line = QLineEdit(self)
         self.amount_line.setText("10")
 
@@ -138,10 +136,7 @@ class TopIncomesAndOutComes(QTabWidget):
             values_to_show = incomes
         else:
             values_to_show = outcomes
-        i1 = values_to_show > min_value
-        i2 = values_to_show < max_value
-        values_to_show = values_to_show[i1 & i2]
-        values_to_show = values_to_show[:]
+        values_to_show = values_to_show[(values_to_show > min_value) & (values_to_show < max_value)]
         values_to_show = values_to_show[:n_values]
         self.canvas.plot(values_to_show.values, values_to_show.index)
 
