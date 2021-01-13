@@ -6,6 +6,7 @@ Account Analyzer provides analysis and visualization of Nordea internet bank dat
 * Install Python >= 3.6.
 * Install requirements.
 * Fill parameters to config.py.
+* Write your own indicators if you like (see indicators.csv for example)
 
 ## Usage
 

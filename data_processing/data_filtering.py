@@ -15,6 +15,7 @@ class DataFilter:
                target: str = None,
                account_number: str = None,
                message: str = None,
+               event: str = None,
                drop_data: Dict[str, list] = None
                ) -> pd.DataFrame:
 
@@ -30,6 +31,8 @@ class DataFilter:
             data = data[data['account_number'].str.contains(account_number.strip(), na=False)]
         if message is not None:
             data = data[data['message'].str.contains(message.strip(), na=False, case=False)]
+        if event is not None:
+            data = data[data['event'].str.contains(event.strip(), na=False, case=False)]
         if min_value is not None:
             data = data[data['value'] >= min_value]
         if max_value is not None:
