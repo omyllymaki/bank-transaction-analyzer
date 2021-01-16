@@ -310,8 +310,12 @@ class EventTableTab(QTabWidget):
 
     def show_data(self, data):
         if self.group_by_target:
-            grouped_data = data.groupby("target", as_index=False).sum()[["target", "value"]].sort_values("value")
-            model = DataFrameModel(grouped_data)
+            grouped = data.groupby("target", as_index=False)
+            table_data = pd.DataFrame()
+            table_data[["target", "sum"]] = grouped.sum()[["target", "value"]].sort_values("value")
+            table_data["average"] = grouped.mean()["value"]
+            table_data["count"] = grouped.count()["value"]
+            model = DataFrameModel(table_data)
         else:
             model = DataFrameModel(data)
         self.table_view.setModel(model)
