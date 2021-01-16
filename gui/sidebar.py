@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLine
 from config import DEFAULT_DATA_DIR, DROP_DATA
 from data_processing.data_filtering import DataFilter
 from data_processing.load_clean_prefilter_data import load_clean_and_prefilter_data
+from gui.widgets import FloatLineEdit
 from gui.dialog_boxes import show_warning
 
 
@@ -20,6 +21,11 @@ class SideBar(QWidget):
 
         self.cleaned_data = None
         self.filtered_data = None
+        self.min_value = None
+        self.max_value = None
+        self.min_value_is_valid = True
+        self.max_value_is_valid = True
+        self.is_data_loaded = False
 
         self.filter = DataFilter()
         self.cleaned_data = pd.DataFrame()
@@ -28,8 +34,8 @@ class SideBar(QWidget):
         self.target_line = QLineEdit(self)
         self.account_number_line = QLineEdit(self)
         self.message_line = QLineEdit(self)
-        self.min_value_line = QLineEdit(self)
-        self.max_value_line = QLineEdit(self)
+        self.min_value_line = FloatLineEdit(self)
+        self.max_value_line = FloatLineEdit(self)
         self.analyze_button = QPushButton('Analyze data')
         self.load_button = QPushButton('Load data')
         self.analyze_button.setDisabled(True)
@@ -58,6 +64,8 @@ class SideBar(QWidget):
     def _set_connections(self):
         self.load_button.clicked.connect(self._handle_load_data)
         self.analyze_button.clicked.connect(self._handle_analyze_data)
+        self.min_value_line.textChanged.connect(self._handle_min_value_changed)
+        self.max_value_line.textChanged.connect(self._handle_max_value_changed)
 
     def _handle_load_data(self):
         file_paths = self._get_file_paths()
@@ -65,8 +73,8 @@ class SideBar(QWidget):
             return None
         self.cleaned_data = load_clean_and_prefilter_data(file_paths, DROP_DATA)
         self._set_dates_based_on_data()
-        self.analyze_button.setDisabled(False)
-        self._handle_analyze_data()
+        self.is_data_loaded = True
+        self._set_analyse_button_disabled_or_enabled()
 
     def _set_dates_based_on_data(self):
         datetime_min = self.cleaned_data.time.min()
@@ -81,8 +89,8 @@ class SideBar(QWidget):
                                                 target=self._get_target(),
                                                 account_number=self._get_account_number(),
                                                 message=self._get_message(),
-                                                min_value=self._get_min_value(),
-                                                max_value=self._get_max_value()
+                                                min_value=self.min_value,
+                                                max_value=self.max_value
                                                 )
         if self.filtered_data.empty:
             show_warning("Warning", "No data to analyze")
@@ -108,14 +116,16 @@ class SideBar(QWidget):
     def _get_message(self) -> str:
         return self.message_line.text()
 
-    def _get_min_value(self) -> float:
-        try:
-            return float(self.min_value_line.text())
-        except (ValueError, TypeError):
-            return None
+    def _handle_min_value_changed(self):
+        self.min_value, self.min_value_is_valid = self.min_value_line.get_value()
+        self._set_analyse_button_disabled_or_enabled()
 
-    def _get_max_value(self) -> float:
-        try:
-            return float(self.max_value_line.text())
-        except (ValueError, TypeError):
-            return None
+    def _handle_max_value_changed(self):
+        self.max_value, self.max_value_is_valid = self.max_value_line.get_value()
+        self._set_analyse_button_disabled_or_enabled()
+
+    def _set_analyse_button_disabled_or_enabled(self):
+        if self.max_value_is_valid and self.min_value_is_valid and self.is_data_loaded:
+            self.analyze_button.setDisabled(False)
+        else:
+            self.analyze_button.setDisabled(True)
