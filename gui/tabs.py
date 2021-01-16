@@ -1,8 +1,9 @@
 import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QRadioButton, QComboBox, QHBoxLayout, QLabel, QLineEdit, \
-    QPushButton, QFileDialog
+    QPushButton, QFileDialog, QSlider
 
 from data_processing.data_analyzer import DataAnalyzer
 from data_processing.data_filtering import DataFilter
@@ -41,6 +42,7 @@ class TabHandler(QWidget):
 class TopIncomesAndOutComesTab(QTabWidget):
     criteria_options = ["sum", "mean", "max"]
     output_options = ["income", "outcome"]
+    n_values_to_show = 15
 
     def __init__(self):
         super().__init__()
@@ -55,10 +57,10 @@ class TopIncomesAndOutComesTab(QTabWidget):
         self.output_selector = QComboBox()
         self.output_selector.addItems(self.output_options)
 
-        self.min_value_line = QLineEdit(self)
-        self.max_value_line = QLineEdit(self)
-        self.amount_line = QLineEdit(self)
-        self.amount_line.setText("10")
+        self.slider = QSlider(Qt.Vertical)
+        self.slider.setMinimum(0)
+        self.slider.setValue(0)
+        self.current_slider_value = 0
 
         self.canvas = BarHorizontalCanvas(figure_title='Income & Outcome',
                                           y_axis_title='Target',
@@ -77,23 +79,19 @@ class TopIncomesAndOutComesTab(QTabWidget):
         output_layout.addWidget(QLabel("Output"))
         output_layout.addWidget(self.output_selector)
 
-        min_max_layout = QHBoxLayout()
-        min_max_layout.addWidget(QLabel("Min"))
-        min_max_layout.addWidget(self.min_value_line)
-        min_max_layout.addWidget(QLabel("Max"))
-        min_max_layout.addWidget(self.max_value_line)
-        min_max_layout.addWidget(QLabel("Amount"))
-        min_max_layout.addWidget(self.amount_line)
+        figure_layout = QHBoxLayout()
+        figure_layout.addWidget(self.slider)
+        figure_layout.addWidget(self.canvas)
 
         self.layout.addLayout(criteria_layout)
         self.layout.addLayout(output_layout)
-        self.layout.addLayout(min_max_layout)
-        self.layout.addWidget(self.canvas)
+        self.layout.addLayout(figure_layout)
         self.setLayout(self.layout)
 
     def _set_connections(self):
         self.criteria_selector.currentIndexChanged.connect(self._criteria_changed)
         self.output_selector.currentIndexChanged.connect(self._output_changed)
+        self.slider.valueChanged.connect(self._handle_slider_value_changed)
 
     def _criteria_changed(self):
         self.selected_criteria = self.criteria_selector.currentText()
@@ -101,43 +99,24 @@ class TopIncomesAndOutComesTab(QTabWidget):
     def _output_changed(self):
         self.selected_output = self.output_selector.currentText()
 
-    def _get_min_value(self) -> float:
-        try:
-            text = self.min_value_line.text()
-            if text == "":
-                return 0
-            else:
-                return float(text)
-        except (ValueError, TypeError):
-            return None
-
-    def _get_max_value(self) -> float:
-        try:
-            text = self.max_value_line.text()
-            if text == "":
-                return np.inf
-            else:
-                return float(text)
-        except (ValueError, TypeError):
-            return None
-
-    def _get_amount(self) -> float:
-        try:
-            return int(self.amount_line.text())
-        except (ValueError, TypeError):
-            return None
+    def _handle_slider_value_changed(self):
+        self.current_slider_value = self.slider.value()
+        self._update_canvas()
 
     def show_data(self, data: pd.DataFrame):
         incomes, outcomes = self.analyser.calculate_top_incomes_and_outcomes(data, self.selected_criteria)
-        min_value = self._get_min_value()
-        max_value = self._get_max_value()
-        n_values = self._get_amount()
         if self.selected_output == "income":
             values_to_show = incomes
         else:
             values_to_show = outcomes
-        values_to_show = values_to_show[(values_to_show > min_value) & (values_to_show < max_value)]
-        values_to_show = values_to_show[:n_values]
+        self.values_to_show = values_to_show
+        self.slider.setValue(0)
+        self.slider.setMaximum(values_to_show.shape[0] - self.n_values_to_show)
+        self._update_canvas()
+
+    def _update_canvas(self):
+        values_to_show = self.values_to_show[
+                         self.current_slider_value:self.current_slider_value + self.n_values_to_show]
         self.canvas.plot(values_to_show.values, values_to_show.index)
 
 
