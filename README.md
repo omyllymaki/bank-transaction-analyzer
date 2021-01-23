@@ -16,12 +16,27 @@ Account Analyzer provides analysis and visualization of Nordea internet bank dat
 * Set filter values and analyze you data by pressing Analyze data; this updates the figures.
 * Change tabs to see different views and analyses for your data.
 
-## Example (with simulated data)
+Note:
+Some simulated test data is also provided (in test_data folder). This data can be used to test application.
+
+## Screenshots (with simulated test data provided)
 
 <p align="center">
-<img src="figures/example_income_and_outcome.jpg" width="800px" />
+<img src="screenshots/Income-outcome vs time.jpg" width="800px" />
 </p>
 
 <p align="center">
-<img src="figures/example_indicators.jpg" width="800px" />
+<img src="screenshots/Income-outcome by target.jpg" width="800px" />
+</p>
+
+<p align="center">
+<img src="screenshots/stacked bars.jpg" width="800px" />
+</p>
+
+<p align="center">
+<img src="screenshots/indicators.jpg" width="800px" />
+</p>
+
+<p align="center">
+<img src="screenshots/events.jpg" width="800px" />
 </p>

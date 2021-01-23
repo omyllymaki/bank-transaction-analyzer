@@ -57,6 +57,9 @@ class DataCleaner:
 
     @staticmethod
     def convert_string_to_float(value: str) -> float:
-        value_str_dot_decimal = value.replace(',', '.')
+        try:
+            value_str_dot_decimal = value.replace(',', '.')
+        except AttributeError:
+            value_str_dot_decimal = value
         value_float = float(value_str_dot_decimal)
         return value_float

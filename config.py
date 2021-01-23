@@ -7,4 +7,4 @@ DROP_DATA = {
 
 # Default dir that will opened when data is loaded
 # Current script folder will be used if None
-DEFAULT_DATA_DIR = None
+DEFAULT_DATA_DIR = "./test_data"

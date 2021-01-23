@@ -1,0 +1,262 @@
+Tilinumero	12345
+Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
+Steven Booth			-38.746928933708006	11.11.2019
+Anne Robinson		Test event 2	289.9683462338155	23.07.2019
+Cheryl Hopkins	Test message 2	Test event 1	-15.843173795582487	08.10.2019
+Lucy Davies-Pearce		Test event 1	-16.334177579008564	19.07.2019
+Elizabeth Ball	Test message 1	Test event 2	-22.57741586906782	13.11.2019
+Mrs. Brenda Watson	Test message 1	Test event 1	-12.603662022681721	09.12.2019
+Kyle Davis		Test event 2	-17.403989611340975	22.02.2019
+Zoe McLean-Ford	Test message 1		-14.304505084635515	30.08.2019
+Elizabeth Ball			-19.45100563658824	26.08.2019
+Mr. Dennis Collins		Test event 1	-21.680393994120372	15.04.2019
+Elizabeth Ball		Test event 2	-6.308609906215744	24.07.2019
+Cheryl Watson			-8.533217280017952	22.07.2019
+Elizabeth Ball	Test message 2		-11.107674562233527	20.06.2019
+Elizabeth Ball			-7.441276244166646	13.05.2019
+Emma Jenkins	Test message 2		-35.49523493748789	08.04.2019
+Mr. Garry Shepherd			-3.4180579045289488	15.04.2019
+Miss Jemma Smith	Test message 1		-37.35619633138151	06.02.2019
+Miss Jemma Smith	Test message 2		-0.733902311362697	15.08.2019
+Donna Jones	Test message 1		-5.789193703409818	08.03.2019
+Mrs. Brenda Watson	Test message 2		-17.38061005691696	07.10.2019
+Miss Jemma Smith			-12.655413196600886	24.06.2019
+Rebecca Smith			-5.71562352851132	28.10.2019
+Elizabeth Ball			-6.121673690514793	18.02.2019
+Samantha Smith		Test event 1	-31.148815714323163	01.02.2019
+Amanda Carroll			-47.59532040734348	12.07.2019
+Hugh Scott		Test event 1	-8.111162323481539	04.02.2019
+Emma Jenkins	Test message 1	Test event 1	-32.99840913822642	05.06.2019
+Elizabeth Ball			-12.643009488239644	18.11.2019
+Mr. Justin Rice			-29.991714985352612	06.02.2019
+Sylvia Hussain	Test message 1		-3.23942442073763	23.12.2019
+Elizabeth Ball	Test message 1	Test event 1	-5.5960687257031685	08.05.2019
+Miss Jemma Smith	Test message 1		-21.727647557711194	10.07.2019
+Mr. Trevor Allen	Test message 2	Test event 2	-1.2512045338997249	11.02.2019
+Andrew Miah-Walker			-3.70712087274428	01.07.2019
+Mrs. Brenda Watson	Test message 1	Test event 2	-14.498630364682478	16.09.2019
+Elizabeth Ball			-6.36287210320713	04.06.2019
+Danny Horton		Test event 2	-5.058837945760606	28.05.2019
+Mr. Garry Shepherd		Test event 1	-5.379151718990848	15.04.2019
+Stewart Young		Test event 2	-13.444354530289436	04.10.2019
+Elizabeth Ball	Test message 2		-40.80792993293683	15.07.2019
+Elizabeth Ball	Test message 2		-8.340660539955469	27.05.2019
+Dr. Diana Baxter		Test event 1	-20.112955382343124	09.09.2019
+Kyle Davis		Test event 2	-58.0091268496735	17.12.2019
+Miss Jemma Smith			-23.72175133008985	15.07.2019
+Dr. Diana Baxter		Test event 2	-13.48324618756502	19.08.2019
+Anne Robinson	Test message 2		252.83980006153345	07.06.2019
+Emma Jenkins			-15.465427905628548	14.10.2019
+Stewart Young			-10.503945900056433	15.04.2019
+Elizabeth Ball			-2.998089614873585	07.10.2019
+Bryan Sullivan-Turner			-9.626514275501531	09.08.2019
+Miss Susan Donnelly	Test message 2		-9.342182066156864	03.05.2019
+Elizabeth Ball	Test message 1	Test event 2	-10.814969159982509	25.03.2019
+Andrew Miah-Walker			-20.93435346531907	20.05.2019
+Miss Jemma Smith			-12.012107394865602	12.02.2019
+Miss Jemma Smith	Test message 1	Test event 1	-48.89445550802629	05.03.2019
+Mrs. Brenda Watson			-22.416072269165216	17.12.2019
+Miss Lauren Ellis		Test event 1	-10.245444959120574	04.10.2019
+Miss Jemma Smith	Test message 2		-43.52664133846433	04.02.2019
+Miss Jemma Smith		Test event 2	-22.39062882364197	14.01.2019
+Sylvia Hussain			-4.487765361672577	04.03.2019
+Mr. Trevor Allen			-4.109927889939465	11.11.2019
+Elizabeth Ball	Test message 2		-27.197641645766495	21.01.2019
+Clare Jones		Test event 1	-113.22667538351486	14.01.2019
+Hugh Scott			-9.733866523049441	29.01.2019
+Elizabeth Ball			-6.342170438789267	17.07.2019
+Natalie Harris		Test event 2	-11.930868271916506	11.02.2019
+Cheryl Hopkins	Test message 2		-17.013498167917646	21.08.2019
+Elizabeth Ball			-4.011591789310573	11.06.2019
+Miss Jemma Smith	Test message 2	Test event 1	-15.652664198524352	23.04.2019
+Elizabeth Ball	Test message 2		-4.5684687169596625	26.03.2019
+Elizabeth Ball	Test message 2		-27.37786685368191	23.04.2019
+Miss Jemma Smith			-26.173032357810833	13.05.2019
+Elizabeth Ball			-12.521740641440731	25.11.2019
+Elizabeth Ball		Test event 2	-10.301155239912624	24.04.2019
+Joshua Butler	Test message 2		-17.416878314162506	11.02.2019
+Elizabeth Ball			-16.375273787438047	10.06.2019
+Danny Horton		Test event 1	-7.6941452304860505	28.02.2019
+Elizabeth Ball	Test message 1		-9.167807426923607	23.10.2019
+Samantha Smith			-102.74449085282046	11.11.2019
+Zoe McLean-Ford			-12.563865011216086	22.07.2019
+Mr. David Smith		Test event 2	-80.53711518460706	14.01.2019
+Paige Wells	Test message 1		-21.16429045685435	11.11.2019
+Elizabeth Ball	Test message 1		-22.588165735407937	22.02.2019
+Natalie James			-7.374928048717095	04.03.2019
+Miss Jemma Smith			-1.0770791879878439	29.01.2019
+Sylvia Hussain	Test message 2		-2.11524284786201	11.12.2019
+Laura O'Neill	Test message 1		-31.22284069439262	15.07.2019
+Alexandra Elliott		Test event 1	-17.504821724686657	29.04.2019
+Elizabeth Ball		Test event 2	-2.1913925769645015	01.10.2019
+Hugh Scott			-4.07056810284763	13.02.2019
+Mr. James Jones	Test message 2		-37.82146475848169	28.11.2019
+Mr. Andrew Miller			-17.38506594303367	07.01.2019
+Dr. Leah Ward			-15.17810763257035	19.08.2019
+Rebecca Smith			-7.262343153347584	21.02.2019
+Kim McCarthy	Test message 2	Test event 1	-13.291593810320188	17.07.2019
+Andrea Evans-Fry			-11.165164426714586	04.07.2019
+Miss Jemma Smith			-24.694960023836376	05.08.2019
+Andrew Miah-Walker		Test event 2	-6.681587205287561	01.07.2019
+David Clark		Test event 2	-5.452380146991856	16.08.2019
+Elizabeth Ball	Test message 2		-3.4815218648773727	16.09.2019
+Anne Robinson	Test message 2	Test event 1	66.17953146960228	22.01.2019
+Dr. Diana Baxter	Test message 1		-20.23825394461267	18.11.2019
+Cheryl Hopkins			-14.06969575309812	22.10.2019
+Elizabeth Ball			-5.05461989058576	08.10.2019
+Sylvia Hussain	Test message 2		-1.8677592019623441	15.02.2019
+Danny Horton		Test event 1	-7.7571055527877775	05.06.2019
+Miss Paula Davey			-7.750333077225813	09.01.2019
+Natalie James			-12.49895276765345	21.11.2019
+Sylvia Hussain			-0.6493489898252038	24.01.2019
+Anne Robinson	Test message 2		350.33317602854055	31.10.2019
+Miss Jemma Smith			-17.231111066032888	27.02.2019
+Stewart Young			-18.6017447094034	02.10.2019
+Mr. James Jones	Test message 2		-5.846769500547022	05.04.2019
+Elizabeth Ball			-22.99068955543802	27.11.2019
+Sophie Richards			-24.34227186018841	03.01.2019
+Dr. Megan Simpson			-4.520768332865848	02.05.2019
+Mr. Trevor Allen	Test message 1	Test event 1	-1.5301951528209523	10.06.2019
+Elizabeth Ball			-6.179303327701579	04.11.2019
+Bethan Hill		Test event 1	-16.97711453285217	24.01.2019
+Andrew Miah-Walker		Test event 1	-10.614702268347413	14.01.2019
+Mr. James Jones			-4.571068889932543	23.04.2019
+Norman O'Donnell			-14.08718767282927	02.05.2019
+Elizabeth Ball			-25.720109838026577	10.01.2019
+Elizabeth Ball	Test message 1		-17.09558733923168	11.02.2019
+Miss Jemma Smith			-5.731161018014901	22.01.2019
+Natalie James			-6.310691613501609	04.03.2019
+Sylvia Hussain			-2.521853573130054	09.12.2019
+Elizabeth Ball			-8.665211143156903	22.07.2019
+Dr. Glen Lewis			-12.875367936121396	21.01.2019
+Emma Jenkins		Test event 1	-43.315354764023304	24.07.2019
+Mrs. Brenda Watson		Test event 2	-11.17686480516436	25.10.2019
+Dr. Glen Lewis			-7.671460414178704	21.01.2019
+Zoe McLean-Ford			-11.965061051664037	15.08.2019
+Harriet Roberts			-202.96418706000387	10.06.2019
+Andrew Miah-Walker			-8.836436826475708	01.07.2019
+Elizabeth Ball			-20.88067715106112	05.09.2019
+Miss Jemma Smith	Test message 2	Test event 1	-9.155827283042951	14.01.2019
+Miss Jemma Smith			-11.759780821485828	16.09.2019
+Mary Harris-Carr		Test event 1	-25.34856596831433	25.03.2019
+Paige Wells		Test event 2	-6.1318473752289835	22.11.2019
+Elizabeth Ball			-5.064277629093907	02.05.2019
+Dr. Chloe Lane	Test message 1		-7.712460937828525	26.08.2019
+Wayne Page	Test message 1		-1.8538657459790937	09.01.2019
+Mr. Dennis Collins			-21.762504719341162	07.01.2019
+Elizabeth Ball		Test event 2	-12.496807541905426	16.07.2019
+Nigel Hayward	Test message 2	Test event 2	-204.27455799191932	11.07.2019
+Cheryl Watson			-7.545035887794087	28.01.2019
+Elizabeth Ball			-18.667810365269162	25.01.2019
+Samantha Smith	Test message 2		-35.470902266633686	17.12.2019
+Jonathan Walker-Stewart			-4.680526610664525	24.07.2019
+Lucy Davies-Pearce			-9.734049159197607	19.07.2019
+Dr. Stephanie Sinclair	Test message 1		-5.938927674446936	01.07.2019
+Miss Jemma Smith		Test event 2	-9.566180034000423	08.03.2019
+Linda Hall			-43.09352228047398	06.06.2019
+Emma Jenkins		Test event 1	-59.65661734775361	21.02.2019
+Anne Robinson	Test message 1		403.97704595618643	05.07.2019
+Elizabeth Ball			-12.98670280150281	26.09.2019
+Miss Lauren Ellis		Test event 1	-10.692429076539566	15.04.2019
+Elizabeth Ball	Test message 2	Test event 2	-13.857473281531027	18.10.2019
+Elizabeth Ball	Test message 2		-10.705929019821534	31.01.2019
+Mr. Justin Rice			-15.302573719372749	18.02.2019
+Elizabeth Ball		Test event 1	-5.006587688438282	29.08.2019
+Elizabeth Ball	Test message 1	Test event 1	-2.6291036257145635	06.06.2019
+Benjamin Watson-Williams		Test event 1	-10.208221518294579	23.12.2019
+Heather Jones			-9.180431797583525	04.03.2019
+Bethan Hill	Test message 2		-13.527766519849798	01.02.2019
+Miss Jemma Smith		Test event 2	-11.953725106973915	28.03.2019
+Elizabeth Ball		Test event 2	-12.37479542904121	12.06.2019
+Elizabeth Ball			-9.482247045456912	13.02.2019
+Elizabeth Ball	Test message 1	Test event 2	-10.292119045509567	23.09.2019
+Elizabeth Ball	Test message 1	Test event 2	-3.959324653071883	17.05.2019
+Mr. James Jones		Test event 2	-28.073192742799257	29.04.2019
+Nicola Lynch	Test message 2		-21.41194745724221	24.05.2019
+Elizabeth Ball		Test event 2	-34.54359712445549	03.06.2019
+Miss Jemma Smith		Test event 1	-23.274788193398617	28.06.2019
+Miss Jemma Smith			-20.889834658419343	03.04.2019
+Mr. Trevor Allen			-4.2987461906423325	10.01.2019
+Dawn Hill	Test message 2		-35.85111357236881	15.04.2019
+Ms. Geraldine Smith			-14.854574486246218	11.11.2019
+Katie Allen-Quinn			-27.825779781316104	22.02.2019
+Dr. Megan Simpson		Test event 1	-13.008439995609596	23.04.2019
+Donna Jones	Test message 1	Test event 1	-11.088540827405517	18.01.2019
+Elizabeth Ball	Test message 2		-1.860192965300514	23.04.2019
+Mr. Trevor Allen	Test message 2		-1.4342076553483918	11.03.2019
+Stewart Young		Test event 1	-10.334229620496869	12.04.2019
+Andrew Miah-Walker		Test event 2	-6.609422591929488	01.07.2019
+Joel Turner		Test event 2	-59.580753837571656	26.08.2019
+Donna Jones		Test event 2	-15.778187398319803	15.02.2019
+Elizabeth Ball			-5.43721059826512	29.05.2019
+Dr. Diana Baxter			-25.428629962951195	07.10.2019
+Mark Lamb-Roberts	Test message 1	Test event 2	-2.2008323362179554	06.05.2019
+Sophie Richards		Test event 2	-31.56683936904943	08.01.2019
+Jacqueline Perry			-31.338554606350637	28.01.2019
+Sylvia Hussain		Test event 2	-6.767013113791847	23.07.2019
+Stephanie Walker	Test message 1	Test event 1	-31.152781802394088	22.01.2019
+Dr. Stephanie Sinclair			-5.075856950354387	04.02.2019
+Elizabeth Ball		Test event 1	-11.541274706949626	01.08.2019
+Hilary Khan			-141.46579963206875	13.11.2019
+Anne Robinson			198.19502010632587	14.01.2019
+Kyle Davis			-62.614107826966574	12.11.2019
+Katie Holt	Test message 2	Test event 2	-9.276818027335294	31.05.2019
+Elizabeth Ball	Test message 1		-24.279806933071722	22.05.2019
+Laura Smith	Test message 2	Test event 1	-4.63203244906244	03.07.2019
+Elizabeth Ball	Test message 2		-7.418989123021074	30.09.2019
+Heather Jones	Test message 1		-7.372014731679588	23.04.2019
+Elizabeth Ball			-8.239100111800727	17.06.2019
+Elizabeth Ball	Test message 1		-11.597016779405893	23.04.2019
+Mr. Maurice North			-320.9391719314318	13.08.2019
+Sylvia Hussain			-7.069602217705917	01.03.2019
+Paige Wells	Test message 2		-4.982798148158728	23.07.2019
+Miss Jemma Smith		Test event 2	-39.71796412796479	18.02.2019
+Allan Burns		Test event 2	-138.1436470454551	09.01.2019
+Anne Robinson	Test message 2		522.50800878821	22.02.2019
+Jade Davies	Test message 1	Test event 2	143.95580883269812	06.08.2019
+Elizabeth Ball			-15.226512915024724	10.12.2019
+Miss Jemma Smith			-8.800753442585192	12.08.2019
+Heather Jones		Test event 1	-7.983351581103672	31.05.2019
+Elizabeth Ball	Test message 1		-18.427214978260697	22.08.2019
+Elizabeth Ball			-6.779667238077887	16.09.2019
+Miss Jemma Smith			-25.671024246800755	22.03.2019
+Kim McCarthy	Test message 1		-8.861602459440952	20.08.2019
+Mrs. Brenda Watson		Test event 1	-21.844074085854764	30.09.2019
+Michelle Bennett			-3.011164957497796	26.07.2019
+Anne Robinson			104.32213168151475	25.04.2019
+Elizabeth Ball	Test message 1		-9.793864142159423	13.03.2019
+Benjamin Watson-Williams	Test message 1		-6.662913494594434	25.11.2019
+Miss Jemma Smith	Test message 2	Test event 1	-29.726237839110397	22.07.2019
+Marilyn Rogers	Test message 1	Test event 1	-2.996772147311535	26.02.2019
+Miss Jemma Smith	Test message 2		-52.86852642455607	18.04.2019
+Marc Cook	Test message 2		-9.824885675903376	04.06.2019
+David Clark		Test event 1	-13.497586565610838	29.08.2019
+Heather James	Test message 2		-49.39919678712336	11.03.2019
+Ms. Teresa Archer	Test message 1		-6.482885303822501	02.09.2019
+Mr. Dominic Birch		Test event 2	-13.765426862953872	01.04.2019
+Elizabeth Ball			-4.596021324239682	26.08.2019
+Sylvia Hussain		Test event 1	-2.204524237869746	07.10.2019
+Miss Jemma Smith	Test message 2		-10.197666717359926	20.05.2019
+Anne Robinson			426.3602964719962	18.11.2019
+Elizabeth Ball			-4.186535497265236	08.04.2019
+Danny Horton			-10.219318151950976	27.02.2019
+Elizabeth Ball		Test event 2	-17.875195808913166	12.08.2019
+Katie Allen-Quinn		Test event 2	-70.33799593994739	12.08.2019
+Miss Lauren Ellis	Test message 2		-4.5695721998437495	04.10.2019
+Andrew Miah-Walker			-3.425900074335735	04.02.2019
+Elizabeth Ball	Test message 1		-5.919262171163583	11.10.2019
+Mr. Allan Ali	Test message 1	Test event 2	-3.794015926485444	09.01.2019
+Elizabeth Ball			-29.350111479890035	01.11.2019
+Linda Hall	Test message 1		-58.95489791104275	10.06.2019
+Hugh Scott			-17.680270101001877	28.01.2019
+Anne Robinson			282.177513797921	07.10.2019
+Elizabeth Ball		Test event 1	-5.265241322122394	21.10.2019
+Kim Hamilton			-5.4999222918679855	07.01.2019
+Nicola Campbell-Hancock			-12.430346503676063	17.09.2019
+Bryan Sullivan-Turner			-35.179271793238556	31.01.2019
+Elizabeth Ball	Test message 2		-11.631674627103413	29.04.2019
+Elizabeth Ball	Test message 2		-10.54529317363667	02.07.2019
+Elizabeth Ball			-25.369024509783802	28.08.2019
+Mr. Trevor Allen			-2.6408144552910584	10.12.2019
+Emma Jenkins			-40.35327783005748	12.09.2019
+Michelle Bennett		Test event 1	-5.750380351178979	26.07.2019
