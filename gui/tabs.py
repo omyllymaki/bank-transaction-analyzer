@@ -1,14 +1,14 @@
-import numpy as np
 import pandas as pd
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QRadioButton, QComboBox, QHBoxLayout, QLabel, QLineEdit, \
-    QPushButton, QFileDialog, QSlider
+from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout, QRadioButton, QComboBox, QHBoxLayout, QLabel, QPushButton, \
+    QFileDialog, QSlider
 
 from data_processing.data_analyzer import DataAnalyzer
 from data_processing.data_filtering import DataFilter
-from gui.canvases import DoubleBarCanvas, BarCanvas, BarHorizontalCanvas
+from gui.canvases import DoubleBarCanvas, BarCanvas, BarHorizontalCanvas, StackedBarsCanvas
 from gui.dataframe_model import DataFrameModel
+from gui.widgets import FloatLineEdit
 
 SHOW_COLUMNS = ["target", "account_number", "value", "time", "message", "event"]
 
@@ -22,8 +22,11 @@ class TabHandler(QWidget):
         self.top_incomes_and_outcomes = TopIncomesAndOutComesTab()
         self.indicators = IndicatorsTab()
         self.event_table = EventTableTab()
+        self.stacked_bars = StackedBarsTab()
         self.content.addTab(self.income_and_outcome_vs_time, 'Income/outcome vs time')
-        self.content.addTab(self.top_incomes_and_outcomes, 'Top incomes/outcomes')
+        self.content.addTab(self.top_incomes_and_outcomes, 'Income/outcome by target')
+        self.content.addTab(self.stacked_bars, 'Stacked bars')
+        self.content.addTab(self.event_table, 'Events')
         self.content.addTab(self.indicators, 'Indicators')
         self.content.addTab(self.event_table, 'Events')
         self._set_layout()
@@ -37,6 +40,7 @@ class TabHandler(QWidget):
         self.top_incomes_and_outcomes.show_data(data)
         self.indicators.show_data(data)
         self.event_table.show_data(data[SHOW_COLUMNS])
+        self.stacked_bars.show_data(data)
 
 
 class TopIncomesAndOutComesTab(QTabWidget):
@@ -298,3 +302,87 @@ class EventTableTab(QTabWidget):
         else:
             model = DataFrameModel(data)
         self.table_view.setModel(model)
+
+
+class StackedBarsTab(QTabWidget):
+    output_options = ["income", "outcome"]
+    grouping_options = {
+        "Year": ["year"],
+        "Month": ["year", "month"],
+        "Week": ["year", "week"],
+        "Day": ["year", "month", "day"],
+    }
+
+    def __init__(self):
+        super().__init__()
+
+        self.group_by = ["year"]
+        self.current_output_option = "income"
+
+        self.analyzer = DataAnalyzer()
+        self.canvas = StackedBarsCanvas(y_axis_title="Amount (EUR)")
+
+        self.output_selector = QComboBox()
+        self.output_selector.addItems(self.output_options)
+
+        self.threshold_line = FloatLineEdit()
+        self.threshold_line.setText("100")
+        self.threshold_value = 100
+        self.threshold_value_is_valid = True
+
+        self.grouping_option_selector = QComboBox()
+        self.grouping_option_selector.addItems(list(self.grouping_options.keys()))
+
+        self._set_layout()
+        self._set_connections()
+
+    def _set_layout(self):
+        self.layout = QVBoxLayout()
+
+        grouping_layout = QHBoxLayout()
+        grouping_layout.addWidget(QLabel("Grouping"))
+        grouping_layout.addWidget(self.grouping_option_selector)
+
+        output_layout = QHBoxLayout()
+        output_layout.addWidget(QLabel("Output"))
+        output_layout.addWidget(self.output_selector)
+
+        threshold_value_layout = QHBoxLayout()
+        threshold_value_layout.addWidget(QLabel("Threshold"))
+        threshold_value_layout.addWidget(self.threshold_line)
+
+        self.layout.addLayout(grouping_layout)
+        self.layout.addLayout(output_layout)
+        self.layout.addLayout(threshold_value_layout)
+        self.layout.addWidget(self.canvas)
+        self.setLayout(self.layout)
+
+    def _set_connections(self):
+        self.grouping_option_selector.currentIndexChanged.connect(self._grouping_option_changed)
+        self.output_selector.currentIndexChanged.connect(self._output_option_changed)
+        self.threshold_line.textChanged.connect(self._handle_threshold_value_changed)
+
+    def _grouping_option_changed(self):
+        option_text = self.grouping_option_selector.currentText()
+        self.group_by = self.grouping_options[option_text]
+
+    def _output_option_changed(self):
+        self.current_output_option = self.output_selector.currentText()
+
+    def _handle_threshold_value_changed(self):
+        self.threshold_value, self.threshold_value_is_valid = self.threshold_line.get_value()
+
+    def show_data(self, data: pd.DataFrame):
+
+        if self.threshold_value_is_valid:
+            if self.current_output_option == "income":
+                data_to_analyze = data[data.value > 0]
+            else:
+                data_to_analyze = data[data.value < 0]
+                data_to_analyze["value"] = abs(data_to_analyze["value"])
+
+            pivot_table = self.analyzer.calculate_pivot_table(data_to_analyze,
+                                                              group_by=self.group_by,
+                                                              threshold=self.threshold_value)
+
+            self.canvas.plot(pivot_table)

@@ -18,6 +18,28 @@ class DataAnalyzer:
             return self._group_data_by_columns(data, group_data_by)
 
     @staticmethod
+    def calculate_pivot_table(df, group_by, threshold=100):
+        df_pivot = df.pivot_table(columns='target',
+                                  index=group_by,
+                                  aggfunc='sum',
+                                  fill_value=0,
+                                  values='value')
+
+        output = []
+        for i, row in df_pivot.iterrows():
+            important = row[row > threshold]
+            rest = row[row <= threshold]
+            d = important.to_dict()
+            d["REST"] = rest.sum()
+            output.append(d)
+
+        df_pivot_processed = pd.DataFrame.from_dict(output)
+        df_pivot_processed.index = df_pivot.index
+        df_pivot_processed.fillna(0, inplace=True)
+
+        return df_pivot_processed
+
+    @staticmethod
     def calculate_top_incomes_and_outcomes(data: pd.DataFrame,
                                            criteria="sum",
                                            relative=False) -> Tuple[pd.Series, pd.Series]:
