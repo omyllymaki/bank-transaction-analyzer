@@ -53,6 +53,9 @@ class BaseCanvas(QWidget):
         self.figure.subplots_adjust(bottom=0.3)
         self.canvas.draw()
 
+    def clear(self):
+        self._initialize_figure()
+
     @abstractmethod
     def plot(self, *args):
         raise NotImplementedError

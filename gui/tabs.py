@@ -385,4 +385,7 @@ class StackedBarsTab(QTabWidget):
                                                               group_by=self.group_by,
                                                               threshold=self.threshold_value)
 
-            self.canvas.plot(pivot_table)
+            if pivot_table.shape[0] > 0:
+                self.canvas.plot(pivot_table)
+            else:
+                self.canvas.clear()
