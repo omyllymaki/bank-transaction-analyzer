@@ -34,6 +34,7 @@ class SideBar(QWidget):
         self.target_line = QLineEdit(self)
         self.account_number_line = QLineEdit(self)
         self.message_line = QLineEdit(self)
+        self.event_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
         self.analyze_button = QPushButton('Analyze data')
@@ -58,6 +59,8 @@ class SideBar(QWidget):
         self.layout.addWidget(self.account_number_line)
         self.layout.addWidget(QLabel('Message contains (regexp pattern)'))
         self.layout.addWidget(self.message_line)
+        self.layout.addWidget(QLabel('Event contains (regexp pattern)'))
+        self.layout.addWidget(self.event_line)
         self.layout.addWidget(self.analyze_button)
         self.layout.addWidget(self.load_button)
 
@@ -89,6 +92,7 @@ class SideBar(QWidget):
                                                 target=self._get_target(),
                                                 account_number=self._get_account_number(),
                                                 message=self._get_message(),
+                                                event=self._get_event(),
                                                 min_value=self.min_value,
                                                 max_value=self.max_value
                                                 )
@@ -115,6 +119,9 @@ class SideBar(QWidget):
 
     def _get_message(self) -> str:
         return self.message_line.text()
+
+    def _get_event(self) -> str:
+        return self.event_line.text()
 
     def _handle_min_value_changed(self):
         self.min_value, self.min_value_is_valid = self.min_value_line.get_value()
