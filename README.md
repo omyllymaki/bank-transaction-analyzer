@@ -19,7 +19,7 @@ pip install -r requirements.txt
 
 **Creating indicators**
 
-Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. You can make your own indicator by creating new row in indicators.csv file (or any other file with same format). There, you specify name of indicator (str), min and max value (float) and regexp patterns (str) that define indicator. E.g. sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa as target would group purchases from multiple stores, and this way you can follow "Store" indicator over time. Indicators can be loaded and used in Indicators tab.
+Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. You can make your own indicator by creating new row in indicators.csv file (or any other file with same format). There, you specify name of indicator (str), min and max value (float) and regexp patterns (str) that define indicator. E.g. sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa as target would group purchases from multiple stores, and this way you can follow "Store" indicator over time. Indicators can be loaded and used in Indicators tab. The creation of indicators can be assisted by GUI: select filters (sidebar on left) and see which events are filtered out (Events tab). When you are happy, just copy-paste filter values to indicators file.
 
 ## Usage
 
