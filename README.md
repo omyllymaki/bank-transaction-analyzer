@@ -1,5 +1,8 @@
 # Account Analyzer
-Account Analyzer provides analysis and visualization of Nordea internet bank data. 
+
+Account Analyzer provides analysis and visualization of bank data.
+
+By default the analyzer works with Nordea internet bank data but can be customized to other data too.
 
 ## Before usage
 
@@ -53,3 +56,28 @@ Some simulated test data is also provided (in test_data folder). This data can b
 <p align="center">
 <img src="screenshots/events.jpg" width="800px" />
 </p>
+
+## Using application with non-default data format
+
+By default the analyzer works with Nordea internet bank data, with certain data format. However, the application can be used with other data formats too. This is done by implementing custom DataLoader and DataParser classes.
+
+DataLoader loads the raw data. It needs to inherit and implement DataLoaderInterface class.
+
+DataParser parses relevant information from raw data. It needs to inherit and implement BaseDataParser class.
+
+Output of DataParser is validated. It needs to pass validation checks defined in data_processing/data_parsers/data_validation.py file:
+
+```
+schema = pandas_schema.Schema([
+        Column('value', decimal_validation + nan_validation),
+        Column('time', datetime_validation + nan_validation),
+        Column('target', string_validation),
+        Column('message', string_validation),
+        Column('event', string_validation),
+        Column('account_number', string_validation),
+    ])
+```
+
+When custom DataLoader and DataParser classes are created, they can be used simply by changing DATA_LOADER and DATA_PARSER variables in config.py file.
+
+

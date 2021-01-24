@@ -2,10 +2,10 @@ from datetime import datetime
 
 import pandas as pd
 
-from data_processing.data_parsers.data_parser_interface import DataParserInterface
+from data_processing.data_parsers.base_data_parser import BaseDataParser
 
 
-class NordeaDataParser(DataParserInterface):
+class NordeaDataParser(BaseDataParser):
 
     def parse(self, data: pd.DataFrame) -> pd.DataFrame:
         data_cleaned = pd.DataFrame()
