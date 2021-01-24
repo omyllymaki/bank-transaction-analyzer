@@ -9,9 +9,10 @@ class DataAnalyzer:
                                        data: pd.DataFrame,
                                        group_data_by: List[str] = None) -> pd.DataFrame:
 
+        data = self._separate_incomes_and_outcomes(data)
         if data.shape[0] > 0:
             data = self._fill_missing_days(data)
-        data = self._calculate_indicators(data)
+        data = self._calculate_cumulative_values(data)
         if group_data_by is None:
             return self._group_data_by_columns(data, ["day"])
         else:
@@ -73,10 +74,21 @@ class DataAnalyzer:
         return incomes, outcomes
 
     @staticmethod
+    def _separate_incomes_and_outcomes(data: pd.DataFrame) -> pd.DataFrame:
+        data['income'] = data['value']
+        data['income'][data['income'] < 0] = 0
+        data['outcome'] = data['value']
+        data['outcome'][data['outcome'] > 0] = 0
+        data['outcome'] = abs(data['outcome'])
+        return data
+
+    @staticmethod
     def _fill_missing_days(original_data: pd.DataFrame) -> pd.DataFrame:
         data = pd.DataFrame()
         grouped_data = original_data.groupby("time")
         data["value"] = grouped_data["value"].sum()
+        data["income"] = grouped_data["income"].sum()
+        data["outcome"] = grouped_data["outcome"].sum()
         data = data.asfreq('D').fillna(0)
         data["year"] = data.index.year
         data["month"] = data.index.month
@@ -85,13 +97,8 @@ class DataAnalyzer:
         return data
 
     @staticmethod
-    def _calculate_indicators(data: pd.DataFrame) -> pd.DataFrame:
+    def _calculate_cumulative_values(data: pd.DataFrame) -> pd.DataFrame:
         data['cumulative_value'] = data['value'].cumsum()
-        data['income'] = data['value']
-        data['income'][data['income'] < 0] = 0
-        data['outcome'] = data['value']
-        data['outcome'][data['outcome'] > 0] = 0
-        data['outcome'] = abs(data['outcome'])
         data['cumulative_income'] = data['income'].cumsum()
         data['cumulative_outcome'] = data['outcome'].cumsum()
         data['cumulative_ratio'] = data['cumulative_outcome'] / data['cumulative_income']
