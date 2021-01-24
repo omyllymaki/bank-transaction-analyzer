@@ -1,4 +1,4 @@
-Tilinumero	12345
+Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
 Jennifer Hooper			-62.85032324124122	04.01.2021
 Fiona Booth	Test message 2		-20.22290646840216	04.01.2021

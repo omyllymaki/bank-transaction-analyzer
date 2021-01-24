@@ -1,4 +1,4 @@
-Tilinumero	12345
+Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
 Marcus Martin			-102.49096565621419	04.05.2016
 Miss Naomi Taylor	Test message 1		-6.670079755417764	08.06.2016

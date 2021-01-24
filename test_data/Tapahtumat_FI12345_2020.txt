@@ -1,4 +1,4 @@
-Tilinumero	12345
+Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
 Cheryl Martin-Morgan			-52.80666962982453	19.10.2020
 Dr. Jeffrey Baker			-31.256845483230805	28.04.2020

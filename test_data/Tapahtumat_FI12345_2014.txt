@@ -1,4 +1,4 @@
-Tilinumero	12345
+Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
 John Butler		Test event 2	-12.000701231886687	27.01.2014
 Julia Williams			-9.150860522105065	29.04.2014

@@ -1,4 +1,4 @@
-Tilinumero	12345
+Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
 Andrea Graham-Hewitt			-116.25581412930124	03.06.2015
 Geoffrey Moore			-453.66023881479305	30.06.2015

@@ -1,4 +1,4 @@
-Tilinumero	12345
+Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
 Dr. Mohammed Elliott			-49.09163707336281	14.09.2018
 Mark Baldwin			-75.42684178374036	07.12.2018

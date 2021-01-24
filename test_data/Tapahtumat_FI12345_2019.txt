@@ -1,4 +1,4 @@
-Tilinumero	12345
+Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
 Steven Booth			-38.746928933708006	11.11.2019
 Anne Robinson		Test event 2	289.9683462338155	23.07.2019

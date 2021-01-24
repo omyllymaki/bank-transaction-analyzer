@@ -1,4 +1,4 @@
-Tilinumero	12345
+Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
 Robin O'Neill		Test event 2	-3.3007583421469735	26.10.2017
 Amelia Lewis			-1.4007065964372878	11.09.2017
