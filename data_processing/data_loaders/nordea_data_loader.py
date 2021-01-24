@@ -1,10 +1,11 @@
 from typing import List
 
 import pandas as pd
-import re
+
+from data_processing.data_loaders.data_loader_interface import DataLoaderInterface
 
 
-class DataLoader:
+class NordeaDataLoader(DataLoaderInterface):
 
     def load_data(self, file_paths: List[str]) -> pd.DataFrame:
         raw_data_list = []

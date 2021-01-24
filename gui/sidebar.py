@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLine
 
 from config import DEFAULT_DATA_DIR, DROP_DATA
 from data_processing.data_filtering import DataFilter
-from data_processing.load_clean_prefilter_data import load_clean_and_prefilter_data
+from data_processing.prepare_data import prepare_data
 from gui.widgets import FloatLineEdit
 from gui.dialog_boxes import show_warning
 
@@ -74,7 +74,7 @@ class SideBar(QWidget):
         file_paths = self._get_file_paths()
         if not file_paths:
             return None
-        self.cleaned_data = load_clean_and_prefilter_data(file_paths, DROP_DATA)
+        self.cleaned_data = prepare_data(file_paths, DROP_DATA)
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._set_analyse_button_disabled_or_enabled()
