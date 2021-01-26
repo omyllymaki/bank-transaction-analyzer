@@ -1,8 +1,8 @@
 # Account Analyzer
 
-Account Analyzer provides analysis and visualization of bank data.
+Account Analyzer provides analysis and visualization of bank transaction data.
 
-By default the analyzer works with Nordea internet bank data but can be customized to other data too.
+By default the analyzer works with Nordea internet bank data but can be customized to work with other data formats too.
 
 ## Before usage
 
