@@ -1,4 +1,4 @@
-# Account Analyzer
+# Bank Transaction Analyzer
 
 Account Analyzer provides analysis and visualization of bank transaction data.
 
