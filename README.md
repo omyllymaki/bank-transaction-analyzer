@@ -1,6 +1,6 @@
 # Bank Transaction Analyzer
 
-Account Analyzer provides analysis and visualization of bank transaction data.
+Bank Transaction Analyzer provides analysis and visualization of bank transaction data.
 
 By default the analyzer works with Nordea internet bank data but can be customized to work with other data formats too.
 
