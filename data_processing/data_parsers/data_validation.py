@@ -23,7 +23,7 @@ def check_is_string_or_nan(x):
     return isinstance(x, str) or np.isnan(x)
 
 
-def validate(data: pd.DataFrame):
+def validate_df(data: pd.DataFrame):
     decimal_validation = [CustomElementValidation(lambda x: check_decimal(x), 'is not decimal')]
     datetime_validation = [CustomElementValidation(lambda x: check_datetime(x), 'is not datetime')]
     string_validation = [CustomElementValidation(lambda x: check_is_string_or_nan(x), 'is not string')]
@@ -43,3 +43,12 @@ def validate(data: pd.DataFrame):
         for error in errors:
             print(error)
         raise InvalidDataFrame("Invalid dataframe!")
+
+
+def validate(func):
+    def func_wrapper(*args, **kwargs):
+        output = func(*args, **kwargs)
+        validate_df(output)
+        return output
+
+    return func_wrapper
