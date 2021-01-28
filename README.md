@@ -59,13 +59,11 @@ Some simulated test data is also provided (in test_data folder). This data can b
 
 ## Using application with non-default data format
 
-By default the analyzer works with Nordea internet bank data, with certain data format. However, the application can be used with other data formats too. This is done by implementing custom DataLoader and DataParser classes.
+By default the analyzer works with Nordea internet bank data, with certain data format. However, the application can be used with other data formats too. This is done by implementing custom Loader and Transformer class.
 
-DataLoader loads the raw data. It needs to inherit and implement DataLoaderInterface class.
+Loader loads the raw data from files. It needs to inherit and implement LoaderInterface class.
 
-DataParser parses relevant information from raw data. It needs to inherit and implement BaseDataParser class.
-
-Output of DataParser is validated. It needs to pass validation checks defined in data_processing/data_parsers/data_validation.py file:
+Transformer collects relevant information from raw data and converts it to specified format that can be handled by application. It needs to inherit and implement BaseTransformer class. Output of Transformer is validated. It needs to pass validation checks defined in data_processing/transformers/validation.py file:
 
 ```
 schema = pandas_schema.Schema([
@@ -78,6 +76,6 @@ schema = pandas_schema.Schema([
     ])
 ```
 
-When custom DataLoader and DataParser classes are created, they can be used simply by changing DATA_LOADER and DATA_PARSER variables in config.py file.
+When custom Loader and Transformer classes are created, they can be used simply by changing DATA_LOADER and DATA_TRANSFORMER variables in config.py file.
 
 
