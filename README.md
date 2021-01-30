@@ -63,7 +63,7 @@ By default the analyzer works with Nordea internet bank data, with certain data 
 
 Loader loads the raw data from files. It needs to inherit and implement LoaderInterface class.
 
-Transformer collects relevant information from raw data and converts it to specified format that can be handled by application. It needs to inherit and implement BaseTransformer class. Output of Transformer is validated. It needs to pass validation checks defined in data_processing/transformers/validation.py file:
+Transformer collects relevant information from raw data and converts it to specified format that can be handled by application. It needs to inherit and implement TransformerInterface class. Output of Transformer is validated. It needs to pass validation checks defined in data_processing/validation.py file:
 
 ```
 schema = pandas_schema.Schema([

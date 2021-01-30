@@ -2,10 +2,10 @@ from datetime import datetime
 
 import pandas as pd
 
-from data_processing.transformers.base_transformer import BaseTransformer
+from data_processing.transformers.transformer_interface import TransformerInterface
 
 
-class NordeaTransformer(BaseTransformer):
+class NordeaTransformer(TransformerInterface):
     mapping = {
         "target": "Saaja/Maksaja",
         "message": "Viesti",
@@ -15,7 +15,7 @@ class NordeaTransformer(BaseTransformer):
         "account_number": "Tilinumero"
     }
 
-    def _transform(self, data: pd.DataFrame) -> pd.DataFrame:
+    def transform(self, data: pd.DataFrame) -> pd.DataFrame:
         transformed_data = pd.DataFrame()
         for col_target, col_source in self.mapping.items():
             transformed_data[col_target] = data[col_source]
