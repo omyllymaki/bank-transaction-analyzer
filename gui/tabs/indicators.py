@@ -17,6 +17,7 @@ class IndicatorsTab(BaseTab):
 
     def __init__(self):
 
+        self.data = None
         self.indicator_values = None
         self.indicators_dict = {}
         self.analyser = DataAnalyzer()
@@ -63,10 +64,12 @@ class IndicatorsTab(BaseTab):
     def _grouping_option_changed(self):
         option_text = self.grouping_option_selector.currentText()
         self.group_by = self.grouping_options[option_text]
+        self._analyze_data_and_update_canvas()
 
     def _indicator_option_changed(self):
         self.current_indicator = self.indicator_selector.currentText()
         self.indicator_values = self.indicators_dict.get(self.current_indicator, None)
+        self._analyze_data_and_update_canvas()
 
     def _handle_load_indicators(self):
         file_path, _ = QFileDialog.getOpenFileName(caption='Choose indicators file for analysis', directory=".")
@@ -81,8 +84,12 @@ class IndicatorsTab(BaseTab):
         self._indicator_option_changed()
 
     def handle_data(self, data: pd.DataFrame):
-        if self.indicator_values is not None:
-            filtered_data = self.filter.filter(data,
+        self.data = data
+        self._analyze_data_and_update_canvas()
+
+    def _analyze_data_and_update_canvas(self):
+        if self.indicator_values is not None and self.data is not None:
+            filtered_data = self.filter.filter(self.data,
                                                min_value=self.indicator_values["min_value"],
                                                max_value=self.indicator_values["max_value"],
                                                target=self.indicator_values["target"],

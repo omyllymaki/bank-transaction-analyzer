@@ -37,9 +37,9 @@ class SideBar(QWidget):
         self.event_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
-        self.analyze_button = QPushButton('Analyze data')
+        self.filter_button = QPushButton('Filter data')
         self.load_button = QPushButton('Load data')
-        self.analyze_button.setDisabled(True)
+        self.filter_button.setDisabled(True)
         self._set_layout()
         self._set_connections()
 
@@ -61,12 +61,12 @@ class SideBar(QWidget):
         self.layout.addWidget(self.message_line)
         self.layout.addWidget(QLabel('Event contains (regexp pattern)'))
         self.layout.addWidget(self.event_line)
-        self.layout.addWidget(self.analyze_button)
+        self.layout.addWidget(self.filter_button)
         self.layout.addWidget(self.load_button)
 
     def _set_connections(self):
         self.load_button.clicked.connect(self._handle_load_data)
-        self.analyze_button.clicked.connect(self._handle_analyze_data)
+        self.filter_button.clicked.connect(self._handle_filter_data)
         self.min_value_line.textChanged.connect(self._handle_min_value_changed)
         self.max_value_line.textChanged.connect(self._handle_max_value_changed)
 
@@ -78,6 +78,7 @@ class SideBar(QWidget):
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._set_analyse_button_disabled_or_enabled()
+        self._handle_filter_data()
 
     def _set_dates_based_on_data(self):
         datetime_min = self.cleaned_data.time.min()
@@ -85,7 +86,7 @@ class SideBar(QWidget):
         self.min_date_selector.setSelectedDate(QtCore.QDate(datetime_min.year, datetime_min.month, datetime_min.day))
         self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
 
-    def _handle_analyze_data(self):
+    def _handle_filter_data(self):
         self.filtered_data = self.filter.filter(self.cleaned_data,
                                                 min_date=self._get_min_date(),
                                                 max_date=self._get_max_date(),
@@ -133,6 +134,6 @@ class SideBar(QWidget):
 
     def _set_analyse_button_disabled_or_enabled(self):
         if self.max_value_is_valid and self.min_value_is_valid and self.is_data_loaded:
-            self.analyze_button.setDisabled(False)
+            self.filter_button.setDisabled(False)
         else:
-            self.analyze_button.setDisabled(True)
+            self.filter_button.setDisabled(True)

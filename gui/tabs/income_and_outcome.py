@@ -15,6 +15,7 @@ class IncomeAndOutcomeTab(BaseTab):
     }
 
     def __init__(self):
+        self.data = None
         self.option_text = None
         self.group_by = list(self.options.values())[0]
         self.analyser = DataAnalyzer()
@@ -47,11 +48,16 @@ class IncomeAndOutcomeTab(BaseTab):
     def _option_changed(self):
         self.option_text = self.grouping_option_selector.currentText()
         self.group_by = self.options[self.option_text]
+        self._analyze_data_and_update_canvases()
 
     def handle_data(self, data: pd.DataFrame):
-        analysed_data = self.analyser.calculate_incomes_and_outcomes(data, self.group_by)
-        self.figure_income_and_outcome.plot(analysed_data['income'],
-                                            analysed_data['outcome'],
-                                            analysed_data.index.tolist())
+        self.data = data
+        self._analyze_data_and_update_canvases()
 
-        self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
+    def _analyze_data_and_update_canvases(self):
+        if self.data is not None:
+            analysed_data = self.analyser.calculate_incomes_and_outcomes(self.data, self.group_by)
+            self.figure_income_and_outcome.plot(analysed_data['income'],
+                                                analysed_data['outcome'],
+                                                analysed_data.index.tolist())
+            self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())

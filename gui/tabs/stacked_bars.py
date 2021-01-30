@@ -17,6 +17,7 @@ class StackedBarsTab(BaseTab):
     }
 
     def __init__(self):
+        self.data = None
         self.group_by = ["year"]
         self.current_output_option = "income"
 
@@ -60,25 +61,31 @@ class StackedBarsTab(BaseTab):
     def _set_connections(self):
         self.grouping_option_selector.currentIndexChanged.connect(self._grouping_option_changed)
         self.output_selector.currentIndexChanged.connect(self._output_option_changed)
-        self.threshold_line.textChanged.connect(self._handle_threshold_value_changed)
+        self.threshold_line.returnPressed.connect(self._handle_threshold_value_changed)
 
     def _grouping_option_changed(self):
         option_text = self.grouping_option_selector.currentText()
         self.group_by = self.grouping_options[option_text]
+        self._analyze_data_and_update_canvases()
 
     def _output_option_changed(self):
         self.current_output_option = self.output_selector.currentText()
+        self._analyze_data_and_update_canvases()
 
     def _handle_threshold_value_changed(self):
         self.threshold_value, self.threshold_value_is_valid = self.threshold_line.get_value()
+        self._analyze_data_and_update_canvases()
 
     def handle_data(self, data: pd.DataFrame):
+        self.data = data
+        self._analyze_data_and_update_canvases()
 
-        if self.threshold_value_is_valid:
+    def _analyze_data_and_update_canvases(self):
+        if self.threshold_value_is_valid and self.data is not None:
             if self.current_output_option == "income":
-                data_to_analyze = data[data.value > 0]
+                data_to_analyze = self.data[self.data.value > 0]
             else:
-                data_to_analyze = data[data.value < 0]
+                data_to_analyze = self.data[self.data.value < 0]
                 data_to_analyze["value"] = abs(data_to_analyze["value"])
 
             pivot_table = self.analyzer.calculate_pivot_table(data_to_analyze,

@@ -13,6 +13,7 @@ class TopIncomesAndOutComesTab(BaseTab):
     n_values_to_show = 15
 
     def __init__(self):
+        self.data = None
         self.selected_criteria = self.criteria_options[0]
         self.selected_output = self.output_options[0]
 
@@ -62,24 +63,31 @@ class TopIncomesAndOutComesTab(BaseTab):
 
     def _criteria_changed(self):
         self.selected_criteria = self.criteria_selector.currentText()
+        self._analyze_and_update_canvas()
 
     def _output_changed(self):
         self.selected_output = self.output_selector.currentText()
+        self._analyze_and_update_canvas()
 
     def _handle_slider_value_changed(self):
         self.current_slider_value = self.slider.value()
         self._update_canvas()
 
     def handle_data(self, data: pd.DataFrame):
-        incomes, outcomes = self.analyser.calculate_top_incomes_and_outcomes(data, self.selected_criteria)
-        if self.selected_output == "income":
-            values_to_show = incomes
-        else:
-            values_to_show = outcomes
-        self.values_to_show = values_to_show
-        self.slider.setValue(0)
-        self.slider.setMaximum(values_to_show.shape[0] - self.n_values_to_show)
-        self._update_canvas()
+        self.data = data
+        self._analyze_and_update_canvas()
+
+    def _analyze_and_update_canvas(self):
+        if self.data is not None:
+            incomes, outcomes = self.analyser.calculate_top_incomes_and_outcomes(self.data, self.selected_criteria)
+            if self.selected_output == "income":
+                values_to_show = incomes
+            else:
+                values_to_show = outcomes
+            self.values_to_show = values_to_show
+            self.slider.setValue(0)
+            self.slider.setMaximum(values_to_show.shape[0] - self.n_values_to_show)
+            self._update_canvas()
 
     def _update_canvas(self):
         values_to_show = self.values_to_show[
