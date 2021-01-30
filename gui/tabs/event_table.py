@@ -53,7 +53,8 @@ class EventTableTab(BaseTab):
         grouped = self.data.groupby("target", as_index=False)
         grouped_data = pd.DataFrame()
         grouped_data[["target", "sum"]] = grouped.sum()[["target", "value"]]
-        grouped_data["average"] = grouped.mean()["value"]
+        grouped_data["mean"] = grouped.mean()["value"]
+        grouped_data["median"] = grouped.median()["value"]
         grouped_data["min"] = grouped.min()["value"]
         grouped_data["max"] = grouped.max()["value"]
         grouped_data["count"] = grouped.count()["value"]
