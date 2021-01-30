@@ -12,15 +12,15 @@ class DataFrameModel(QtCore.QAbstractTableModel):
         self._data = data
 
     def rowCount(self, parent=None):
-        return len(self._data.values)
+        return self._data.shape[0]
 
     def columnCount(self, parent=None):
-        return self._data.columns.size
+        return self._data.shape[1]
 
     def data(self, index, role=QtCore.Qt.DisplayRole):
         if index.isValid():
             if role == QtCore.Qt.DisplayRole:
-                return str(self._data.values[index.row()][index.column()])
+                return str(self._data.iloc[index.row(), index.column()])
         return None
 
     def headerData(self, col, orientation, role):
