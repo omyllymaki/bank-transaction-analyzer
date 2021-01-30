@@ -40,6 +40,8 @@ class DataFilter:
             func, col, val = f
             if val is not None:
                 filtered_data = func(filtered_data, col, val)
+                if filtered_data.empty:
+                    return filtered_data
 
         return filtered_data
 
