@@ -2,7 +2,7 @@ import pandas as pd
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 
 from gui.sidebar import SideBar
-from gui.tabs import TabHandler
+from gui.tabs.tab_handler import TabHandler
 
 
 class MainView(QWidget):
@@ -23,4 +23,4 @@ class MainView(QWidget):
         self.sidebar.analyze_button_clicked.connect(self._handle_plotting)
 
     def _handle_plotting(self, data: pd.DataFrame):
-        self.tab_handler.show_data(data)
+        self.tab_handler.handle_data(data)
