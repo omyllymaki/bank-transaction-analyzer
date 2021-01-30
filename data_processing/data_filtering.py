@@ -21,26 +21,42 @@ class DataFilter:
                drop_data: Dict[str, list] = None
                ) -> pd.DataFrame:
 
+        filtered_data = data.copy()
         if drop_data is not None:
-            data = self._reject_rows(data, drop_data)
-        if min_date is not None:
-            data = data[data['time'] >= pd.to_datetime(min_date)]
-        if max_date is not None:
-            data = data[data['time'] <= pd.to_datetime(max_date)]
-        if target is not None:
-            data = data[data['target'].apply(self.regex_find, args=(target.strip(),))]
-        if account_number is not None:
-            data = data[data['account_number'].apply(self.regex_find, args=(account_number.strip(),))]
-        if message is not None:
-            data = data[data['message'].apply(self.regex_find, args=(message.strip(),))]
-        if event is not None:
-            data = data[data['event'].apply(self.regex_find, args=(event.strip(),))]
-        if min_value is not None:
-            data = data[data['value'] >= min_value]
-        if max_value is not None:
-            data = data[data['value'] <= max_value]
+            filtered_data = self._reject_rows(filtered_data, drop_data)
 
-        return data
+        filters = [
+            [self._date_min_filter, "time", min_date],
+            [self._date_max_filter, "time", max_date],
+            [self._float_min_filter, "value", min_value],
+            [self._float_max_filter, "value", max_value],
+            [self._string_filter, "target", target],
+            [self._string_filter, "account_number", account_number],
+            [self._string_filter, "message", message],
+            [self._string_filter, "event", event],
+        ]
+
+        for f in filters:
+            func, col, val = f
+            if val is not None:
+                filtered_data = func(filtered_data, col, val)
+
+        return filtered_data
+
+    def _date_min_filter(self, data, filter_by, date):
+        return data[data[filter_by] >= pd.to_datetime(date)]
+
+    def _date_max_filter(self, data, filter_by, date):
+        return data[data[filter_by] <= pd.to_datetime(date)]
+
+    def _float_min_filter(self, data, filter_by, value):
+        return data[data[filter_by] >= value]
+
+    def _float_max_filter(self, data, filter_by, value):
+        return data[data[filter_by] <= value]
+
+    def _string_filter(self, data, filter_by, pattern):
+        return data[data[filter_by].apply(self.regex_find, args=(pattern.strip(),))]
 
     @staticmethod
     def _reject_rows(data: pd.DataFrame, drop_data: Dict[str, list]) -> pd.DataFrame:
