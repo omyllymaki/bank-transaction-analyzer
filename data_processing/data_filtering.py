@@ -1,7 +1,9 @@
 import datetime
+import re
 from typing import Dict
 
 import pandas as pd
+import regex
 
 
 class DataFilter:
@@ -26,13 +28,13 @@ class DataFilter:
         if max_date is not None:
             data = data[data['time'] <= pd.to_datetime(max_date)]
         if target is not None:
-            data = data[data['target'].str.contains(target.strip(), na=False, case=False)]
+            data = data[data['target'].apply(self.regex_find, args=(target.strip(),))]
         if account_number is not None:
-            data = data[data['account_number'].str.contains(account_number.strip(), na=False)]
+            data = data[data['account_number'].apply(self.regex_find, args=(account_number.strip(),))]
         if message is not None:
-            data = data[data['message'].str.contains(message.strip(), na=False, case=False)]
+            data = data[data['message'].apply(self.regex_find, args=(message.strip(),))]
         if event is not None:
-            data = data[data['event'].str.contains(event.strip(), na=False, case=False)]
+            data = data[data['event'].apply(self.regex_find, args=(event.strip(),))]
         if min_value is not None:
             data = data[data['value'] >= min_value]
         if max_value is not None:
@@ -45,3 +47,8 @@ class DataFilter:
         for column_name, row_name in drop_data.items():
             data = data.loc[~data[column_name].isin(row_name)]
         return data
+
+    @staticmethod
+    def regex_find(string, pattern):
+        match = regex.search(pattern, string, flags=re.IGNORECASE)
+        return match is not None
