@@ -297,6 +297,8 @@ class EventTableTab(QTabWidget):
             table_data = pd.DataFrame()
             table_data[["target", "sum"]] = grouped.sum()[["target", "value"]].sort_values("value")
             table_data["average"] = grouped.mean()["value"]
+            table_data["min"] = grouped.min()["value"]
+            table_data["max"] = grouped.max()["value"]
             table_data["count"] = grouped.count()["value"]
             model = DataFrameModel(table_data)
         else:
