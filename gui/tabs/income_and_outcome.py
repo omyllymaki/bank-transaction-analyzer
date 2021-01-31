@@ -2,7 +2,8 @@ import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
 from data_processing.data_analyzer import DataAnalyzer
-from gui.canvases import DoubleBarCanvas, BarCanvas
+from gui.canvases.bar_canvas import BarCanvas
+from gui.canvases.double_bar_canvas import DoubleBarCanvas
 from gui.tabs.base_tab import BaseTab
 
 

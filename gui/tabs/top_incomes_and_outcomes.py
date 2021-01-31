@@ -3,7 +3,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QComboBox, QSlider, QVBoxLayout, QHBoxLayout, QLabel
 
 from data_processing.data_analyzer import DataAnalyzer
-from gui.canvases import BarHorizontalCanvas
+from gui.canvases.bar_horizontal_canvas import BarHorizontalCanvas
 from gui.tabs.base_tab import BaseTab
 
 
