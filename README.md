@@ -57,6 +57,10 @@ Some simulated test data is also provided (in test_data folder). This data can b
 <img src="screenshots/events.jpg" width="800px" />
 </p>
 
+<p align="center">
+<img src="screenshots/events_grouped.jpg" width="800px" />
+</p>
+
 ## Using application with non-default data format
 
 By default the analyzer works with Nordea internet bank data, with certain data format. However, the application can be used with other data formats too. This is done by implementing custom Loader and Transformer class.
