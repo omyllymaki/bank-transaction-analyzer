@@ -7,10 +7,11 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 
 
 class BaseCanvas(QWidget):
-    def __init__(self, figure_title='', x_axis_title='', y_axis_title='', add_toolbar=True):
+    def __init__(self, figure_title='', x_axis_title='', y_axis_title='', add_toolbar=True, add_grid=True):
         super().__init__()
 
         self.add_toolbar = add_toolbar
+        self.add_grid = add_grid
         self.figure_title = figure_title
         self.x_axis_title = x_axis_title
         self.y_axis_title = y_axis_title
@@ -41,7 +42,8 @@ class BaseCanvas(QWidget):
         self.axes.set_title(self.figure_title)
         self.axes.set_xlabel(self.x_axis_title)
         self.axes.set_ylabel(self.y_axis_title)
-        self.axes.grid()
+        if self.add_grid:
+            self.axes.grid()
         self.figure.subplots_adjust(bottom=0.3)
         self.canvas.draw()
 

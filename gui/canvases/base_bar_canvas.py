@@ -6,8 +6,8 @@ import numpy as np
 
 class BaseBarCanvas(BaseCanvas):
 
-    def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
-        super().__init__(figure_title, x_axis_title, y_axis_title)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self._initialize_figure()
 
     def _add_hover(self):
@@ -53,14 +53,6 @@ class BaseBarCanvas(BaseCanvas):
 
     def _plot_bar(self, y, x_labels=None, x_offset=0.0, plot_average=True, color="b", add_hover=True, *args, **kwargs):
         x = np.array([k for k in range(len(y))])
-        if x_labels is None:
-            x_labels = ['' for k in y]
-
-        n = int(x.shape[0] / 15)
-        if n == 0:
-            n = 1
-        x_subset = x[::n]
-        x_labels_subset = x_labels[::n]
 
         self.axes.bar(x + x_offset, y, color=color, picker=add_hover, *args, **kwargs)
 
@@ -68,8 +60,20 @@ class BaseBarCanvas(BaseCanvas):
             y_mean = [np.mean(y) for _ in y]
             self.axes.plot(x, y_mean, "--", color=color)
 
-        self.axes.set_xticks(x_subset)
-        self.axes.set_xticklabels(x_labels_subset, rotation=-60)
+        if x_labels is None:
+            x_labels = ['' for k in y]
+        self._set_xlabels(x_labels)
 
         if add_hover:
             self._add_hover()
+
+    def _set_xlabels(self, x_labels):
+        x = np.array([k for k in range(len(x_labels))])
+        n = int(x.shape[0] / 15)
+        if n == 0:
+            n = 1
+        x_subset = x[::n]
+        x_labels_subset = x_labels[::n]
+
+        self.axes.set_xticks(x_subset)
+        self.axes.set_xticklabels(x_labels_subset, rotation=-60)

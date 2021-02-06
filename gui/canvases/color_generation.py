@@ -23,7 +23,7 @@ def generate_new_color(existing_colors, pastel_factor=0.5):
     return best_color
 
 
-def generate_colors(n, pastel_factor=0.9):
+def generate_colors(n, pastel_factor=0.1):
     colors = []
     for i in range(0, n):
         colors.append(generate_new_color(colors, pastel_factor=pastel_factor))
