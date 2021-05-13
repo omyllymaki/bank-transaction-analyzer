@@ -15,9 +15,7 @@ By default the analyzer works with Nordea internet bank data but can be customiz
 **Installation using virtualenv (Ubuntu)**
 
 ```
-virtualenv -p python3 venv
-source venv/bin/activate
-pip install -r requirements.txt
+./install.sh
 ```
 
 **Creating indicators**
