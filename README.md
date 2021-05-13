@@ -8,7 +8,7 @@ By default the analyzer works with Nordea internet bank data but can be customiz
 
 * Install Python >= 3.6.
 * Install requirements.
-* Fill parameters to config.py.
+* Fill parameters to config.json.
 * Write your own indicators if you like (see indicators.csv for example)
 
 
@@ -25,7 +25,7 @@ Indicator is a thing you want to follow over time. It can be e.g. salary, travel
 ## Usage
 
 * Export your data from Nordea internet bank (Tilit / Tilitapahtumat ja tilin tiedot / Tapahtumaluettelo).
-* Start GUI program from command line by typing ```python3 main.py``` or simply ```./run.sh``` if you are using virtualenv with Ubuntu.
+* Start GUI program from command line by typing ```python3 main.py [-- config config_path]``` or simply ```./run.sh``` if you are using virtualenv with Ubuntu.
 * Load data with load button which opens file dialog where you can choose multiple files for analysis.
 * Set filter values and analyze you data by pressing Analyze data; this updates the figures.
 * Change tabs to see different views and analyses for your data.
@@ -78,6 +78,6 @@ schema = pandas_schema.Schema([
     ])
 ```
 
-When custom Loader and Transformer classes are created, they can be used simply by changing DATA_LOADER and DATA_TRANSFORMER variables in config.py file.
+When custom Loader and Transformer classes are created, they can be used by adding bank option to data_processing/bank_selection.py file and selecting that bank in config.json file.
 
 
