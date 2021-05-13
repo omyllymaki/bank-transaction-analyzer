@@ -1,0 +1,13 @@
+{
+    "drop_data": {
+        "target": [
+            "x",
+            "y"
+        ],
+        "event": [
+            "z"
+        ]
+    },
+    "default_data_dir": "./test_data",
+    "bank": "Nordea"
+}

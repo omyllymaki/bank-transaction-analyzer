@@ -6,9 +6,11 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog
 
-from config import DEFAULT_DATA_DIR, DROP_DATA
+from data_processing.bank_selection import get_bank
 from data_processing.data_filtering import DataFilter
+from data_processing.loaders.nordea_loader import NordeaLoader
 from data_processing.prepare_data import prepare_data
+from data_processing.transformers.nordea_transformer import NordeaTransformer
 from gui.widgets import FloatLineEdit
 from gui.dialog_boxes import show_warning
 
@@ -16,9 +18,10 @@ from gui.dialog_boxes import show_warning
 class SideBar(QWidget):
     analyze_button_clicked = pyqtSignal(pd.DataFrame)
 
-    def __init__(self):
+    def __init__(self, config):
         super().__init__()
 
+        self.config = config
         self.cleaned_data = None
         self.filtered_data = None
         self.min_value = None
@@ -74,7 +77,12 @@ class SideBar(QWidget):
         file_paths = self._get_file_paths()
         if not file_paths:
             return None
-        self.cleaned_data = prepare_data(file_paths, DROP_DATA)
+
+        bank = get_bank(self.config["bank"])
+        self.cleaned_data = prepare_data(file_paths=file_paths,
+                                         data_loader=bank.loader,
+                                         data_transformer=bank.transformer,
+                                         drop_data=self.config["drop_data"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._set_analyse_button_disabled_or_enabled()
@@ -103,7 +111,8 @@ class SideBar(QWidget):
             self.analyze_button_clicked.emit(self.filtered_data)
 
     def _get_file_paths(self) -> List[str]:
-        file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis', directory=DEFAULT_DATA_DIR)
+        file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis',
+                                                     directory=self.config["default_data_dir"])
         return file_paths
 
     def _get_min_date(self) -> datetime:

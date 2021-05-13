@@ -5,8 +5,8 @@ from gui.main_view import MainView
 
 
 class MainWindow(QMainWindow):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__(flags=Qt.Window)
         self.setWindowTitle('Bank Transaction Analyzer')
-        self.main_view = MainView()
+        self.main_view = MainView(config)
         self.setCentralWidget(self.main_view)

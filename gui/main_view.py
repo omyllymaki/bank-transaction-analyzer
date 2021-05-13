@@ -6,9 +6,9 @@ from gui.tabs.tab_handler import TabHandler
 
 
 class MainView(QWidget):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__()
-        self.sidebar = SideBar()
+        self.sidebar = SideBar(config)
         self.tab_handler = TabHandler()
         self._set_layout()
         self._set_connections()
