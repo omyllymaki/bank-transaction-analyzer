@@ -25,7 +25,7 @@ Indicator is a thing you want to follow over time. It can be e.g. salary, travel
 ## Usage
 
 * Export your data from Nordea internet bank (Tilit / Tilitapahtumat ja tilin tiedot / Tapahtumaluettelo).
-* Start GUI program from command line by typing ```python3 main.py [-- config config_path]``` or simply ```./run.sh``` if you are using virtualenv with Ubuntu.
+* Start GUI program from command line by typing ```python3 main.py [-- config config_path]``` or simply ```./run.sh [config_path]``` if you are using virtualenv with Ubuntu.
 * Load data with load button which opens file dialog where you can choose multiple files for analysis.
 * Set filter values and analyze you data by pressing Analyze data; this updates the figures.
 * Change tabs to see different views and analyses for your data.
