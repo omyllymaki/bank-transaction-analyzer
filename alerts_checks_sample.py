@@ -37,7 +37,8 @@ class MonthlyOutcome(Check):
     error_function = log_error
     name = "Monthly outcome"
 
-    def calculate_values(self, data: pd.DataFrame):
+    @classmethod
+    def calculate_values(cls, data: pd.DataFrame):
         df = data[data.value < 0]
         df.value = abs(df.value)
         return df.groupby(["year", "month"]).sum().value
@@ -49,7 +50,8 @@ class LargestOutcome(Check):
     error_function = log_error
     name = "Largest outcome"
 
-    def calculate_values(self, data: pd.DataFrame):
+    @classmethod
+    def calculate_values(cls, data: pd.DataFrame):
         df = data[data.value < 0]
         df.value = abs(df.value)
         return df.value.max()
@@ -61,7 +63,8 @@ class MonthlyIncomesMean(Check):
     error_function = log_error
     name = "Monthly income mean"
 
-    def calculate_values(self, data: pd.DataFrame):
+    @classmethod
+    def calculate_values(cls, data: pd.DataFrame):
         df = data[data.value > 0]
         return df.groupby(["year", "month"]).value.mean().mean()
 
@@ -72,7 +75,8 @@ class Duplicates(Check):
     error_function = log_error
     name = "Number of duplicates"
 
-    def calculate_values(self, data: pd.DataFrame):
+    @classmethod
+    def calculate_values(cls, data: pd.DataFrame):
         return data.duplicated().sum()
 
 

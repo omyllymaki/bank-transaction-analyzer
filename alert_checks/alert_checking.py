@@ -10,9 +10,8 @@ def run_checks(data: pd.DataFrame, alert_checks: list) -> None:
     logger.info("Start alert checks")
     n_checks = len(alert_checks)
     n_passed = 0
-    for i, check_class in enumerate(alert_checks, 1):
+    for i, check in enumerate(alert_checks, 1):
 
-        check = check_class()
         logger.info(f"Performing check {i}/{n_checks}: {check.name}")
         values = check.calculate_values(data.copy())
         if not isinstance(values, Iterable):
@@ -20,10 +19,10 @@ def run_checks(data: pd.DataFrame, alert_checks: list) -> None:
 
         all_values_ok = True
         for value in values:
-            is_ok = check_class.comparison_function(value, check.expected)
+            is_ok = check.comparison_function(value, check.expected)
             logger.debug(is_ok, value, check.expected)
             if not is_ok:
-                check_class.error_function(check.name, value, check.expected)
+                check.error_function(check.name, value, check.expected)
                 all_values_ok = False
 
         if all_values_ok:

@@ -1,8 +1,7 @@
-from abc import abstractmethod
 from typing import List, Union
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from alert_checks.error_functions import log_error
 
@@ -13,6 +12,6 @@ class Check:
     name = None
     error_function = log_error
 
-    @abstractmethod
-    def calculate_values(self, data: pd.DataFrame) -> Union[List[float], float, np.ndarray, pd.Series]:
+    @classmethod
+    def calculate_values(cls, data: pd.DataFrame) -> Union[List[float], float, np.ndarray, pd.Series]:
         raise NotImplementedError
