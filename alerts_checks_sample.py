@@ -14,20 +14,16 @@ from data_processing.prepare_data import prepare_data
 pd.options.mode.chained_assignment = None  # default='warn'
 
 PATH = "./test_data"
-CONFIG = "config.json"
 
 logging.basicConfig(level=logging.INFO)
 
 
 def load_data() -> pd.DataFrame:
-    with open(CONFIG) as f:
-        config = json.load(f)
     files = [os.path.join(PATH, f) for f in os.listdir(PATH) if f.endswith(".txt")]
-    bank = get_bank(config["bank"])
+    bank = get_bank("Nordea")
     data = prepare_data(file_paths=files,
                         data_loader=bank.loader,
-                        data_transformer=bank.transformer,
-                        drop_data=config["drop_data"])
+                        data_transformer=bank.transformer)
     return data
 
 
