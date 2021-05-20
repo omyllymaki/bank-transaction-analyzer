@@ -1,13 +1,10 @@
-import json
 import logging
 import os
 
 import pandas as pd
 
-from alert_checks.alert_checking import run_checks
-from alert_checks.check_interface import Check
-from alert_checks.comparators import is_equal, is_smaller, is_larger
-from alert_checks.error_functions import log_error
+from alert_checks.check import Check
+from alert_checks.checker import Checker
 from data_processing.bank_selection import get_bank
 from data_processing.prepare_data import prepare_data
 
@@ -28,58 +25,54 @@ def load_data() -> pd.DataFrame:
 
 
 class MonthlyOutcome(Check):
-    expected = 3500.0
-    comparison_function = is_smaller
-    error_function = log_error
-    name = "Monthly outcome"
 
-    @classmethod
-    def calculate_values(cls, data: pd.DataFrame):
+    def calculate_values(self, data: pd.DataFrame):
         df = data[data.value < 0]
         df.value = abs(df.value)
         return df.groupby(["year", "month"]).sum().value
 
+    def is_ok(self, value) -> bool:
+        return value < self.ref_val
+
 
 class LargestOutcome(Check):
-    expected = 1000.0
-    comparison_function = is_smaller
-    error_function = log_error
-    name = "Largest outcome"
 
-    @classmethod
-    def calculate_values(cls, data: pd.DataFrame):
+    def calculate_values(self, data: pd.DataFrame):
         df = data[data.value < 0]
         df.value = abs(df.value)
         return df.value.max()
 
+    def is_ok(self, value) -> bool:
+        return value < self.ref_val
+
 
 class MonthlyIncomesMean(Check):
-    expected = 1000.0
-    comparison_function = is_larger
-    error_function = log_error
-    name = "Monthly income mean"
 
-    @classmethod
-    def calculate_values(cls, data: pd.DataFrame):
+    def calculate_values(self, data: pd.DataFrame):
         df = data[data.value > 0]
         return df.groupby(["year", "month"]).value.mean().mean()
 
+    def is_ok(self, value) -> bool:
+        return value > self.ref_val
+
 
 class Duplicates(Check):
-    expected = 0
-    comparison_function = is_equal
-    error_function = log_error
-    name = "Number of duplicates"
 
-    @classmethod
-    def calculate_values(cls, data: pd.DataFrame):
+    def calculate_values(self, data: pd.DataFrame):
         return data.duplicated().sum()
+
+    def is_ok(self, value) -> bool:
+        return value == self.ref_val
 
 
 def main():
     data = load_data()
-    alert_checks = [MonthlyOutcome, LargestOutcome, MonthlyIncomesMean, Duplicates]
-    run_checks(data, alert_checks)
+    checks = [MonthlyOutcome(1000.0),
+              LargestOutcome(1000),
+              MonthlyIncomesMean(1000),
+              Duplicates(0)]
+    checker = Checker()
+    checker.run(data, checks)
 
 
 if __name__ == "__main__":
