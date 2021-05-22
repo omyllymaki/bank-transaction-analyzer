@@ -53,3 +53,6 @@ class Check:
     @classmethod
     def get_class_name(cls) -> str:
         return cls.__name__
+
+    def __repr__(self):
+        return self.name
