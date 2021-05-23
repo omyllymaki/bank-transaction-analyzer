@@ -68,10 +68,10 @@ class CheckRunner:
     @staticmethod
     def visualize_results(test_values, ref_values, results, title):
         x = np.array([k for k in range(len(test_values))])
-        plt.bar(x, test_values, color='b')
+        plt.bar(x, test_values, color='g')
         plt.bar(x[~np.array(results)], np.array(test_values)[~np.array(results)], color='r')
         if len(ref_values) > 1:
-            plt.plot(x, ref_values, color="r")
+            plt.plot(x, ref_values, color="k", linewidth=2)
         else:
             plt.plot([x - 0.5, x + 0.5], [ref_values, ref_values], "r")
         plt.title(title)

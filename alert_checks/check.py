@@ -29,10 +29,6 @@ class Check:
     on_fail = OnFail.log_error
 
     def __init__(self):
-        if self.ref_values is None:
-            raise Exception("Reference values needs to be provided")
-        if self.criteria is None:
-            raise Exception("Criteria needs to be provided")
         if self.name is None:
             self.name = self.get_class_name()
 
@@ -53,7 +49,7 @@ class StandardCheck(Check):
     group_by = None
     aggregation = None
 
-    def __init__(self):
+    def __init__(self, ):
         super().__init__()
 
     def pipeline(self, df: pd.DataFrame) -> Union[float, List[float]]:
