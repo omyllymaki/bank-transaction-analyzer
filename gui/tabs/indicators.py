@@ -89,13 +89,7 @@ class IndicatorsTab(BaseTab):
 
     def _analyze_data_and_update_canvas(self):
         if self.indicator_values is not None and self.data is not None:
-            filtered_data = self.filter.filter(self.data,
-                                               min_value=self.indicator_values["min_value"],
-                                               max_value=self.indicator_values["max_value"],
-                                               target=self.indicator_values["target"],
-                                               message=self.indicator_values["message"],
-                                               account_number=self.indicator_values["account_number"],
-                                               event=self.indicator_values["event"])
+            filtered_data = self.filter.filter(self.data, **self.indicator_values)
             analysed_data = self.analyser.calculate_incomes_and_outcomes(filtered_data, self.group_by)
             self.figure_value.plot(analysed_data['total'], analysed_data.index.tolist())
             self.figure_cumulative.plot(analysed_data['total_cumulative'],
