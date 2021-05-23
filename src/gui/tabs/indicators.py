@@ -15,7 +15,7 @@ class IndicatorsTab(BaseTab):
         "Day": ["year", "month", "day"]
     }
 
-    def __init__(self):
+    def __init__(self, config):
 
         self.data = None
         self.indicator_values = None
@@ -29,17 +29,17 @@ class IndicatorsTab(BaseTab):
 
         self.indicator_selector = QComboBox()
 
-        self.load_button = QPushButton('Load indicators')
-
         self.figure_value = BarCanvas(y_axis_title='Amount (EUR)')
         self.figure_cumulative = BarCanvas(y_axis_title='Cumulative amount (EUR)')
+
+        indicators_path = config.get("indicators")
+        if indicators_path is not None:
+            self._load_indicators(indicators_path)
 
         super().__init__()
 
     def _set_layout(self):
         self.layout = QVBoxLayout()
-
-        self.layout.addWidget(self.load_button)
 
         grouping_layout = QHBoxLayout()
         grouping_layout.addWidget(QLabel("Grouping"))
@@ -59,7 +59,6 @@ class IndicatorsTab(BaseTab):
     def _set_connections(self):
         self.grouping_option_selector.currentIndexChanged.connect(self._grouping_option_changed)
         self.indicator_selector.currentIndexChanged.connect(self._indicator_option_changed)
-        self.load_button.clicked.connect(self._handle_load_indicators)
 
     def _grouping_option_changed(self):
         option_text = self.grouping_option_selector.currentText()
@@ -71,10 +70,7 @@ class IndicatorsTab(BaseTab):
         self.indicator_values = self.indicators_dict.get(self.current_indicator, None)
         self._analyze_data_and_update_canvas()
 
-    def _handle_load_indicators(self):
-        file_path, _ = QFileDialog.getOpenFileName(caption='Choose indicators file for analysis', directory=".")
-        if not file_path:
-            return None
+    def _load_indicators(self, file_path):
         indicators = pd.read_csv(file_path)
         indicators = indicators.where(pd.notnull(indicators), None)
         indicators.set_index("name", inplace=True)

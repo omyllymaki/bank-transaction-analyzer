@@ -9,7 +9,7 @@ class MainView(QWidget):
     def __init__(self, config):
         super().__init__()
         self.sidebar = SideBar(config)
-        self.tab_handler = TabHandler()
+        self.tab_handler = TabHandler(config)
         self._set_layout()
         self._set_connections()
 

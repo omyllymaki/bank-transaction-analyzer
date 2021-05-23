@@ -9,5 +9,6 @@
         ]
     },
     "default_data_dir": "./test_data",
+    "indicators": "indicators.csv",
     "bank": "Nordea"
 }

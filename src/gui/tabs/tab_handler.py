@@ -9,14 +9,14 @@ from src.gui.tabs.top_incomes_and_outcomes import TopIncomesAndOutComesTab
 
 
 class TabHandler(QWidget):
-    def __init__(self):
+    def __init__(self, config):
         super().__init__()
 
         self.tabs = {
             'Income/outcome vs time': IncomeAndOutcomeTab(),
             'Income/outcome by target': TopIncomesAndOutComesTab(),
             'Stacked bars': StackedBarsTab(),
-            'Indicators': IndicatorsTab(),
+            'Indicators': IndicatorsTab(config),
             'Events': EventTableTab(),
         }
 
