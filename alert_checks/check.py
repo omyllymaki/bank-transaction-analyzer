@@ -1,54 +1,44 @@
 import logging
 from abc import abstractmethod
-from collections import Iterable
-from typing import Tuple, Union
+from enum import Enum
+from typing import List, Union
 
 import pandas as pd
-import numpy as np
+
+from data_processing.data_filtering import DataFilter
 
 logger = logging.getLogger(__name__)
 
-Values = Union[list, float, int, np.ndarray]
+
+class Criteria(Enum):
+    larger = lambda _, val, ref: val > ref
+    smaller = lambda _, val, ref: val < ref
+    equal = lambda _, val, ref: val == ref
+
+
+class OnFail(Enum):
+    log_error = lambda _, msg: logger.error(msg)
+    exception = lambda _, msg: Exception(msg)
 
 
 class Check:
+    ref_values = None
+    criteria = None
+    name = None
+    column = "value"
+    on_fail = OnFail.log_error
 
-    def __init__(self, name=None):
-        if name is None:
+    def __init__(self):
+        if self.ref_values is None:
+            raise Exception("Reference values needs to be provided")
+        if self.criteria is None:
+            raise Exception("Criteria needs to be provided")
+        if self.name is None:
             self.name = self.get_class_name()
 
     @abstractmethod
-    def calculate_values(self, data: pd.DataFrame) -> Tuple[Values, Values]:
+    def pipeline(self, df: pd.DataFrame) -> Union[List[float], float]:
         raise NotImplementedError
-
-    @abstractmethod
-    def is_ok(self, test_value, ref_value) -> bool:
-        raise NotImplementedError
-
-    def on_fail(self, value, ref_val):
-        logger.error(f"Check {self.name} doesn't pass: calculated {value}; reference {ref_val}")
-
-    def run(self, data: pd.DataFrame):
-        self.calculate_values(data)
-        test_values, ref_values = self.calculate_values(data)
-
-        if not isinstance(test_values, Iterable):
-            test_values = [test_values]
-        if not isinstance(ref_values, Iterable):
-            ref_values = [ref_values for _ in range(len(test_values))]
-
-        if len(test_values) != len(ref_values):
-            raise Exception("Number of calculated values doesn't match with number of reference values")
-
-        all_values_ok = True
-        for value, ref_value in zip(test_values, ref_values):
-            is_ok = self.is_ok(value, ref_value)
-            logger.debug(f"Test: {is_ok}, {value}, {ref_value}")
-            if not is_ok:
-                self.on_fail(value, ref_value)
-                all_values_ok = False
-
-        return all_values_ok
 
     @classmethod
     def get_class_name(cls) -> str:
@@ -56,3 +46,22 @@ class Check:
 
     def __repr__(self):
         return self.name
+
+
+class StandardCheck(Check):
+    filtering = None
+    group_by = None
+    aggregation = None
+
+    def __init__(self):
+        super().__init__()
+
+    def pipeline(self, df: pd.DataFrame) -> Union[float, List[float]]:
+        if self.filtering:
+            df = DataFilter().filter(df, **self.filtering)
+        if self.group_by:
+            df = df.groupby(self.group_by)
+        if self.aggregation:
+            df = df.agg(self.aggregation)
+        return df[self.column].tolist()
+
