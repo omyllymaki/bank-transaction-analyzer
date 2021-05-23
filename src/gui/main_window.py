@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow
 
 from constants import SW_VERSION
-from gui.main_view import MainView
+from src.gui.main_view import MainView
 
 
 class MainWindow(QMainWindow):

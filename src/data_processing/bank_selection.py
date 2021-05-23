@@ -1,5 +1,5 @@
-from data_processing.loaders.nordea_loader import NordeaLoader
-from data_processing.transformers.nordea_transformer import NordeaTransformer
+from src.data_processing.loaders.nordea_loader import NordeaLoader
+from src.data_processing.transformers.nordea_transformer import NordeaTransformer
 
 
 class UnsupportedBankOption(Exception):

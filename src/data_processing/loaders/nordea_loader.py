@@ -2,7 +2,7 @@ from typing import List
 
 import pandas as pd
 
-from data_processing.loaders.loader_interface import LoaderInterface
+from src.data_processing.loaders.loader_interface import LoaderInterface
 
 
 class NordeaLoader(LoaderInterface):

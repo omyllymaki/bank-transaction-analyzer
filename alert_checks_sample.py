@@ -2,12 +2,12 @@ import os
 
 import pandas as pd
 
-from alert_checks.alert_logging import configure_logging
-from alert_checks.check import Check, Criteria, StandardCheck
-from alert_checks.check_runner import CheckRunner
-from alert_checks.utils import checks_from_csv
-from data_processing.bank_selection import get_bank
-from data_processing.prepare_data import prepare_data
+from src.alert_checks.alert_logging import configure_logging
+from src.alert_checks.check import Check, Criteria
+from src.alert_checks.check_runner import CheckRunner
+from src.alert_checks.utils import checks_from_csv
+from src.data_processing.bank_selection import get_bank
+from src.data_processing.prepare_data import prepare_data
 
 pd.options.mode.chained_assignment = None  # default='warn'
 

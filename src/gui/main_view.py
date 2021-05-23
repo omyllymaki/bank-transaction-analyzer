@@ -1,8 +1,8 @@
 import pandas as pd
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 
-from gui.sidebar import SideBar
-from gui.tabs.tab_handler import TabHandler
+from src.gui.sidebar import SideBar
+from src.gui.tabs.tab_handler import TabHandler
 
 
 class MainView(QWidget):

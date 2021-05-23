@@ -2,7 +2,7 @@ from typing import List
 
 import numpy as np
 
-from gui.canvases.base_bar_canvas import BaseBarCanvas
+from src.gui.canvases.base_bar_canvas import BaseBarCanvas
 
 
 class BarCanvas(BaseBarCanvas):

@@ -1,7 +1,7 @@
 import pandas as pd
 
-from gui.canvases.base_bar_canvas import BaseBarCanvas
-from gui.canvases.color_generation import generate_colors
+from src.gui.canvases.base_bar_canvas import BaseBarCanvas
+from src.gui.canvases.color_generation import generate_colors
 
 
 class StackedBarsCanvas(BaseBarCanvas):

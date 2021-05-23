@@ -1,10 +1,10 @@
 import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
-from data_processing.data_analyzer import DataAnalyzer
-from gui.canvases.stacked_bar_canvas import StackedBarsCanvas
-from gui.tabs.base_tab import BaseTab
-from gui.widgets import FloatLineEdit
+from src.data_processing.data_analyzer import DataAnalyzer
+from src.gui.canvases.stacked_bar_canvas import StackedBarsCanvas
+from src.gui.tabs.base_tab import BaseTab
+from src.gui.widgets import FloatLineEdit
 
 
 class StackedBarsTab(BaseTab):

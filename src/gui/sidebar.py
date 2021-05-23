@@ -6,13 +6,11 @@ from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog
 
-from data_processing.bank_selection import get_bank
-from data_processing.data_filtering import DataFilter
-from data_processing.loaders.nordea_loader import NordeaLoader
-from data_processing.prepare_data import prepare_data
-from data_processing.transformers.nordea_transformer import NordeaTransformer
-from gui.widgets import FloatLineEdit
-from gui.dialog_boxes import show_warning
+from src.data_processing.bank_selection import get_bank
+from src.data_processing.data_filtering import DataFilter
+from src.data_processing.prepare_data import prepare_data
+from src.gui.widgets import FloatLineEdit
+from src.gui.dialog_boxes import show_warning
 
 
 class SideBar(QWidget):

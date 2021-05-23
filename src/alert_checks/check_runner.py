@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 
-from alert_checks.check import StandardCheck
+from src.alert_checks.check import StandardCheck
 
 logger = logging.getLogger(__name__)
 

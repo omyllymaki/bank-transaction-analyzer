@@ -1,6 +1,6 @@
 from matplotlib.patches import Rectangle
 
-from gui.canvases.base_canvas import BaseCanvas
+from src.gui.canvases.base_canvas import BaseCanvas
 import numpy as np
 
 

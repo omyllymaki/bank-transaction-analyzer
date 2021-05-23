@@ -2,7 +2,7 @@ from datetime import datetime
 
 import pandas as pd
 
-from data_processing.transformers.transformer_interface import TransformerInterface
+from src.data_processing.transformers.transformer_interface import TransformerInterface
 
 
 class NordeaTransformer(TransformerInterface):

@@ -5,7 +5,7 @@ from typing import List, Union
 
 import pandas as pd
 
-from data_processing.data_filtering import DataFilter
+from src.data_processing.data_filtering import DataFilter
 
 logger = logging.getLogger(__name__)
 

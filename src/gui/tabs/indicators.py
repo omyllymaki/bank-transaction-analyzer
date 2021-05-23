@@ -1,10 +1,10 @@
 import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QFileDialog
 
-from data_processing.data_analyzer import DataAnalyzer
-from data_processing.data_filtering import DataFilter
-from gui.canvases.bar_canvas import BarCanvas
-from gui.tabs.base_tab import BaseTab
+from src.data_processing.data_analyzer import DataAnalyzer
+from src.data_processing.data_filtering import DataFilter
+from src.gui.canvases.bar_canvas import BarCanvas
+from src.gui.tabs.base_tab import BaseTab
 
 
 class IndicatorsTab(BaseTab):

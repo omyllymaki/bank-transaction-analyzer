@@ -2,9 +2,9 @@ import pandas as pd
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QComboBox, QSlider, QVBoxLayout, QHBoxLayout, QLabel
 
-from data_processing.data_analyzer import DataAnalyzer
-from gui.canvases.bar_horizontal_canvas import BarHorizontalCanvas
-from gui.tabs.base_tab import BaseTab
+from src.data_processing.data_analyzer import DataAnalyzer
+from src.gui.canvases.bar_horizontal_canvas import BarHorizontalCanvas
+from src.gui.tabs.base_tab import BaseTab
 
 
 class TopIncomesAndOutComesTab(BaseTab):

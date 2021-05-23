@@ -2,8 +2,8 @@ import pandas as pd
 from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QRadioButton, QVBoxLayout
 
-from gui.dataframe_model import DataFrameModel
-from gui.tabs.base_tab import BaseTab
+from src.gui.dataframe_model import DataFrameModel
+from src.gui.tabs.base_tab import BaseTab
 
 
 class EventTableTab(BaseTab):

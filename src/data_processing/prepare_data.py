@@ -2,9 +2,9 @@ from typing import List, Dict
 
 import pandas as pd
 
-from data_processing.data_filtering import DataFilter
-from data_processing.data_preprocessor import DataPreprocessor
-from data_processing.validation import validate
+from src.data_processing.data_filtering import DataFilter
+from src.data_processing.data_preprocessor import DataPreprocessor
+from src.data_processing.validation import validate
 
 
 def prepare_data(file_paths: List[str],

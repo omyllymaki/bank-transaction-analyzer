@@ -1,11 +1,11 @@
 import pandas as pd
 from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
 
-from gui.tabs.event_table import EventTableTab
-from gui.tabs.income_and_outcome import IncomeAndOutcomeTab
-from gui.tabs.indicators import IndicatorsTab
-from gui.tabs.stacked_bars import StackedBarsTab
-from gui.tabs.top_incomes_and_outcomes import TopIncomesAndOutComesTab
+from src.gui.tabs.event_table import EventTableTab
+from src.gui.tabs.income_and_outcome import IncomeAndOutcomeTab
+from src.gui.tabs.indicators import IndicatorsTab
+from src.gui.tabs.stacked_bars import StackedBarsTab
+from src.gui.tabs.top_incomes_and_outcomes import TopIncomesAndOutComesTab
 
 
 class TabHandler(QWidget):
