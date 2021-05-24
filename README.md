@@ -9,20 +9,17 @@ By default the analyzer works with Nordea internet bank data but can be customiz
 * Install Python >= 3.6.
 * Install requirements.
 * Fill parameters to config.json.
-* Write your own indicators if you like (see indicators.csv for example)
+* Create your own indicators if you like (see indicators.csv for example)
 
+For Ubuntu users there is installation script: ```./install.sh```.
 
-**Installation using virtualenv (Ubuntu)**
+## Indicators
 
-```
-./install.sh
-```
+Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. E.g. "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa" as target would group purchases from multiple stores.
 
-**Creating indicators**
+You can make your own indicator by creating new row in indicators.csv file (or any other file with same format) or by selecting suitable filter values from GUI and pressing "Create indicator from existing filters" button.
 
-Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. You can make your own indicator by creating new row in indicators.csv file (or any other file with same format). There, you specify name of indicator (str), min and max value (float) and regexp patterns (str) that define indicator. E.g. sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa as target would group purchases from multiple stores, and this way you can follow "Store" indicator over time. Indicators can be loaded and used in Indicators tab. The creation of indicators can be assisted by GUI: select filters (sidebar on left) and see which events are filtered out (Events tab). When you are happy, just copy-paste filter values to indicators file.
-
-## Usage
+## Basic usage
 
 * Export your data from Nordea internet bank (Tilit / Tilitapahtumat ja tilin tiedot / Tapahtumaluettelo).
 * Start GUI program from command line by typing ```python3 main.py [-- config config_path]``` or simply ```./run.sh [config_path]``` if you are using virtualenv with Ubuntu.
@@ -83,5 +80,5 @@ When custom Loader and Transformer classes are created, they can be used by addi
 ## Alert checks
 
 alert_checks folder contains some utilities to run different kind of alert checks to data. See alert_checks_sample.py as
-an example. You can run it by typing ```python3 alert_checks_sample.py```; the checks are made to data in test_data folder by default.
+an example. You can run it by typing ```python3 alert_checks_sample.py```; the checks are made to data in test_data folder by default. 
 

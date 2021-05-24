@@ -1,5 +1,5 @@
 import pandas as pd
-from PyQt5.QtWidgets import QComboBox, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QFileDialog
+from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
 from src.data_processing.data_analyzer import DataAnalyzer
 from src.data_processing.data_filtering import DataFilter
@@ -17,6 +17,7 @@ class IndicatorsTab(BaseTab):
 
     def __init__(self, config):
 
+        self.config = config
         self.data = None
         self.indicator_values = None
         self.indicators_dict = {}
@@ -32,9 +33,7 @@ class IndicatorsTab(BaseTab):
         self.figure_value = BarCanvas(y_axis_title='Amount (EUR)')
         self.figure_cumulative = BarCanvas(y_axis_title='Cumulative amount (EUR)')
 
-        indicators_path = config.get("indicators")
-        if indicators_path is not None:
-            self._load_indicators(indicators_path)
+        self.load_indicators()
 
         super().__init__()
 
@@ -70,8 +69,11 @@ class IndicatorsTab(BaseTab):
         self.indicator_values = self.indicators_dict.get(self.current_indicator, None)
         self._analyze_data_and_update_canvas()
 
-    def _load_indicators(self, file_path):
-        indicators = pd.read_csv(file_path)
+    def load_indicators(self):
+        indicators_path = self.config.get("indicators")
+        if indicators_path is None:
+            return
+        indicators = pd.read_csv(self.config["indicators"])
         indicators = indicators.where(pd.notnull(indicators), None)
         indicators.set_index("name", inplace=True)
         self.indicators_dict = indicators.to_dict("index")

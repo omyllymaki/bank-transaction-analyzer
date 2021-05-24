@@ -21,6 +21,10 @@ class MainView(QWidget):
 
     def _set_connections(self):
         self.sidebar.analyze_button_clicked.connect(self._handle_plotting)
+        self.sidebar.new_indicator_created.connect(self._handle_new_indicator_created)
 
     def _handle_plotting(self, data: pd.DataFrame):
         self.tab_handler.handle_data(data)
+
+    def _handle_new_indicator_created(self):
+        self.tab_handler.tabs["Indicators"].load_indicators()
