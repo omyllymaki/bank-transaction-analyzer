@@ -37,6 +37,7 @@ class EventTableTab(BaseTab):
             self.group_by_target = True
         else:
             self.group_by_target = False
+        self.sort_col_index = 0
         self._render_table()
 
     def _handle_header_clicked(self, index):
