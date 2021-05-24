@@ -107,6 +107,6 @@ ENV/
 .idea/
 .vscode/
 git_ignore_this_dir
-config_personal.py
+config_personal.json
 analyses/personal_parameters.py
 personal_indicators.csv
