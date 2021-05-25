@@ -109,4 +109,4 @@ ENV/
 git_ignore_this_dir
 config_personal.json
 analyses/personal_parameters.py
-personal_indicators.csv
+personal_indicators.json
