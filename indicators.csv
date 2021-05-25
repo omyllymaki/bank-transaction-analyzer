@@ -1,8 +1,0 @@
-name,min_value,max_value,target,account_number,message,event
-All,,,,,,
-Incomes,0,,,,,
-Outcomes,,0,,,,
-Store,,,sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa,,,
-VR,,,vr,,,
-DNA,,,dna,,,
-Cash withdrawal,,,,,,ATMotto/Otto.

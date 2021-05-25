@@ -1,3 +1,5 @@
+import json
+
 import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
@@ -73,10 +75,8 @@ class IndicatorsTab(BaseTab):
         indicators_path = self.config.get("indicators")
         if indicators_path is None:
             return
-        indicators = pd.read_csv(self.config["indicators"])
-        indicators = indicators.where(pd.notnull(indicators), None)
-        indicators.set_index("name", inplace=True)
-        self.indicators_dict = indicators.to_dict("index")
+        with open(self.config["indicators"]) as f:
+            self.indicators_dict = json.load(f)
         self.indicator_selector.clear()
         self.indicator_selector.addItems(list(self.indicators_dict.keys()))
         self._indicator_option_changed()

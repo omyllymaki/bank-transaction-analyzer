@@ -1,0 +1,25 @@
+{
+    "All": {},
+    "Incomes": {
+        "min_value": 0.0
+    },
+    "Outcomes": {
+        "max_value": 0.0
+    },
+    "Store": {
+        "target": "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa"
+    },
+    "VR": {
+        "target": "vr"
+    },
+    "DNA": {
+        "target": "dna"
+    },
+    "Cash withdrawal": {
+        "event": "ATMotto/Otto."
+    },
+    "Example indicator": {
+        "target": "elizabeth ball",
+        "message": "Test message"
+    }
+}

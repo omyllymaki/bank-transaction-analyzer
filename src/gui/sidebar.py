@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 from typing import List
 
@@ -122,17 +123,19 @@ class SideBar(QWidget):
 
     def _handle_create_new_indicator(self):
         self._update_filtering_values()
+        filter_values = {k: v for k, v in self.filter_values.items() if v != "" and pd.notnull(v)}
+
+        filter_values.pop("min_date", None)
+        filter_values.pop("max_date", None)
         indicator_name, ok = QInputDialog.getText(self, 'New indicator', 'Type the name of new indicator')
         if not ok:
             return
         try:
-            filter_values = self.filter_values.copy()
-            filter_values.pop("min_date")
-            filter_values.pop("max_date")
-            filter_values["name"] = indicator_name
-            df_indicators = pd.read_csv(self.config["indicators"])
-            df_indicators = df_indicators.append(filter_values, ignore_index=True)
-            df_indicators.to_csv(self.config["indicators"], index=False)
+            with open(self.config["indicators"]) as f:
+                indicators = json.load(f)
+            indicators[indicator_name] = filter_values
+            with open(self.config["indicators"], 'w', encoding='utf-8') as f:
+                json.dump(indicators, f, ensure_ascii=False, indent=4)
             self.new_indicator_created.emit()
         except Exception as e:
             print(e)
