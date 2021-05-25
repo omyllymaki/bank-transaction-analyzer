@@ -17,7 +17,7 @@ For Ubuntu users there is installation script: ```./install.sh```.
 
 Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. E.g. "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa" as target would group purchases from multiple stores.
 
-You can make your own indicator by creating new row in indicators.csv file (or any other file with same format) or by selecting suitable filter values from GUI and pressing "Create indicator from existing filters" button.
+You can make your own indicator by creating new item in indicators.json file (or any other file with same format) or by selecting suitable filter values from GUI and pressing "Create indicator from existing filters" button.
 
 ## Basic usage
 
