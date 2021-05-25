@@ -1,5 +1,0 @@
-name,min_date,max_date,target,account_number,message,event,min_value,max_value,group_by,aggregation,criteria,ref_value
-Monthly incomes,,,,,,,0,,"[year, month]",sum,larger,1200
-Monthly outcomes,,,,,,,,0,"[year, month]",sum,larger,-3000
-Largest outcome,,,,,,,,0,,min,larger,-1500
-Aimee Mean,,,Aimee Dodd,,,,,,"[year, month]",mean,larger,-15

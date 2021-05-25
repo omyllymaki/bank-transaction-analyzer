@@ -1,24 +1,10 @@
-import logging
 from abc import abstractmethod
-from enum import Enum
 from typing import List, Union
 
 import pandas as pd
 
+from src.alert_checks.options import OnFail, Grouping, Aggregation
 from src.data_processing.data_filtering import DataFilter
-
-logger = logging.getLogger(__name__)
-
-
-class Criteria(Enum):
-    larger = lambda _, val, ref: val > ref
-    smaller = lambda _, val, ref: val < ref
-    equal = lambda _, val, ref: val == ref
-
-
-class OnFail(Enum):
-    log_error = lambda _, msg: logger.error(msg)
-    exception = lambda _, msg: Exception(msg)
 
 
 class Check:
@@ -45,9 +31,9 @@ class Check:
 
 
 class StandardCheck(Check):
-    filtering = None
-    group_by = None
-    aggregation = None
+    filtering: dict = None
+    group_by: Grouping = None
+    aggregation: Aggregation = None
 
     def __init__(self, ):
         super().__init__()
@@ -56,8 +42,7 @@ class StandardCheck(Check):
         if self.filtering:
             df = DataFilter().filter(df, **self.filtering)
         if self.group_by:
-            df = df.groupby(self.group_by)
+            df = df.groupby(self.group_by.value)
         if self.aggregation:
-            df = df.agg(self.aggregation)
+            df = df.agg(self.aggregation.value)
         return df[self.column].tolist()
-

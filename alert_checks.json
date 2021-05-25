@@ -1,0 +1,29 @@
+{
+    "Monthly incomes": {
+        "min_value": 0.0,
+        "grouping": "monthly",
+        "aggregation": "sum",
+        "criteria": "larger",
+        "ref_value": 1200
+    },
+    "Monthly outcomes": {
+        "max_value": 0.0,
+        "grouping": "monthly",
+        "aggregation": "sum",
+        "criteria": "larger",
+        "ref_value": -3000
+    },
+    "Largest outcome": {
+        "max_value": 0.0,
+        "aggregation": "min",
+        "criteria": "larger",
+        "ref_value": -1500
+    },
+    "Aimee Mean": {
+        "target": "Aimee Dodd",
+        "grouping": "monthly",
+        "aggregation": "mean",
+        "criteria": "larger",
+        "ref_value": -15
+    }
+}

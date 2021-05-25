@@ -1,8 +1,10 @@
+import json
 import types
 
 import pandas as pd
 
-from src.alert_checks.check import StandardCheck, Criteria
+from src.alert_checks.check import StandardCheck
+from src.alert_checks.options import Criteria, Grouping, Aggregation
 
 FILTERING_KEYS = ["min_date",
                   "max_date",
@@ -14,23 +16,26 @@ FILTERING_KEYS = ["min_date",
                   "max_value"]
 
 
-def checks_from_csv(path):
-    df = pd.read_csv(path)
-    return df_to_checks(df)
+def checks_from_json(path):
+    with open(path) as f:
+        data = json.load(f)
+    return dict_to_checks(data)
 
 
-def df_to_checks(df):
-    df = df.where(pd.notnull(df), None)
+def dict_to_checks(data):
     checks = []
-    for i, row in df.transpose().iteritems():
+    for name, values in data.items():
         c = StandardCheck()
-        c.ref_values = row.ref_value
-        criteria = getattr(Criteria, row.criteria)
+        c.ref_values = values["ref_value"]
+        criteria = getattr(Criteria, values["criteria"])
         c.criteria = types.MethodType(criteria, StandardCheck())
-        c.group_by = row["group_by"].strip('][').split(', ') if row["group_by"] is not None else None
-        c.aggregation = row["aggregation"]
-        c.filtering = row[row.index.isin(FILTERING_KEYS)].to_dict()
-        print(c.filtering)
-        c.name = row["name"]
+        grouping = values.get("grouping")
+        if grouping:
+            c.group_by = getattr(Grouping, grouping)
+        aggregation = values["aggregation"]
+        if aggregation:
+            c.aggregation = getattr(Aggregation, aggregation)
+        c.filtering = {k: v for k, v in values.items() if k in FILTERING_KEYS}
+        c.name = name
         checks.append(c)
     return checks

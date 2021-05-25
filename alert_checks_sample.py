@@ -3,9 +3,10 @@ import os
 import pandas as pd
 
 from src.alert_checks.alert_logging import configure_logging
-from src.alert_checks.check import Check, Criteria
+from src.alert_checks.check import Check
 from src.alert_checks.check_runner import CheckRunner
-from src.alert_checks.utils import checks_from_csv
+from src.alert_checks.options import Criteria
+from src.alert_checks.utils import checks_from_json
 from src.data_processing.bank_selection import get_bank
 from src.data_processing.prepare_data import prepare_data
 
@@ -35,7 +36,7 @@ class Duplicates(Check):
 def main():
     configure_logging()
     data = load_data()
-    checks = checks_from_csv("alert_checks.csv") + [Duplicates()]
+    checks = checks_from_json("alert_checks.json") + [Duplicates()]
 
     checker = CheckRunner()
     checker.run_checks(data, checks, True)
