@@ -8,16 +8,8 @@ By default the analyzer works with Nordea internet bank data but can be customiz
 
 * Install Python >= 3.6.
 * Install requirements.
-* Fill parameters to config.json.
-* Create your own indicators if you like (see indicators.csv for example)
 
 For Ubuntu users there is installation script: ```./install.sh```.
-
-## Indicators
-
-Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. E.g. "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa" as target would group purchases from multiple stores.
-
-You can make your own indicator by creating new item in indicators.json file (or any other file with same format) or by selecting suitable filter values from GUI and pressing "Create indicator from existing filters" button.
 
 ## Basic usage
 
@@ -29,6 +21,24 @@ You can make your own indicator by creating new item in indicators.json file (or
 
 Note:
 Some simulated test data is also provided (in test_data folder). This data can be used to test application.
+
+## Configuration
+
+Following files under configurations folder can be used for configuration:
+
+* config.json
+* drop_data.json
+* indicators.json
+
+**Drop data**
+
+drop_data.json specifies which items should be always filtered out. E.g. "target": ["Liisa", "Mikko"] would filter out all the rows where target is Liisa or Mikko. You can add new items to drop_data list by modifying drop_data.json file directly or from Events tab by right clicking event you want to add to drop_data list.    
+
+**Indicators**
+
+Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. E.g. "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa" as target would group purchases from multiple stores.
+
+You can make your own indicator by creating new item in indicators.json file or by selecting suitable filter values from GUI and pressing "Create indicator from existing filters" button.
 
 ## Screenshots (with simulated test data provided)
 

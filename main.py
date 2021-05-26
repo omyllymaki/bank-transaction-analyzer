@@ -12,7 +12,7 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--config", default="config.json", help="Path to configuration.")
+    parser.add_argument("-c", "--config", default="configurations/config.json", help="Path to configuration.")
     args = parser.parse_args()
     print(f"Reading configuration from {args.config}")
     with open(args.config) as f:
