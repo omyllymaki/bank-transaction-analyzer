@@ -10,7 +10,7 @@ class BarCanvas(BaseBarCanvas):
         super().__init__(figure_title, x_axis_title, y_axis_title)
         self._initialize_figure()
 
-    def plot(self, y: np.ndarray, x_labels: List[str], plot_average=True):
+    def plot(self, y: np.ndarray, x_labels: List[str] = None, y_ref=None):
         self._initialize_figure()
-        self._plot_bar(y, x_labels, width=0.3, color='b', plot_average=plot_average)
+        self._plot_bar(y, x_labels, width=0.3, color='b', y_ref=y_ref)
         self._update_figure()

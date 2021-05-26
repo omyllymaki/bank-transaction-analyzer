@@ -91,5 +91,4 @@ class IndicatorsTab(BaseTab):
             analysed_data = self.analyser.calculate_incomes_and_outcomes(filtered_data, self.group_by)
             self.figure_value.plot(analysed_data['total'], analysed_data.index.tolist())
             self.figure_cumulative.plot(analysed_data['total_cumulative'],
-                                        analysed_data.index.tolist(),
-                                        plot_average=False)
+                                        analysed_data.index.tolist())

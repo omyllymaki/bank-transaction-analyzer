@@ -1,3 +1,5 @@
+from collections import Iterable
+
 from matplotlib.patches import Rectangle
 
 from src.gui.canvases.base_canvas import BaseCanvas
@@ -51,14 +53,15 @@ class BaseBarCanvas(BaseCanvas):
             label = None
         return label
 
-    def _plot_bar(self, y, x_labels=None, x_offset=0.0, plot_average=True, color="b", add_hover=True, *args, **kwargs):
+    def _plot_bar(self, y, x_labels=None, x_offset=0.0, y_ref=None, color="b", add_hover=True, *args, **kwargs):
         x = np.array([k for k in range(len(y))])
 
         self.axes.bar(x + x_offset, y, color=color, picker=add_hover, *args, **kwargs)
 
-        if plot_average:
-            y_mean = [np.mean(y) for _ in y]
-            self.axes.plot(x, y_mean, "--", color=color)
+        if y_ref:
+            if not isinstance(y_ref, Iterable):
+                y_ref = [y_ref for _ in range(len(x))]
+            self.axes.plot(x, y_ref, "--", color=color)
 
         if x_labels is None:
             x_labels = ['' for k in y]

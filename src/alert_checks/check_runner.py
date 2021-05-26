@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class CheckRunner:
+    test_values = {}
 
     def run_checks(self, df: pd.DataFrame,
                    checks: List[StandardCheck],
@@ -21,9 +22,12 @@ class CheckRunner:
         n_passed = 0
         all_ok = True
         not_passed = []
+        self.test_values = {}
+
         for i, check in enumerate(checks, 1):
             logger.info(f"Performing check {i}/{n_checks}: {check.name}")
-            is_ok = self.run_check(df.copy(), check, plot)
+            is_ok, test_values, ref_values = self.run_check(df.copy(), check, plot)
+            self.test_values[check.name] = test_values, ref_values
             if is_ok:
                 n_passed += 1
             else:
@@ -35,7 +39,7 @@ class CheckRunner:
 
     def run_check(self, df: pd.DataFrame,
                   check: StandardCheck,
-                  plot=False) -> bool:
+                  plot=False):
 
         test_values = check.pipeline(df)
 
@@ -63,7 +67,10 @@ class CheckRunner:
         if plot:
             self.visualize_results(test_values, ref_values, results, check.name)
 
-        return all_values_ok
+        return all_values_ok, test_values, ref_values
+
+    def get_test_values(self, name):
+        return self.test_values.get(name)
 
     @staticmethod
     def visualize_results(test_values, ref_values, results, title):

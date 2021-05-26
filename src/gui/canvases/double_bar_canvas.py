@@ -12,9 +12,9 @@ class DoubleBarCanvas(BaseBarCanvas):
         self.y2_label = y2_label
         self._initialize_figure()
 
-    def plot(self, y1: np.ndarray, y2: np.ndarray, x_labels: List[str] = None, plot_average=True):
+    def plot(self, y1: np.ndarray, y2: np.ndarray, x_labels: List[str] = None, y1_ref=None, y2_ref=None):
         self._initialize_figure()
-        self._plot_bar(y1, x_labels, -0.15, width=0.3, color='b', label=self.y1_label)
-        self._plot_bar(y2, x_labels, +0.15, width=0.3, color='r', label=self.y2_label)
+        self._plot_bar(y1, x_labels, -0.15, width=0.3, color='b', label=self.y1_label, y_ref=y1_ref)
+        self._plot_bar(y2, x_labels, +0.15, width=0.3, color='r', label=self.y2_label, y_ref=y2_ref)
         self.axes.legend()
         self._update_figure()

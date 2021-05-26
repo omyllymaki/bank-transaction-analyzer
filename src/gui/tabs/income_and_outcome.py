@@ -58,7 +58,11 @@ class IncomeAndOutcomeTab(BaseTab):
     def _analyze_data_and_update_canvases(self):
         if self.data is not None:
             analysed_data = self.analyser.calculate_incomes_and_outcomes(self.data, self.group_by)
-            self.figure_income_and_outcome.plot(analysed_data['income'],
-                                                analysed_data['outcome'],
-                                                analysed_data.index.tolist())
-            self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
+            self.figure_income_and_outcome.plot(y1=analysed_data['income'],
+                                                y2=analysed_data['outcome'],
+                                                x_labels=analysed_data.index.tolist(),
+                                                y1_ref=analysed_data["income"].mean(),
+                                                y2_ref=analysed_data["outcome"].mean())
+            self.figure_profit.plot(y = analysed_data['total'],
+                                    x_labels=analysed_data.index.tolist(),
+                                    y_ref=analysed_data["total"].mean())

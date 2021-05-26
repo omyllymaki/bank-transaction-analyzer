@@ -1,6 +1,7 @@
 import pandas as pd
 from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
 
+from src.gui.tabs.alerts import AlertsTab
 from src.gui.tabs.event_table import EventTableTab
 from src.gui.tabs.income_and_outcome import IncomeAndOutcomeTab
 from src.gui.tabs.indicators import IndicatorsTab
@@ -17,6 +18,7 @@ class TabHandler(QWidget):
             'Income/outcome by target': TopIncomesAndOutComesTab(),
             'Stacked bars': StackedBarsTab(),
             'Indicators': IndicatorsTab(config),
+            'Alerts': AlertsTab(config),
             'Events': EventTableTab(),
         }
 
