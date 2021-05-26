@@ -1,6 +1,6 @@
 {
     "default_data_dir": "./test_data",
-    "drop_data": "drop_data.json",
-    "indicators": "indicators.json",
+    "drop_data": "configurations/drop_data.json",
+    "indicators": "configurations/indicators.json",
     "bank": "Nordea"
 }
