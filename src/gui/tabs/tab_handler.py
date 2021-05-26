@@ -17,7 +17,7 @@ class TabHandler(QWidget):
             'Income/outcome by target': TopIncomesAndOutComesTab(),
             'Stacked bars': StackedBarsTab(),
             'Indicators': IndicatorsTab(config),
-            'Events': EventTableTab(),
+            'Events': EventTableTab(config),
         }
 
         self.content = QTabWidget()

@@ -35,7 +35,6 @@ class SideBar(QWidget):
         with open(config["drop_data"]) as f:
             self.drop_data = json.load(f)
 
-
         self.filter = DataFilter()
         self.cleaned_data = pd.DataFrame()
         self.min_date_selector = QCalendarWidget(self)
@@ -77,19 +76,21 @@ class SideBar(QWidget):
         self.layout.addWidget(self.create_indicator_button)
 
     def _set_connections(self):
-        self.load_button.clicked.connect(self._handle_load_data)
+        self.load_button.clicked.connect(self._handle_load_button_clicked)
         self.filter_button.clicked.connect(self._handle_filter_data)
         self.create_indicator_button.clicked.connect(self._handle_create_new_indicator)
         self.min_value_line.textChanged.connect(self._handle_min_value_changed)
         self.max_value_line.textChanged.connect(self._handle_max_value_changed)
 
-    def _handle_load_data(self):
-        file_paths = self._get_file_paths()
-        if not file_paths:
+    def _handle_load_button_clicked(self):
+        self.file_paths = self._get_file_paths()
+        if not self.file_paths:
             return None
+        self.load_data()
 
+    def load_data(self):
         bank = get_bank(self.config["bank"])
-        self.cleaned_data = prepare_data(file_paths=file_paths,
+        self.cleaned_data = prepare_data(file_paths=self.file_paths,
                                          data_loader=bank.loader,
                                          data_transformer=bank.transformer,
                                          drop_data=self.drop_data)

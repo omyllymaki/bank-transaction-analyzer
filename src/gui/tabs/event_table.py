@@ -1,21 +1,28 @@
+import json
+
 import pandas as pd
-from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QRadioButton, QVBoxLayout
+from PyQt5 import QtWidgets, QtGui
+from PyQt5.QtCore import Qt, pyqtSignal
+from PyQt5.QtWidgets import QRadioButton, QVBoxLayout, QMenu, QAction
 
 from src.gui.dataframe_model import DataFrameModel
+from src.gui.dialog_boxes import show_warning
 from src.gui.tabs.base_tab import BaseTab
 
 
 class EventTableTab(BaseTab):
+    drop_data_added = pyqtSignal()
     show_columns = ["target", "account_number", "value", "time", "message", "event"]
 
-    def __init__(self):
+    def __init__(self, config):
+        self.config = config
         self.table_view = QtWidgets.QTableView()
         self.table_view.setObjectName("tableView")
         self.group_by_target_button = QRadioButton("Group by target")
         self.header = self.table_view.horizontalHeader()
         self.group_by_target = False
         self.data = None
+        self.table_data_sorted = None
         self.grouped_data = None
         self.sort_col_index = 0
         self.ascending = True
@@ -70,6 +77,39 @@ class EventTableTab(BaseTab):
             else:
                 table_data = self.data
             sort_col_name = table_data.columns[self.sort_col_index]
-            table_data_sorted = table_data.sort_values(sort_col_name, ascending=self.ascending)
-            model = DataFrameModel(table_data_sorted)
+            self.table_data_sorted = table_data.sort_values(sort_col_name, ascending=self.ascending)
+            model = DataFrameModel(self.table_data_sorted)
             self.table_view.setModel(model)
+
+    def contextMenuEvent(self, event):
+        if not self.group_by_target:
+            self.menu = QMenu(self)
+            action = QAction('Add to drop data file', self)
+            action.triggered.connect(lambda: self.add_to_drop_data(event))
+            self.menu.addAction(action)
+            self.menu.popup(QtGui.QCursor.pos())
+
+    def add_to_drop_data(self, event):
+        col_index = self.table_view.currentIndex().column()
+        row_index = self.table_view.currentIndex().row()
+        column = self.table_data_sorted.columns[col_index]
+        content = self.table_data_sorted.iloc[row_index, col_index]
+
+        try:
+            with open(self.config["drop_data"]) as f:
+                drop_data = json.load(f)
+
+            values = drop_data.get(column, None)
+            if values:
+                drop_data[column] = values + [content]
+            else:
+                drop_data[column] = [content]
+
+            with open(self.config["drop_data"], 'w', encoding='utf-8') as f:
+                json.dump(drop_data, f, ensure_ascii=False, indent=4)
+
+            self.drop_data_added.emit()
+
+        except Exception as e:
+            print(e)
+            show_warning("Drop data addition failure", "Something went wrong")
