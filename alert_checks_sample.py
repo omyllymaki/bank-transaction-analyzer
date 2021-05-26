@@ -36,7 +36,7 @@ class Duplicates(Check):
 def main():
     configure_logging()
     data = load_data()
-    checks = checks_from_json("alert_checks.json") + [Duplicates()]
+    checks = checks_from_json("configurations/alert_checks.json") + [Duplicates()]
 
     checker = CheckRunner()
     checker.run_checks(data, checks, True)
