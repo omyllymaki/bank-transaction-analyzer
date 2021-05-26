@@ -79,7 +79,7 @@ class TopIncomesAndOutComesTab(BaseTab):
 
     def _analyze_and_update_canvas(self):
         if self.data is not None:
-            incomes, outcomes = self.analyser.calculate_top_incomes_and_outcomes(self.data, self.selected_criteria)
+            incomes, outcomes = self.analyser.calculate_top_incomes_and_outcomes(self.data.copy(), self.selected_criteria)
             if self.selected_output == "income":
                 values_to_show = incomes
             else:
