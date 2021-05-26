@@ -110,3 +110,4 @@ git_ignore_this_dir
 config_personal.json
 analyses/personal_parameters.py
 personal_configurations/
+requirements_dev.txt
