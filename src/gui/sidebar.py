@@ -32,6 +32,10 @@ class SideBar(QWidget):
         self.is_data_loaded = False
         self.filter_values = None
 
+        with open(config["drop_data"]) as f:
+            self.drop_data = json.load(f)
+
+
         self.filter = DataFilter()
         self.cleaned_data = pd.DataFrame()
         self.min_date_selector = QCalendarWidget(self)
@@ -88,7 +92,7 @@ class SideBar(QWidget):
         self.cleaned_data = prepare_data(file_paths=file_paths,
                                          data_loader=bank.loader,
                                          data_transformer=bank.transformer,
-                                         drop_data=self.config["drop_data"])
+                                         drop_data=self.drop_data)
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._set_analyse_button_disabled_or_enabled()

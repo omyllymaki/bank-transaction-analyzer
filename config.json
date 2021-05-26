@@ -1,14 +1,6 @@
 {
-    "drop_data": {
-        "target": [
-            "x",
-            "y"
-        ],
-        "event": [
-            "z"
-        ]
-    },
     "default_data_dir": "./test_data",
+    "drop_data": "drop_data.json",
     "indicators": "indicators.json",
     "bank": "Nordea"
 }
