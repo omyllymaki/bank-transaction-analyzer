@@ -2,9 +2,12 @@ import argparse
 import json
 import sys
 
+import pandas as pd
 from PyQt5.QtWidgets import QApplication
 
 from src.gui.main_window import MainWindow
+
+pd.options.mode.chained_assignment = None  # default='warn'
 
 
 def main():
