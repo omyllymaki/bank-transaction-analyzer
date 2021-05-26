@@ -16,8 +16,9 @@ from src.gui.widgets import FloatLineEdit
 
 
 class SideBar(QWidget):
-    analyze_button_clicked = pyqtSignal(pd.DataFrame)
-    new_indicator_created = pyqtSignal()
+    all_data_signal = pyqtSignal(pd.DataFrame)
+    filtered_data_signal = pyqtSignal(pd.DataFrame)
+    new_indicator_signal = pyqtSignal()
 
     def __init__(self, config):
         super().__init__()
@@ -92,6 +93,7 @@ class SideBar(QWidget):
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._set_analyse_button_disabled_or_enabled()
+        self.all_data_signal.emit(self.cleaned_data)
         self._handle_filter_data()
 
     def _set_dates_based_on_data(self):
@@ -118,7 +120,7 @@ class SideBar(QWidget):
         if self.filtered_data.empty:
             show_warning("Warning", "No data to analyze")
         else:
-            self.analyze_button_clicked.emit(self.filtered_data)
+            self.filtered_data_signal.emit(self.filtered_data)
         self.create_indicator_button.setDisabled(False)
 
     def _handle_create_new_indicator(self):
@@ -136,7 +138,7 @@ class SideBar(QWidget):
             indicators[indicator_name] = filter_values
             with open(self.config["indicators"], 'w', encoding='utf-8') as f:
                 json.dump(indicators, f, ensure_ascii=False, indent=4)
-            self.new_indicator_created.emit()
+            self.new_indicator_signal.emit()
         except Exception as e:
             print(e)
             show_warning("Indicator creation failure", "Something went wrong")

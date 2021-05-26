@@ -31,6 +31,10 @@ class TabHandler(QWidget):
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.content)
 
-    def handle_data(self, data: pd.DataFrame):
-        for tab in self.tabs.values():
-            tab.handle_data(data)
+    def handle_filtered_data(self, data: pd.DataFrame):
+        for name, tab in self.tabs.items():
+            if name != "Alerts":
+                tab.handle_data(data)
+
+    def handle_non_filtered_data(self, data: pd.DataFrame):
+        self.tabs["Alerts"].handle_data(data)

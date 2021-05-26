@@ -20,11 +20,15 @@ class MainView(QWidget):
         self.setLayout(layout)
 
     def _set_connections(self):
-        self.sidebar.analyze_button_clicked.connect(self._handle_plotting)
-        self.sidebar.new_indicator_created.connect(self._handle_new_indicator_created)
+        self.sidebar.all_data_signal.connect(self._handle_non_filtered_data_received)
+        self.sidebar.filtered_data_signal.connect(self._handle_filtered_data_received)
+        self.sidebar.new_indicator_signal.connect(self._handle_new_indicator_created)
 
-    def _handle_plotting(self, data: pd.DataFrame):
-        self.tab_handler.handle_data(data)
+    def _handle_filtered_data_received(self, data: pd.DataFrame):
+        self.tab_handler.handle_filtered_data(data)
 
     def _handle_new_indicator_created(self):
         self.tab_handler.tabs["Indicators"].load_indicators()
+
+    def _handle_non_filtered_data_received(self, data: pd.DataFrame):
+        self.tab_handler.handle_non_filtered_data(data)
