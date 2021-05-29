@@ -6,13 +6,14 @@ import pandas as pd
 from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog, \
-    QInputDialog
+    QInputDialog, QHBoxLayout
 
 from src.data_processing.bank_selection import get_bank
 from src.data_processing.data_filtering import DataFilter
 from src.data_processing.prepare_data import prepare_data
 from src.gui.dialog_boxes import show_warning
 from src.gui.widgets import FloatLineEdit
+from src.utils import load_json, save_json
 
 
 class SideBar(QWidget):
@@ -32,9 +33,6 @@ class SideBar(QWidget):
         self.is_data_loaded = False
         self.filter_values = None
 
-        with open(config["drop_data"]) as f:
-            self.drop_data = json.load(f)
-
         self.filter = DataFilter()
         self.cleaned_data = pd.DataFrame()
         self.min_date_selector = QCalendarWidget(self)
@@ -43,6 +41,7 @@ class SideBar(QWidget):
         self.account_number_line = QLineEdit(self)
         self.message_line = QLineEdit(self)
         self.event_line = QLineEdit(self)
+        self.category_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
         self.filter_button = QPushButton('Filter data')
@@ -59,10 +58,12 @@ class SideBar(QWidget):
         self.layout.addWidget(self.min_date_selector)
         self.layout.addWidget(QLabel('Max date'))
         self.layout.addWidget(self.max_date_selector)
-        self.layout.addWidget(QLabel('Min value'))
-        self.layout.addWidget(self.min_value_line)
-        self.layout.addWidget(QLabel('Max value'))
-        self.layout.addWidget(self.max_value_line)
+        layout = QHBoxLayout()
+        layout.addWidget(QLabel('Min value'))
+        layout.addWidget(self.min_value_line)
+        layout.addWidget(QLabel('Max value'))
+        layout.addWidget(self.max_value_line)
+        self.layout.addLayout(layout)
         self.layout.addWidget(QLabel('Target contains (regexp pattern)'))
         self.layout.addWidget(self.target_line)
         self.layout.addWidget(QLabel('Account number contains (regexp pattern)'))
@@ -71,6 +72,8 @@ class SideBar(QWidget):
         self.layout.addWidget(self.message_line)
         self.layout.addWidget(QLabel('Event contains (regexp pattern)'))
         self.layout.addWidget(self.event_line)
+        self.layout.addWidget(QLabel('Category contains (regexp pattern)'))
+        self.layout.addWidget(self.category_line)
         self.layout.addWidget(self.load_button)
         self.layout.addWidget(self.filter_button)
         self.layout.addWidget(self.create_indicator_button)
@@ -93,7 +96,8 @@ class SideBar(QWidget):
         self.cleaned_data = prepare_data(file_paths=self.file_paths,
                                          data_loader=bank.loader,
                                          data_transformer=bank.transformer,
-                                         drop_data=self.drop_data)
+                                         drop_data=self.config["drop_data"],
+                                         classifier=self.config["classifier"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._set_analyse_button_disabled_or_enabled()
@@ -114,7 +118,8 @@ class SideBar(QWidget):
             message=self._get_message(),
             event=self._get_event(),
             min_value=self.min_value,
-            max_value=self.max_value
+            max_value=self.max_value,
+            category=self._get_category()
         )
 
     def _handle_filter_data(self):
@@ -136,11 +141,9 @@ class SideBar(QWidget):
         if not ok:
             return
         try:
-            with open(self.config["indicators"]) as f:
-                indicators = json.load(f)
+            indicators = load_json(self.config["paths"]["indicators"])
             indicators[indicator_name] = filter_values
-            with open(self.config["indicators"], 'w', encoding='utf-8') as f:
-                json.dump(indicators, f, ensure_ascii=False, indent=4)
+            save_json(self.config["paths"]["indicators"], indicators)
             self.new_indicator_created.emit()
         except Exception as e:
             print(e)
@@ -168,6 +171,9 @@ class SideBar(QWidget):
 
     def _get_event(self) -> str:
         return self.event_line.text()
+
+    def _get_category(self) -> str:
+        return self.category_line.text()
 
     def _handle_min_value_changed(self):
         self.min_value, self.min_value_is_valid = self.min_value_line.get_value()

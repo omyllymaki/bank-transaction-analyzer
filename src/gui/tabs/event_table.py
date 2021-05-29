@@ -8,11 +8,12 @@ from PyQt5.QtWidgets import QRadioButton, QVBoxLayout, QMenu, QAction
 from src.gui.dataframe_model import DataFrameModel
 from src.gui.dialog_boxes import show_warning
 from src.gui.tabs.base_tab import BaseTab
+from src.utils import load_json, save_json
 
 
 class EventTableTab(BaseTab):
     drop_data_added = pyqtSignal()
-    show_columns = ["target", "account_number", "value", "time", "message", "event"]
+    show_columns = ["target", "account_number", "value", "time", "message", "event", "category"]
 
     def __init__(self, config):
         self.config = config
@@ -96,18 +97,13 @@ class EventTableTab(BaseTab):
         content = self.table_data_sorted.iloc[row_index, col_index]
 
         try:
-            with open(self.config["drop_data"]) as f:
-                drop_data = json.load(f)
-
+            drop_data = load_json(self.config["paths"]["drop_data"])
             values = drop_data.get(column, None)
             if values:
                 drop_data[column] = values + [content]
             else:
                 drop_data[column] = [content]
-
-            with open(self.config["drop_data"], 'w', encoding='utf-8') as f:
-                json.dump(drop_data, f, ensure_ascii=False, indent=4)
-
+            save_json(self.config["paths"]["drop_data"], drop_data)
             self.drop_data_added.emit()
 
         except Exception as e:

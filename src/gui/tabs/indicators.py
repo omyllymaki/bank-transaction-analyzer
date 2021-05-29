@@ -22,7 +22,7 @@ class IndicatorsTab(BaseTab):
         self.config = config
         self.data = None
         self.indicator_values = None
-        self.indicators_dict = {}
+        self.indicators_dict = config["indicators"]
         self.analyser = DataAnalyzer()
         self.filter = DataFilter()
 
@@ -72,11 +72,6 @@ class IndicatorsTab(BaseTab):
         self._analyze_data_and_update_canvas()
 
     def load_indicators(self):
-        indicators_path = self.config.get("indicators")
-        if indicators_path is None:
-            return
-        with open(self.config["indicators"]) as f:
-            self.indicators_dict = json.load(f)
         self.indicator_selector.clear()
         self.indicator_selector.addItems(list(self.indicators_dict.keys()))
         self._indicator_option_changed()

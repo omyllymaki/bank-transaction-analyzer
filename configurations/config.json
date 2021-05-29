@@ -1,6 +1,9 @@
 {
-    "default_data_dir": "./test_data",
+  "default_data_dir": "./test_data",
+  "bank": "Nordea",
+  "paths": {
     "drop_data": "configurations/drop_data.json",
     "indicators": "configurations/indicators.json",
-    "bank": "Nordea"
+    "classifier": "configurations/classifier.p"
+  }
 }

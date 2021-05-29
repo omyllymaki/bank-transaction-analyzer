@@ -18,6 +18,7 @@ class DataFilter:
                account_number: str = None,
                message: str = None,
                event: str = None,
+               category: str = None,
                drop_data: Dict[str, list] = None
                ) -> pd.DataFrame:
 
@@ -34,6 +35,7 @@ class DataFilter:
             [self._string_filter, "account_number", account_number],
             [self._string_filter, "message", message],
             [self._string_filter, "event", event],
+            [self._string_filter, "category", category],
         ]
 
         for f in filters:
