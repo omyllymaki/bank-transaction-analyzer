@@ -62,6 +62,10 @@ You can make your own indicator by creating new item in indicators.json file or 
 <img src="screenshots/events.jpg" width="800px" />
 </p>
 
+<p align="center">
+<img src="screenshots/events_grouped.jpg" width="800px" />
+</p>
+
 # Advanced
 
 ## Using application with non-default data format
