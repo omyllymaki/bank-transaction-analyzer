@@ -6,6 +6,7 @@ import pandas as pd
 from PyQt5.QtWidgets import QApplication
 
 from src.gui.main_window import MainWindow
+from src.utils import load_json, load_configurations
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -15,8 +16,8 @@ def main():
     parser.add_argument("-c", "--config", default="configurations/config.json", help="Path to configuration.")
     args = parser.parse_args()
     print(f"Reading configuration from {args.config}")
-    with open(args.config) as f:
-        config = json.load(f)
+    config = load_json(args.config)
+    config = {**config, **load_configurations(config["paths"])}
     app = QApplication(sys.argv)
     mw = MainWindow(config)
     mw.show()
