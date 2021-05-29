@@ -18,6 +18,7 @@ For Ubuntu users there is installation script: ```./install.sh```.
 * Load data with load button which opens file dialog where you can choose multiple files for analysis.
 * Set filter values and analyze you data by pressing Analyze data; this updates the figures.
 * Change tabs to see different views and analyses for your data.
+* Events tab table can be sorted (left click) or grouped (right click) by any column by clicking corresponding column name.
 
 Note:
 Some simulated test data is also provided (in test_data folder). This data can be used to test application.
