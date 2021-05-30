@@ -1,4 +1,3 @@
-import json
 from datetime import datetime
 from typing import List
 
@@ -34,7 +33,7 @@ class SideBar(QWidget):
         self.filter_values = None
 
         self.filter = DataFilter()
-        self.cleaned_data = pd.DataFrame()
+        self.cleaned_data = None
         self.min_date_selector = QCalendarWidget(self)
         self.max_date_selector = QCalendarWidget(self)
         self.target_line = QLineEdit(self)
@@ -44,11 +43,8 @@ class SideBar(QWidget):
         self.category_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
-        self.filter_button = QPushButton('Filter data')
         self.load_button = QPushButton('Load data')
         self.create_indicator_button = QPushButton('Create indicator from existing filters')
-        self.filter_button.setDisabled(True)
-        self.create_indicator_button.setDisabled(True)
         self._set_layout()
         self._set_connections()
 
@@ -75,15 +71,23 @@ class SideBar(QWidget):
         self.layout.addWidget(QLabel('Category contains (regexp pattern)'))
         self.layout.addWidget(self.category_line)
         self.layout.addWidget(self.load_button)
-        self.layout.addWidget(self.filter_button)
         self.layout.addWidget(self.create_indicator_button)
 
     def _set_connections(self):
         self.load_button.clicked.connect(self._handle_load_button_clicked)
-        self.filter_button.clicked.connect(self._handle_filter_data)
         self.create_indicator_button.clicked.connect(self._handle_create_new_indicator)
         self.min_value_line.textChanged.connect(self._handle_min_value_changed)
         self.max_value_line.textChanged.connect(self._handle_max_value_changed)
+
+        self.min_date_selector.selectionChanged.connect(self._handle_filter_data)
+        self.max_date_selector.selectionChanged.connect(self._handle_filter_data)
+        self.min_value_line.returnPressed.connect(self._handle_filter_data)
+        self.max_value_line.returnPressed.connect(self._handle_filter_data)
+        self.target_line.returnPressed.connect(self._handle_filter_data)
+        self.account_number_line.returnPressed.connect(self._handle_filter_data)
+        self.message_line.returnPressed.connect(self._handle_filter_data)
+        self.event_line.returnPressed.connect(self._handle_filter_data)
+        self.category_line.returnPressed.connect(self._handle_filter_data)
 
     def _handle_load_button_clicked(self):
         self.file_paths = self._get_file_paths()
@@ -100,7 +104,6 @@ class SideBar(QWidget):
                                          classifier=self.config["classifier"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
-        self._set_analyse_button_disabled_or_enabled()
         self._handle_filter_data()
 
     def _set_dates_based_on_data(self):
@@ -124,12 +127,12 @@ class SideBar(QWidget):
 
     def _handle_filter_data(self):
         self._update_filtering_values()
-        self.filtered_data = self.filter.filter(self.cleaned_data, **self.filter_values)
-        if self.filtered_data.empty:
-            show_warning("Warning", "No data to analyze")
-        else:
-            self.analyze_button_clicked.emit(self.filtered_data)
-        self.create_indicator_button.setDisabled(False)
+        if self.cleaned_data is not None:
+            self.filtered_data = self.filter.filter(self.cleaned_data, **self.filter_values)
+            if self.filtered_data.empty:
+                show_warning("Warning", "No data to analyze")
+            else:
+                self.analyze_button_clicked.emit(self.filtered_data)
 
     def _handle_create_new_indicator(self):
         self._update_filtering_values()
@@ -177,14 +180,6 @@ class SideBar(QWidget):
 
     def _handle_min_value_changed(self):
         self.min_value, self.min_value_is_valid = self.min_value_line.get_value()
-        self._set_analyse_button_disabled_or_enabled()
 
     def _handle_max_value_changed(self):
         self.max_value, self.max_value_is_valid = self.max_value_line.get_value()
-        self._set_analyse_button_disabled_or_enabled()
-
-    def _set_analyse_button_disabled_or_enabled(self):
-        if self.max_value_is_valid and self.min_value_is_valid and self.is_data_loaded:
-            self.filter_button.setDisabled(False)
-        else:
-            self.filter_button.setDisabled(True)
