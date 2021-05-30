@@ -92,9 +92,9 @@ When custom Loader and Transformer classes are created, they can be used by addi
 
 ## Automatic classification of transactions
 
-Application uses simple ML model to classify transactions to following categories: ["Food & Drink", "Shopping", "Beauty & Health", "Transport", "Other"]. The current classification is done just based on target column.
+Application uses simple ML model to classify transactions to following categories: ["Food & Drink", "Shopping", "Beauty & Health", "Transport",  "Restaurant", "Other"]. The current classification is done just based on event, value and target columns.
 
-You can train your custom classifier using src/data_processing/train_classifier.py script or by implementing your own training script. Final classifier model should be TransactionClassifier (src/data_processing/classifier.py) and trained classifier should be stored as pickle file to configurations folder.
+You can train your custom classifier using src/data_processing/train_classifier.py script or by implementing your own training script. Final classifier model should be TransactionClassifier (src/data_processing/classification/classifier.py) and trained classifier should be stored as pickle file to configurations folder.
 
 ## Alert checks
 
