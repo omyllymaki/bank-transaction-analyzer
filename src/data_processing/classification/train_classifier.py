@@ -13,7 +13,7 @@ from sklearn.metrics import confusion_matrix
 from src.data_processing.bank_selection import get_bank
 from src.data_processing.classification.classifier import TransactionClassifier
 from src.data_processing.classification.feature_extractors import FeatureExtractor
-from src.data_processing.classification.personal_parameters import DROP_DATA, CATEGORIES, REGEXP_PATTERNS, TRAIN_PROPORTION, \
+from src.data_processing.classification.parameters import DROP_DATA, CATEGORIES, REGEXP_PATTERNS, TRAIN_PROPORTION, \
     SHUFFLE, OUTPUT_PATH, DATA_PATH
 from src.data_processing.prepare_data import prepare_data
 from src.utils import load_json, save_pickle
