@@ -19,8 +19,8 @@ class DataAnalyzer:
             return self._group_data_by_columns(data, group_data_by)
 
     @staticmethod
-    def calculate_pivot_table(df, group_by, threshold=100):
-        df_pivot = df.pivot_table(columns='target',
+    def calculate_pivot_table(df, group_by, columns="category", threshold=100):
+        df_pivot = df.pivot_table(columns=columns,
                                   index=group_by,
                                   aggfunc='sum',
                                   fill_value=0,

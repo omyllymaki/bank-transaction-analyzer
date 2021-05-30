@@ -9,16 +9,21 @@ from src.gui.widgets import FloatLineEdit
 
 class StackedBarsTab(BaseTab):
     output_options = ["income", "outcome"]
-    grouping_options = {
+    time_grouping_options = {
         "Year": ["year"],
         "Month": ["year", "month"],
         "Week": ["year", "week"],
         "Day": ["year", "month", "day"],
     }
+    column_grouping_options = {
+        "Target": "target",
+        "Category": "category",
+    }
 
     def __init__(self):
         self.data = None
-        self.group_by = ["year"]
+        self.time_group_by = ["year"]
+        self.column_group_by = "target"
         self.current_output_option = "income"
 
         self.analyzer = DataAnalyzer()
@@ -32,8 +37,11 @@ class StackedBarsTab(BaseTab):
         self.threshold_value = 100
         self.threshold_value_is_valid = True
 
-        self.grouping_option_selector = QComboBox()
-        self.grouping_option_selector.addItems(list(self.grouping_options.keys()))
+        self.time_grouping_selector = QComboBox()
+        self.time_grouping_selector.addItems(list(self.time_grouping_options.keys()))
+
+        self.column_grouping_selector = QComboBox()
+        self.column_grouping_selector.addItems(list(self.column_grouping_options.keys()))
 
         super().__init__()
 
@@ -42,7 +50,8 @@ class StackedBarsTab(BaseTab):
 
         grouping_layout = QHBoxLayout()
         grouping_layout.addWidget(QLabel("Grouping"))
-        grouping_layout.addWidget(self.grouping_option_selector)
+        grouping_layout.addWidget(self.time_grouping_selector)
+        grouping_layout.addWidget(self.column_grouping_selector)
 
         output_layout = QHBoxLayout()
         output_layout.addWidget(QLabel("Output"))
@@ -59,13 +68,19 @@ class StackedBarsTab(BaseTab):
         self.setLayout(self.layout)
 
     def _set_connections(self):
-        self.grouping_option_selector.currentIndexChanged.connect(self._grouping_option_changed)
+        self.time_grouping_selector.currentIndexChanged.connect(self._time_grouping_option_changed)
+        self.column_grouping_selector.currentIndexChanged.connect(self._column_grouping_option_changed)
         self.output_selector.currentIndexChanged.connect(self._output_option_changed)
         self.threshold_line.returnPressed.connect(self._handle_threshold_value_changed)
 
-    def _grouping_option_changed(self):
-        option_text = self.grouping_option_selector.currentText()
-        self.group_by = self.grouping_options[option_text]
+    def _time_grouping_option_changed(self):
+        option_text = self.time_grouping_selector.currentText()
+        self.time_group_by = self.time_grouping_options[option_text]
+        self._analyze_data_and_update_canvases()
+
+    def _column_grouping_option_changed(self):
+        option_text = self.column_grouping_selector.currentText()
+        self.column_group_by = self.column_grouping_options[option_text]
         self._analyze_data_and_update_canvases()
 
     def _output_option_changed(self):
@@ -89,7 +104,8 @@ class StackedBarsTab(BaseTab):
                 data_to_analyze["value"] = abs(data_to_analyze["value"])
 
             pivot_table = self.analyzer.calculate_pivot_table(data_to_analyze,
-                                                              group_by=self.group_by,
+                                                              group_by=self.time_group_by,
+                                                              columns=self.column_group_by,
                                                               threshold=self.threshold_value)
 
             if pivot_table.shape[0] > 0:
