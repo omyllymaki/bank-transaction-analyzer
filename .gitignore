@@ -111,3 +111,4 @@ config_personal.json
 analyses/personal_parameters.py
 personal_configurations/
 requirements_dev.txt
+src/data_processing/classification/personal_parameters.py
