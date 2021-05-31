@@ -2,6 +2,7 @@ import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
 from src.data_processing.data_analyzer import DataAnalyzer
+from src.gui.canvases.pie_canvas import PieCanvas
 from src.gui.canvases.stacked_bar_canvas import StackedBarsCanvas
 from src.gui.tabs.base_tab import BaseTab
 from src.gui.widgets import FloatLineEdit
@@ -27,7 +28,8 @@ class StackedBarsTab(BaseTab):
         self.current_output_option = "income"
 
         self.analyzer = DataAnalyzer()
-        self.canvas = StackedBarsCanvas(y_axis_title="Amount (EUR)")
+        self.bar_canvas = StackedBarsCanvas(y_axis_title="Amount (EUR)")
+        self.pie_canvas = PieCanvas(threshold=0.01)
 
         self.output_selector = QComboBox()
         self.output_selector.addItems(self.output_options)
@@ -61,10 +63,15 @@ class StackedBarsTab(BaseTab):
         threshold_value_layout.addWidget(QLabel("Threshold"))
         threshold_value_layout.addWidget(self.threshold_line)
 
+        figures_layout = QHBoxLayout()
+        figures_layout.addWidget(self.bar_canvas)
+        figures_layout.addWidget(self.pie_canvas)
+
         self.layout.addLayout(grouping_layout)
         self.layout.addLayout(output_layout)
         self.layout.addLayout(threshold_value_layout)
-        self.layout.addWidget(self.canvas)
+        self.layout.addLayout(figures_layout)
+
         self.setLayout(self.layout)
 
     def _set_connections(self):
@@ -72,6 +79,7 @@ class StackedBarsTab(BaseTab):
         self.column_grouping_selector.currentIndexChanged.connect(self._column_grouping_option_changed)
         self.output_selector.currentIndexChanged.connect(self._output_option_changed)
         self.threshold_line.returnPressed.connect(self._handle_threshold_value_changed)
+        self.bar_canvas.data_selected_signal.connect(self._handle_pie_plotting)
 
     def _time_grouping_option_changed(self):
         option_text = self.time_grouping_selector.currentText()
@@ -109,6 +117,10 @@ class StackedBarsTab(BaseTab):
                                                               threshold=self.threshold_value)
 
             if pivot_table.shape[0] > 0:
-                self.canvas.plot(pivot_table)
+                self.bar_canvas.plot(pivot_table)
             else:
-                self.canvas.clear()
+                self.bar_canvas.clear()
+
+    def _handle_pie_plotting(self, data: pd.Series):
+        self.pie_canvas.figure_title = data.name
+        self.pie_canvas.plot(data.values/data.sum(), data.index)
