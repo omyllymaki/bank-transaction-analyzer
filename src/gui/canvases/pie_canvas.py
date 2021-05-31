@@ -1,5 +1,3 @@
-from typing import List
-
 import numpy as np
 
 from src.gui.canvases.base_canvas import BaseCanvas

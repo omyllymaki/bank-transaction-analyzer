@@ -8,7 +8,7 @@ from src.gui.tabs.base_tab import BaseTab
 from src.gui.widgets import FloatLineEdit
 
 
-class StackedBarsTab(BaseTab):
+class DistributionsTab(BaseTab):
     output_options = ["income", "outcome"]
     time_grouping_options = {
         "Year": ["year"],
