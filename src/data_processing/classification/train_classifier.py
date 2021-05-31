@@ -102,6 +102,7 @@ def main():
     sns.heatmap(cm_valid / np.sum(cm_valid), annot=True, fmt='.2%', cmap='Blues')
     plt.title("Valid")
 
+    feature_extractor.fit(df)
     X = feature_extractor.extract(df)
 
     weights = 1 / np.sqrt(df.groupby("true_label").count().target).values
