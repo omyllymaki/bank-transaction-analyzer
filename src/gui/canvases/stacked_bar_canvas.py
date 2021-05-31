@@ -42,7 +42,8 @@ class StackedBarsCanvas(BaseBarCanvas):
         self._update_figure()
 
     def _handle_selection(self, event):
-        rectangle = event.artist
-        index = int(rectangle.get_x() + rectangle.get_width() / 2)
-        data_picked = self.data.iloc[index, :]
-        self.data_selected_signal.emit(data_picked)
+        if event.mouseevent.button == 3:    # right click
+            rectangle = event.artist
+            index = int(rectangle.get_x() + rectangle.get_width() / 2)
+            data_picked = self.data.iloc[index, :]
+            self.data_selected_signal.emit(data_picked)
