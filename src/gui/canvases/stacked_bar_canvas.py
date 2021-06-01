@@ -6,19 +6,20 @@ from src.gui.canvases.color_generation import generate_colors
 
 
 class StackedBarsCanvas(BaseBarCanvas):
-    data_selected_signal = pyqtSignal(pd.Series)
+    data_selected_signal = pyqtSignal(tuple)
 
     def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
         super().__init__(figure_title, x_axis_title, y_axis_title, add_grid=False)
         self._initialize_figure()
         self.figure.canvas.mpl_connect('pick_event', self._handle_selection)
+        self.colors = None
 
     def plot(self, data: pd.DataFrame):
         self._initialize_figure()
         self.data = data
 
-        colors = generate_colors(self.data.shape[1])
-        color_map = {target: color for target, color in zip(self.data.columns, colors)}
+        self.colors = generate_colors(self.data.shape[1])
+        color_map = {target: color for target, color in zip(self.data.columns, self.colors)}
 
         x = 0
         for _, row in self.data.iterrows():
@@ -42,8 +43,8 @@ class StackedBarsCanvas(BaseBarCanvas):
         self._update_figure()
 
     def _handle_selection(self, event):
-        if event.mouseevent.button == 3:    # right click
+        if event.mouseevent.button == 3:  # right click
             rectangle = event.artist
             index = int(rectangle.get_x() + rectangle.get_width() / 2)
             data_picked = self.data.iloc[index, :]
-            self.data_selected_signal.emit(data_picked)
+            self.data_selected_signal.emit((data_picked, self.colors))

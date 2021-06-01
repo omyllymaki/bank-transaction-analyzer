@@ -27,20 +27,21 @@ class BaseBarCanvas(BaseCanvas):
         rectangle = event.artist
         mouse_event = event.mouseevent
 
-        label = self._get_rectangle_label(rectangle)
+        if mouse_event.button == 1:  # Left-click
+            label = self._get_rectangle_label(rectangle)
 
-        self.annotation.set_visible(True)
-        height = rectangle.get_height()
-        x = mouse_event.xdata
-        y = mouse_event.ydata
-        self.annotation.xy = (x, y)
-        if label is None:
-            text = f"{height:0.0f}"
-        else:
-            text = f"{label}: {height:0.0f}"
-        self.annotation.set_text(text)
-        self.annotation.get_bbox_patch().set_alpha(0.4)
-        self.figure.canvas.draw_idle()
+            self.annotation.set_visible(True)
+            height = rectangle.get_height()
+            x = mouse_event.xdata
+            y = mouse_event.ydata
+            self.annotation.xy = (x, y)
+            if label is None:
+                text = f"{height:0.0f}"
+            else:
+                text = f"{label}: {height:0.0f}"
+            self.annotation.set_text(text)
+            self.annotation.get_bbox_patch().set_alpha(0.4)
+            self.figure.canvas.draw_idle()
 
     def _get_rectangle_label(self, rectangle):
         handles, labels = rectangle.axes.get_legend_handles_labels()

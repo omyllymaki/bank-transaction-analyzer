@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
 from src.data_processing.data_analyzer import DataAnalyzer
@@ -121,6 +122,7 @@ class DistributionsTab(BaseTab):
             else:
                 self.bar_canvas.clear()
 
-    def _handle_pie_plotting(self, data: pd.Series):
-        self.pie_canvas.figure_title = data.name
-        self.pie_canvas.plot(data.values/data.sum(), data.index)
+    def _handle_pie_plotting(self, data):
+        df, colors = data
+        self.pie_canvas.figure_title = df.name
+        self.pie_canvas.plot(df.values/df.sum(), df.index, colors=np.array(colors))

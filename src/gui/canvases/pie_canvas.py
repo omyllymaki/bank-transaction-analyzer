@@ -9,9 +9,9 @@ class PieCanvas(BaseCanvas):
         self._initialize_figure()
         self.threshold = threshold
 
-    def plot(self, y: np.ndarray, labels: np.ndarray):
+    def plot(self, y: np.ndarray, labels: np.ndarray, colors: np.ndarray, *args, **kwargs):
         self._initialize_figure()
         i = y > self.threshold
-        self.axes.pie(y[i], labels=labels[i], autopct='%1.1f%%')
+        self.axes.pie(y[i], labels=labels[i], autopct='%1.1f%%', colors=colors[i], normalize=False, *args, **kwargs)
         self.axes.axis("equal")
         self._update_figure()
