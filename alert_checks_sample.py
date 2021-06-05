@@ -5,7 +5,7 @@ import pandas as pd
 from src.alert_checks.alert_logging import configure_logging
 from src.alert_checks.check import Check
 from src.alert_checks.check_runner import CheckRunner
-from src.alert_checks.options import Criteria
+from src.alert_checks.options import Criteria, OnFail
 from src.alert_checks.utils import checks_from_json
 from src.data_processing.bank_selection import get_bank
 from src.data_processing.prepare_data import prepare_data
@@ -33,13 +33,25 @@ class Duplicates(Check):
         return df[df.duplicated(keep=False)].value.count()
 
 
+class EventsPerMonth(Check):
+    name = "Events per month"
+    description = "Check that every month has some events"
+    ref_values = 0
+    criteria = Criteria.larger
+
+    def pipeline(self, df: pd.DataFrame):
+        return df.set_index("time").groupby(pd.Grouper(freq="M")).count().value.values
+
+
 def main():
     configure_logging()
     data = load_data()
-    checks = checks_from_json("configurations/alert_checks.json") + [Duplicates()]
+    standard_checks = checks_from_json("configurations/alert_checks.json")
+    custom_checks = [Duplicates(), EventsPerMonth()]
+    checks = standard_checks + custom_checks
 
     checker = CheckRunner()
-    checker.run_checks(data, checks, True)
+    checker.run_checks(data, checks, plot=True, on_fail=OnFail.warning_box)
 
 
 if __name__ == "__main__":

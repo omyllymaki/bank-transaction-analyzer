@@ -13,6 +13,7 @@ class Check:
     name = None
     column = "value"
     on_fail = OnFail.log_error
+    description = None
 
     def __init__(self):
         if self.name is None:

@@ -1,7 +1,6 @@
 import json
 import types
-
-import pandas as pd
+from tkinter import Tk, messagebox
 
 from src.alert_checks.check import StandardCheck
 from src.alert_checks.options import Criteria, Grouping, Aggregation
@@ -37,5 +36,6 @@ def dict_to_checks(data):
             c.aggregation = getattr(Aggregation, aggregation)
         c.filtering = {k: v for k, v in values.items() if k in FILTERING_KEYS}
         c.name = name
+        c.description = values.get("description")
         checks.append(c)
     return checks

@@ -1,12 +1,13 @@
 import logging
 from collections import Iterable
 from typing import List, Tuple
+
 import matplotlib.pyplot as plt
-
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-from src.alert_checks.check import StandardCheck
+from src.alert_checks.check import Check
+from src.alert_checks.options import OnFail
 
 logger = logging.getLogger(__name__)
 
@@ -14,8 +15,9 @@ logger = logging.getLogger(__name__)
 class CheckRunner:
 
     def run_checks(self, df: pd.DataFrame,
-                   checks: List[StandardCheck],
-                   plot=False) -> Tuple[bool, List[StandardCheck]]:
+                   checks: List[Check],
+                   plot=False,
+                   on_fail=OnFail.log_error) -> Tuple[bool, List[Check]]:
         logger.info("Start alert checks")
         n_checks = len(checks)
         n_passed = 0
@@ -30,11 +32,13 @@ class CheckRunner:
                 all_ok = False
                 not_passed.append(check)
         logger.info(f"Alert checks done: {n_passed}/{n_checks} ({100 * n_passed / n_checks:0.1f} %) passed")
-        logger.info(f"Checks that didn't pass: {not_passed}")
+        if not all_ok:
+            msg = f"{len(not_passed)} checks failed. Failed checks: {not_passed}"
+            on_fail(msg)
         return all_ok, not_passed
 
     def run_check(self, df: pd.DataFrame,
-                  check: StandardCheck,
+                  check: Check,
                   plot=False) -> bool:
 
         test_values = check.pipeline(df)
@@ -52,12 +56,12 @@ class CheckRunner:
         all_values_ok = True
         results = []
         for value, ref_value in zip(test_values, ref_values):
-            is_ok = check.criteria(value, ref_value)
+            is_ok = check.criteria.__func__(value, ref_value)
             results.append(is_ok)
             logger.debug(f"Test: {is_ok}, {value}, {ref_value}")
             if not is_ok:
                 msg = f"Check {check.name} doesn't pass: calculated {value}; reference {ref_value}"
-                check.on_fail(msg)
+                check.on_fail.__func__(msg)
                 all_values_ok = False
 
         if plot:
