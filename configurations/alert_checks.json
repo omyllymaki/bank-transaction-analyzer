@@ -1,7 +1,9 @@
 {
   "Monthly incomes": {
     "description": "Check that monthly incomes are larger than threshold",
-    "min_value": 0.0,
+    "filtering": {
+      "min_value": 0.0
+    },
     "grouping": "monthly",
     "aggregation": "sum",
     "criteria": "larger",
@@ -9,20 +11,26 @@
   },
   "Monthly outcomes": {
     "description": "Check that monthly outcomes are smaller than threshold",
-    "max_value": 0.0,
+    "filtering": {
+      "max_value": 0.0
+    },
     "grouping": "monthly",
     "aggregation": "sum",
     "criteria": "larger",
     "ref_value": -3000
   },
   "Largest outcome": {
-    "max_value": 0.0,
+    "filtering": {
+      "max_value": 0.0
+    },
     "aggregation": "min",
     "criteria": "larger",
     "ref_value": -1500
   },
   "Aimee Mean": {
-    "target": "Aimee Dodd",
+    "filtering": {
+      "target": "Aimee Dodd"
+    },
     "grouping": "monthly",
     "aggregation": "mean",
     "criteria": "larger",
@@ -30,8 +38,10 @@
   },
   "Monthly outcomes after 2018": {
     "description": "Check that monthly outcomes are smaller than threshold after year 2018",
-    "min_date": "2018-01-01",
-    "max_value": 0.0,
+    "filtering": {
+      "min_date": "2018-01-01",
+      "max_value": 0.0
+    },
     "grouping": "monthly",
     "aggregation": "sum",
     "criteria": "larger",
