@@ -55,10 +55,6 @@ You can make your own category by creating new item in categories.json file or b
 </p>
 
 <p align="center">
-<img src="screenshots/Income-outcome by target.jpg" width="800px" />
-</p>
-
-<p align="center">
 <img src="screenshots/distributions.jpg" width="800px" />
 </p>
 
