@@ -42,6 +42,7 @@
     "grouping": "monthly",
     "aggregation": "count",
     "criteria": "larger",
+    "on_fail": "print",
     "ref_value": 0
   }
 }

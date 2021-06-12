@@ -3,7 +3,7 @@ import types
 from tkinter import Tk, messagebox
 
 from src.alert_checks.check import StandardCheck
-from src.alert_checks.options import Criteria, Grouping, Aggregation
+from src.alert_checks.options import Criteria, Grouping, Aggregation, OnFail
 
 FILTERING_KEYS = ["min_date",
                   "max_date",
@@ -34,6 +34,9 @@ def dict_to_checks(data):
         aggregation = values["aggregation"]
         if aggregation:
             c.aggregation = getattr(Aggregation, aggregation)
+        on_fail = values.get("on_fail")
+        if on_fail:
+            c.on_fail = types.MethodType(getattr(OnFail, on_fail), StandardCheck())
         c.filtering = {k: v for k, v in values.items() if k in FILTERING_KEYS}
         c.name = name
         c.description = values.get("description")

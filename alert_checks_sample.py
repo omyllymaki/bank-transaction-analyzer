@@ -28,6 +28,7 @@ class Duplicates(Check):
     name = "Duplicates"
     ref_values = 0
     criteria = Criteria.equal
+    on_fail = OnFail.info_box
 
     def pipeline(self, df: pd.DataFrame):
         return df[df.duplicated(keep=False)].value.count()

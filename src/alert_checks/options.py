@@ -24,6 +24,7 @@ class Criteria(Enum):
 
 
 class OnFail(Enum):
+    print = lambda msg: print(msg)
     log_error = lambda msg: logger.error(msg)
     exception = lambda msg: Exception(msg)
     info_box = lambda msg: show_info_box(msg)
