@@ -43,7 +43,7 @@ class StandardCheck(Check):
         if self.filtering:
             df = DataFilter().filter(df, **self.filtering)
         if self.group_by:
-            df = df.groupby(self.group_by.value)
+            df = df.set_index("time").groupby(pd.Grouper(freq=self.group_by.value))
         if self.aggregation:
             df = df.agg(self.aggregation.value)
         return df[self.column].tolist()

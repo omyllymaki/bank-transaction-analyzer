@@ -31,10 +31,10 @@ class OnFail(Enum):
 
 
 class Grouping(Enum):
-    daily = ["year", "month", "day"]
-    weekly = ["year", "month", "week"]
-    monthly = ["year", "month"]
-    yearly = ["year"]
+    daily = "D"
+    weekly = "W"
+    monthly = "M"
+    yearly = "Y"
 
 
 class Aggregation(Enum):

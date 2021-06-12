@@ -36,5 +36,12 @@
     "aggregation": "sum",
     "criteria": "larger",
     "ref_value": -2500
+  },
+  "Events per month": {
+    "description": "Check that every month has some events",
+    "grouping": "monthly",
+    "aggregation": "count",
+    "criteria": "larger",
+    "ref_value": 0
   }
 }

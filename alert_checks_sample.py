@@ -33,21 +33,11 @@ class Duplicates(Check):
         return df[df.duplicated(keep=False)].value.count()
 
 
-class EventsPerMonth(Check):
-    name = "Events per month"
-    description = "Check that every month has some events"
-    ref_values = 0
-    criteria = Criteria.larger
-
-    def pipeline(self, df: pd.DataFrame):
-        return df.set_index("time").groupby(pd.Grouper(freq="M")).count().value.values
-
-
 def main():
     configure_logging()
     data = load_data()
     standard_checks = checks_from_json("configurations/alert_checks.json")
-    custom_checks = [Duplicates(), EventsPerMonth()]
+    custom_checks = [Duplicates()]
     checks = standard_checks + custom_checks
 
     checker = CheckRunner()
