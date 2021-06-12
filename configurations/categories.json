@@ -1,0 +1,32 @@
+{
+    "Food & Drink": {
+        "target": "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa|alko",
+        "max_value": 0
+    },
+    "Shopping": {
+        "target": "power|dressmann|clas ohlson|new yorker|hennes mauritz|kirjakauppa|sokos|tokmanni|verkkokauppa|gigantti|cdon|stadium",
+        "max_value": 0
+    },
+    "Beauty & Health": {
+        "target": "apteekki|parturi|specsavers|optikko|instrumentarium|hammas",
+        "max_value": 0
+    },
+    "Transport": {
+        "target": "vr|taksi|abc|teboil|neste",
+        "max_value": 0
+    },
+    "Restaurant": {
+        "target": "buffa|cafe|kebab|pizza|ravintola|mauno|grilli|food|unica|fazer|restaurant|sodexo|food|kahvi|subway",
+        "max_value": 0
+    },
+    "Phone, Internet, Electricity": {
+        "target": "dna|telia|kss energia|sähkö",
+        "max_value": 0
+    },
+    "Small incomes": {
+        "min_value": 0
+    },
+    "Large incomes": {
+        "min_value": 500
+    }
+}

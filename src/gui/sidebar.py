@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLine
     QInputDialog, QHBoxLayout
 
 from src.data_processing.bank_selection import get_bank
+from src.data_processing.categorizer import Categorizer
 from src.data_processing.data_filtering import DataFilter
 from src.data_processing.prepare_data import prepare_data
 from src.gui.dialog_boxes import show_warning
@@ -17,7 +18,7 @@ from src.utils import load_json, save_json
 
 class SideBar(QWidget):
     analyze_button_clicked = pyqtSignal(pd.DataFrame)
-    new_indicator_created = pyqtSignal()
+    new_indicator_or_category_created = pyqtSignal()
 
     def __init__(self, config):
         super().__init__()
@@ -45,6 +46,7 @@ class SideBar(QWidget):
         self.max_value_line = FloatLineEdit(self)
         self.load_button = QPushButton('Load data')
         self.create_indicator_button = QPushButton('Create indicator from existing filters')
+        self.create_category_button = QPushButton('Create category from existing filters')
         self._set_layout()
         self._set_connections()
 
@@ -72,10 +74,12 @@ class SideBar(QWidget):
         self.layout.addWidget(self.category_line)
         self.layout.addWidget(self.load_button)
         self.layout.addWidget(self.create_indicator_button)
+        self.layout.addWidget(self.create_category_button)
 
     def _set_connections(self):
         self.load_button.clicked.connect(self._handle_load_button_clicked)
-        self.create_indicator_button.clicked.connect(self._handle_create_new_indicator)
+        self.create_indicator_button.clicked.connect(lambda: self._handle_create_new_indicator_or_category("indicators"))
+        self.create_category_button.clicked.connect(lambda: self._handle_create_new_indicator_or_category("categories"))
         self.min_value_line.textChanged.connect(self._handle_min_value_changed)
         self.max_value_line.textChanged.connect(self._handle_max_value_changed)
 
@@ -101,7 +105,7 @@ class SideBar(QWidget):
                                          data_loader=bank.loader,
                                          data_transformer=bank.transformer,
                                          drop_data=self.config["drop_data"],
-                                         classifier=self.config["classifier"])
+                                         categorizer=Categorizer(self.config["categories"]))
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._handle_filter_data()
@@ -134,23 +138,26 @@ class SideBar(QWidget):
             else:
                 self.analyze_button_clicked.emit(self.filtered_data)
 
-    def _handle_create_new_indicator(self):
+    def _handle_create_new_indicator_or_category(self, type: str):
         self._update_filtering_values()
         filter_values = {k: v for k, v in self.filter_values.items() if v != "" and pd.notnull(v)}
 
         filter_values.pop("min_date", None)
         filter_values.pop("max_date", None)
-        indicator_name, ok = QInputDialog.getText(self, 'New indicator', 'Type the name of new indicator')
+        if type == "indicators":
+            name, ok = QInputDialog.getText(self, 'New indicator', 'Type the name of new indicator')
+        else:
+            name, ok = QInputDialog.getText(self, 'New category', 'Type the name of new category')
         if not ok:
             return
         try:
-            indicators = load_json(self.config["paths"]["indicators"])
-            indicators[indicator_name] = filter_values
-            save_json(self.config["paths"]["indicators"], indicators)
-            self.new_indicator_created.emit()
+            values = load_json(self.config["paths"][type])
+            values[name] = filter_values
+            save_json(self.config["paths"][type], values)
+            self.new_indicator_or_category_created.emit()
         except Exception as e:
             print(e)
-            show_warning("Indicator creation failure", "Something went wrong")
+            show_warning("Failure", "Something went wrong")
 
     def _get_file_paths(self) -> List[str]:
         file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis',

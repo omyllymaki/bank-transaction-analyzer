@@ -21,7 +21,7 @@ class MainView(QWidget):
 
     def _set_connections(self):
         self.sidebar.analyze_button_clicked.connect(self._handle_plotting)
-        self.sidebar.new_indicator_created.connect(self._handle_new_indicator_created)
+        self.sidebar.new_indicator_or_category_created.connect(self._handle_new_indicator_created)
         self.tab_handler.tabs["Events"].drop_data_added.connect(self._handle_drop_data_added)
 
     def _handle_plotting(self, data: pd.DataFrame):

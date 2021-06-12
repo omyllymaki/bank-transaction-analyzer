@@ -26,5 +26,5 @@ def load_configurations(paths):
     output = {}
     output["drop_data"] = load_json(paths["drop_data"])
     output["indicators"] = load_json(paths["indicators"])
-    output["classifier"] = load_pickle(paths["classifier"])
+    output["categories"] = load_json(paths["categories"])
     return output

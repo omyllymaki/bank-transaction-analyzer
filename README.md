@@ -30,6 +30,7 @@ Following files under configurations folder can be used for configuration:
 * config.json
 * drop_data.json
 * indicators.json
+* categories.json
 
 **Drop data**
 
@@ -40,6 +41,12 @@ drop_data.json specifies which items should be always filtered out. E.g. "target
 Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. E.g. "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa" as target would group purchases from multiple stores.
 
 You can make your own indicator by creating new item in indicators.json file or by selecting suitable filter values from GUI and pressing "Create indicator from existing filters" button.
+
+**Categories**
+
+Events are classified to different categories.  E.g. one could create category "Transport expenses" by selecting "target" as "vr|taksi|abc|teboil|neste" and "max_value" as 0. Note that every event can have only one category.
+
+You can make your own category by creating new item in categories.json file or by selecting suitable filter values from GUI and pressing "Create category from existing filters" button. If an event matches to multiple categories, then the last category in file will be used as the category of event.
 
 # Screenshots (with simulated test data provided)
 
@@ -89,12 +96,6 @@ schema = pandas_schema.Schema([
 ```
 
 When custom Loader and Transformer classes are created, they can be used by adding bank option to src/data_processing/bank_selection.py file and selecting that bank in config.json file.
-
-## Automatic classification of transactions
-
-Application uses simple ML model to classify transactions to following categories: ["Food & Drink", "Shopping", "Beauty & Health", "Transport",  "Restaurant", "Other"]. The current classification is done just based on event, value and target columns.
-
-You can train your custom classifier using src/data_processing/train_classifier.py script or by implementing your own training script. Final classifier model should be TransactionClassifier (src/data_processing/classification/classifier.py) and trained classifier should be stored as pickle file to configurations folder.
 
 ## Alert checks
 

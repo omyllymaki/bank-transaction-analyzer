@@ -4,6 +4,6 @@
   "paths": {
     "drop_data": "configurations/drop_data.json",
     "indicators": "configurations/indicators.json",
-    "classifier": "configurations/classifier.p"
+    "categories": "configurations/categories.json"
   }
 }
