@@ -14,7 +14,7 @@ class TabHandler(QWidget):
         self.tabs = {
             'Incomes & outcomes': IncomeAndOutcomeTab(),
             'Distributions': DistributionsTab(),
-            'Indicators': IndicatorsTab(config),
+            'Indicators': IndicatorsTab(config["indicators"]),
             'Events': EventTableTab(config),
         }
 
@@ -30,3 +30,6 @@ class TabHandler(QWidget):
     def handle_data(self, data: pd.DataFrame):
         for tab in self.tabs.values():
             tab.handle_data(data)
+
+    def update_config(self, config):
+        self.tabs["Indicators"].update_indicators(config["indicators"])

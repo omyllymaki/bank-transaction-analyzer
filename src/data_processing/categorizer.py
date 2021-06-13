@@ -8,7 +8,7 @@ class Categorizer:
         self.specifications = specifications
         self.filtering = DataFilter()
 
-    def add_categories(self, df: pd.DataFrame):
+    def update_categories(self, df: pd.DataFrame):
         df.reset_index(inplace=True, drop=True)
         df["category"] = "Other"
         for name, filter_values in self.specifications.items():

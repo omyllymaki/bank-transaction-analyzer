@@ -18,7 +18,7 @@ from src.utils import load_json, save_json
 
 class SideBar(QWidget):
     analyze_button_clicked = pyqtSignal(pd.DataFrame)
-    new_indicator_or_category_created = pyqtSignal()
+    new_indicator_created = pyqtSignal()
 
     def __init__(self, config):
         super().__init__()
@@ -34,6 +34,7 @@ class SideBar(QWidget):
         self.filter_values = None
 
         self.filter = DataFilter()
+        self.categorizer = Categorizer(self.config["categories"])
         self.cleaned_data = None
         self.min_date_selector = QCalendarWidget(self)
         self.max_date_selector = QCalendarWidget(self)
@@ -78,8 +79,8 @@ class SideBar(QWidget):
 
     def _set_connections(self):
         self.load_button.clicked.connect(self._handle_load_button_clicked)
-        self.create_indicator_button.clicked.connect(lambda: self._handle_create_new_indicator_or_category("indicators"))
-        self.create_category_button.clicked.connect(lambda: self._handle_create_new_indicator_or_category("categories"))
+        self.create_indicator_button.clicked.connect(self._handle_create_new_indicator)
+        self.create_category_button.clicked.connect(self._handle_create_new_category)
         self.min_value_line.textChanged.connect(self._handle_min_value_changed)
         self.max_value_line.textChanged.connect(self._handle_max_value_changed)
 
@@ -105,7 +106,7 @@ class SideBar(QWidget):
                                          data_loader=bank.loader,
                                          data_transformer=bank.transformer,
                                          drop_data=self.config["drop_data"],
-                                         categorizer=Categorizer(self.config["categories"]))
+                                         categorizer=self.categorizer)
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._handle_filter_data()
@@ -138,26 +139,44 @@ class SideBar(QWidget):
             else:
                 self.analyze_button_clicked.emit(self.filtered_data)
 
-    def _handle_create_new_indicator_or_category(self, type: str):
-        self._update_filtering_values()
-        filter_values = {k: v for k, v in self.filter_values.items() if v != "" and pd.notnull(v)}
+    def _update_categories(self):
+        self.categorizer.update_categories(self.cleaned_data)
+        self._handle_filter_data()
 
-        filter_values.pop("min_date", None)
-        filter_values.pop("max_date", None)
-        if type == "indicators":
-            name, ok = QInputDialog.getText(self, 'New indicator', 'Type the name of new indicator')
-        else:
-            name, ok = QInputDialog.getText(self, 'New category', 'Type the name of new category')
+    def _handle_create_new_indicator(self):
+        name, ok = QInputDialog.getText(self, 'New indicator', 'Type the name of new indicator')
         if not ok:
             return
         try:
-            values = load_json(self.config["paths"][type])
-            values[name] = filter_values
-            save_json(self.config["paths"][type], values)
-            self.new_indicator_or_category_created.emit()
+            new_indicators = self._write_filtering_values_to_file(self.config["paths"]["indicators"], name)
+            self.config["indicators"] = new_indicators
+            self.new_indicator_created.emit()
         except Exception as e:
             print(e)
-            show_warning("Failure", "Something went wrong")
+            show_warning("Indicator creation failure", "Something went wrong")
+
+    def _handle_create_new_category(self):
+        name, ok = QInputDialog.getText(self, 'New category', 'Type the name of new category')
+        if not ok:
+            return
+        try:
+            new_categories = self._write_filtering_values_to_file(self.config["paths"]["categories"], name)
+            self.config["categories"] = new_categories
+            self.categorizer = Categorizer(new_categories)
+            self._update_categories()
+        except Exception as e:
+            print(e)
+            show_warning("Category creation failure", "Something went wrong")
+
+    def _write_filtering_values_to_file(self, file_path, name):
+        self._update_filtering_values()
+        filter_values = {k: v for k, v in self.filter_values.items() if v != "" and pd.notnull(v)}
+        filter_values.pop("min_date", None)
+        filter_values.pop("max_date", None)
+        values = load_json(file_path)
+        values[name] = filter_values
+        save_json(file_path, values)
+        return values
 
     def _get_file_paths(self) -> List[str]:
         file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis',

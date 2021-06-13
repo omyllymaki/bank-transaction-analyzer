@@ -16,7 +16,6 @@ def main():
     args = parser.parse_args()
     print(f"Reading configuration from {args.config}")
     config = load_json(args.config)
-    config = {**config, **load_configurations(config["paths"])}
     app = QApplication(sys.argv)
     mw = MainWindow(config)
     mw.show()

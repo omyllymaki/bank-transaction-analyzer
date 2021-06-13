@@ -29,7 +29,7 @@ def prepare_data(file_paths: List[str],
     preprocessed_data = data_preprocessor.process(transformed_data)
     filtered_data = data_filter.filter(preprocessed_data, drop_data=drop_data)
     if categorizer:
-        categorizer.add_categories(filtered_data)
+        categorizer.update_categories(filtered_data)
     else:
         filtered_data["category"] = "NA"
     return filtered_data

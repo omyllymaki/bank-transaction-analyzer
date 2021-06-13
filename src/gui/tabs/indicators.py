@@ -1,4 +1,5 @@
 import json
+from pprint import pprint
 
 import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
@@ -17,12 +18,11 @@ class IndicatorsTab(BaseTab):
         "Day": ["year", "month", "day"]
     }
 
-    def __init__(self, config):
+    def __init__(self, indicators: dict):
 
-        self.config = config
         self.data = None
         self.indicator_values = None
-        self.indicators_dict = config["indicators"]
+        self.indicators_dict = indicators
         self.analyser = DataAnalyzer()
         self.filter = DataFilter()
 
@@ -35,7 +35,7 @@ class IndicatorsTab(BaseTab):
         self.figure_value = BarCanvas(y_axis_title='Amount (EUR)')
         self.figure_cumulative = BarCanvas(y_axis_title='Cumulative amount (EUR)')
 
-        self.load_indicators()
+        self._add_indicator_options()
 
         super().__init__()
 
@@ -71,10 +71,14 @@ class IndicatorsTab(BaseTab):
         self.indicator_values = self.indicators_dict.get(self.current_indicator, None)
         self._analyze_data_and_update_canvas()
 
-    def load_indicators(self):
+    def _add_indicator_options(self):
         self.indicator_selector.clear()
         self.indicator_selector.addItems(list(self.indicators_dict.keys()))
         self._indicator_option_changed()
+
+    def update_indicators(self, indicators):
+        self.indicators_dict = indicators
+        self._add_indicator_options()
 
     def handle_data(self, data: pd.DataFrame):
         self.data = data
