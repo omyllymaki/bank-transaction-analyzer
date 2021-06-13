@@ -17,8 +17,8 @@ from src.utils import load_json, save_json
 
 
 class SideBar(QWidget):
-    analyze_button_clicked = pyqtSignal(pd.DataFrame)
-    new_indicator_created = pyqtSignal()
+    data_filtered_signal = pyqtSignal(pd.DataFrame)
+    new_indicator_created_signal = pyqtSignal()
 
     def __init__(self, config):
         super().__init__()
@@ -137,7 +137,7 @@ class SideBar(QWidget):
             if self.filtered_data.empty:
                 show_warning("Warning", "No data to analyze")
             else:
-                self.analyze_button_clicked.emit(self.filtered_data)
+                self.data_filtered_signal.emit(self.filtered_data)
 
     def _update_categories(self):
         self.categorizer.update_categories(self.cleaned_data)
@@ -150,7 +150,7 @@ class SideBar(QWidget):
         try:
             new_indicators = self._write_filtering_values_to_file(self.config["paths"]["indicators"], name)
             self.config["indicators"] = new_indicators
-            self.new_indicator_created.emit()
+            self.new_indicator_created_signal.emit()
         except Exception as e:
             print(e)
             show_warning("Indicator creation failure", "Something went wrong")

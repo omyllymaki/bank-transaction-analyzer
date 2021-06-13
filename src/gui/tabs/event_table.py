@@ -12,7 +12,7 @@ from src.utils import load_json, save_json
 
 
 class EventTableTab(BaseTab):
-    drop_data_added = pyqtSignal()
+    drop_data_added_signal = pyqtSignal()
     show_columns = ["target", "account_number", "value", "time", "message", "event", "category"]
 
     def __init__(self, config):
@@ -111,7 +111,7 @@ class EventTableTab(BaseTab):
             else:
                 drop_data[column] = [content]
             save_json(self.config["paths"]["drop_data"], drop_data)
-            self.drop_data_added.emit()
+            self.drop_data_added_signal.emit()
 
         except Exception as e:
             print(e)
