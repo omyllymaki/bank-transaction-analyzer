@@ -46,4 +46,4 @@ class StandardCheck(Check):
             df = df.set_index("time").groupby(pd.Grouper(freq=self.group_by.value))
         if self.aggregation:
             df = df.agg(self.aggregation.value)
-        return df[self.column].tolist()
+        return df.fillna(0)[self.column].tolist()

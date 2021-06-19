@@ -64,7 +64,7 @@ class CheckRunner:
                 check.on_fail.__func__(msg)
                 all_values_ok = False
 
-        if plot:
+        if plot and test_values:
             self.visualize_results(test_values, ref_values, results, check.name)
 
         return all_values_ok
