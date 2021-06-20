@@ -8,7 +8,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLine
     QInputDialog, QHBoxLayout
 
 from src.data_processing.bank_selection import get_bank
-from src.data_processing.categorizer import Categorizer
+from src.data_processing.data_analysis import categorize
 from src.data_processing.data_filtering import filter_data
 from src.data_processing.prepare_data import prepare_data
 from src.gui.dialog_boxes import show_warning
@@ -33,7 +33,6 @@ class SideBar(QWidget):
         self.is_data_loaded = False
         self.filter_values = None
 
-        self.categorizer = Categorizer(self.config["categories"])
         self.cleaned_data = None
         self.min_date_selector = QCalendarWidget(self)
         self.max_date_selector = QCalendarWidget(self)
@@ -105,7 +104,7 @@ class SideBar(QWidget):
                                          data_loader=bank.loader,
                                          data_transformer=bank.transformer,
                                          drop_data=self.config["drop_data"],
-                                         categorizer=self.categorizer)
+                                         categories=self.config["categories"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._handle_filter_data()
@@ -139,7 +138,7 @@ class SideBar(QWidget):
                 self.data_filtered_signal.emit(self.filtered_data)
 
     def _update_categories(self):
-        self.categorizer.update_categories(self.cleaned_data)
+        self.cleaned_data["categories"] = categorize(self.cleaned_data, self.config["categories"])
         self._handle_filter_data()
 
     def _handle_create_new_indicator(self):
@@ -161,7 +160,6 @@ class SideBar(QWidget):
         try:
             new_categories = self._write_filtering_values_to_file(self.config["paths"]["categories"], name)
             self.config["categories"] = new_categories
-            self.categorizer = Categorizer(new_categories)
             self._update_categories()
         except Exception as e:
             print(e)

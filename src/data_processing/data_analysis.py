@@ -1,6 +1,9 @@
 from typing import List
 
 import pandas as pd
+import numpy as np
+
+from src.data_processing.data_filtering import filter_data
 
 
 def calculate_incomes_and_outcomes(data: pd.DataFrame,
@@ -63,3 +66,13 @@ def _group_data_by_columns(data: pd.DataFrame, group_by: str) -> pd.DataFrame:
     grouped_data['ratio'] = grouped_data['outcome'] / grouped_data['income']
     grouped_data['total_cumulative'] = grouped_data['total'].cumsum()
     return grouped_data
+
+
+def categorize(df: pd.DataFrame, specifications: dict) -> np.array:
+    dfc = df.copy()
+    dfc.reset_index(inplace=True, drop=True)
+    dfc["category"] = "Other"
+    for name, filter_values in specifications.items():
+        filtered = filter_data(dfc, **filter_values)
+        dfc["category"].loc[filtered.index.values] = name
+    return dfc["category"].values
