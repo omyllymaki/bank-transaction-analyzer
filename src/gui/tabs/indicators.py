@@ -1,7 +1,7 @@
 import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
-from src.data_processing.data_analyzer import calculate_incomes_and_outcomes
+from src.data_processing.data_analysis import calculate_incomes_and_outcomes
 from src.data_processing.data_filtering import filter_data
 from src.gui.canvases.bar_canvas import BarCanvas
 from src.gui.tabs.base_tab import BaseTab

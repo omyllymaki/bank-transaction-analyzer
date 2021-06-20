@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
-from src.data_processing.data_analyzer import calculate_pivot_table
+from src.data_processing.data_analysis import calculate_pivot_table
 from src.gui.canvases.pie_canvas import PieCanvas
 from src.gui.canvases.stacked_bar_canvas import StackedBarsCanvas
 from src.gui.tabs.base_tab import BaseTab
