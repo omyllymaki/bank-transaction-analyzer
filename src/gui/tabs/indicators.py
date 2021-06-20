@@ -1,7 +1,7 @@
 import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
-from src.data_processing.data_analyzer import DataAnalyzer
+from src.data_processing.data_analyzer import calculate_incomes_and_outcomes
 from src.data_processing.data_filtering import filter_data
 from src.gui.canvases.bar_canvas import BarCanvas
 from src.gui.tabs.base_tab import BaseTab
@@ -9,17 +9,16 @@ from src.gui.tabs.base_tab import BaseTab
 
 class IndicatorsTab(BaseTab):
     grouping_options = {
-        "Year": ["year"],
-        "Month": ["year", "month"],
-        "Week": ["year", "week"],
-        "Day": ["year", "month", "day"]
+        "Year": {"group_by": "Y", "format": "%Y"},
+        "Month": {"group_by": "M", "format": "%Y-%m"},
+        "Week": {"group_by": "W", "format": "%Y-%W"},
+        "Day": {"group_by": "D", "format": "%Y-%m-%d"}
     }
 
     def __init__(self, indicators: dict):
         self.data = None
         self.indicator_values = None
         self.indicators_dict = indicators
-        self.analyser = DataAnalyzer()
 
         self.grouping_option_selector = QComboBox()
         self.grouping_option_selector.addItems(list(self.grouping_options.keys()))
@@ -58,7 +57,8 @@ class IndicatorsTab(BaseTab):
 
     def _grouping_option_changed(self):
         option_text = self.grouping_option_selector.currentText()
-        self.group_by = self.grouping_options[option_text]
+        self.group_by = self.grouping_options[option_text]["group_by"]
+        self.formatting = self.grouping_options[option_text]["format"]
         self._analyze_data_and_update_canvas()
 
     def _indicator_option_changed(self):
@@ -82,8 +82,9 @@ class IndicatorsTab(BaseTab):
     def _analyze_data_and_update_canvas(self):
         if self.indicator_values is not None and self.data is not None:
             filtered_data = filter_data(self.data, **self.indicator_values)
-            analysed_data = self.analyser.calculate_incomes_and_outcomes(filtered_data, self.group_by)
-            self.figure_value.plot(analysed_data['total'], analysed_data.index.tolist())
+            analysed_data = calculate_incomes_and_outcomes(filtered_data, self.group_by)
+            self.figure_value.plot(analysed_data['total'],
+                                   analysed_data.index.strftime(self.formatting).tolist())
             self.figure_cumulative.plot(analysed_data['total_cumulative'],
-                                        analysed_data.index.tolist(),
+                                        analysed_data.index.strftime(self.formatting).tolist(),
                                         plot_average=False)

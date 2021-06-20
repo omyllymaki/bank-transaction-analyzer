@@ -1,7 +1,7 @@
 import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
-from src.data_processing.data_analyzer import DataAnalyzer
+from src.data_processing.data_analyzer import calculate_incomes_and_outcomes
 from src.gui.canvases.bar_canvas import BarCanvas
 from src.gui.canvases.double_bar_canvas import DoubleBarCanvas
 from src.gui.tabs.base_tab import BaseTab
@@ -9,17 +9,17 @@ from src.gui.tabs.base_tab import BaseTab
 
 class IncomeAndOutcomeTab(BaseTab):
     options = {
-        "Year": ["year"],
-        "Month": ["year", "month"],
-        "Week": ["year", "week"],
-        "Day": ["year", "month", "day"],
+        "Year": {"group_by": "Y", "format": "%Y"},
+        "Month": {"group_by": "M", "format": "%Y-%m"},
+        "Week": {"group_by": "W", "format": "%Y-%W"},
+        "Day": {"group_by": "D", "format": "%Y-%m-%d"}
     }
 
     def __init__(self):
         self.data = None
         self.option_text = None
-        self.group_by = list(self.options.values())[0]
-        self.analyser = DataAnalyzer()
+        self.group_by = list(self.options.values())[0]["group_by"]
+        self.formatting = list(self.options.values())[0]["format"]
         self.grouping_option_selector = QComboBox()
         self.grouping_option_selector.addItems(list(self.options.keys()))
         self.figure_income_and_outcome = DoubleBarCanvas(figure_title='Income & Outcome',
@@ -48,7 +48,8 @@ class IncomeAndOutcomeTab(BaseTab):
 
     def _option_changed(self):
         self.option_text = self.grouping_option_selector.currentText()
-        self.group_by = self.options[self.option_text]
+        self.group_by = self.options[self.option_text]["group_by"]
+        self.formatting = self.options[self.option_text]["format"]
         self._analyze_data_and_update_canvases()
 
     def handle_data(self, data: pd.DataFrame):
@@ -57,8 +58,9 @@ class IncomeAndOutcomeTab(BaseTab):
 
     def _analyze_data_and_update_canvases(self):
         if self.data is not None:
-            analysed_data = self.analyser.calculate_incomes_and_outcomes(self.data, self.group_by)
+            analysed_data = calculate_incomes_and_outcomes(self.data, self.group_by)
             self.figure_income_and_outcome.plot(analysed_data['income'],
                                                 analysed_data['outcome'],
-                                                analysed_data.index.tolist())
-            self.figure_profit.plot(analysed_data['total'], analysed_data.index.tolist())
+                                                analysed_data.index.strftime(self.formatting).tolist())
+            self.figure_profit.plot(analysed_data['total'],
+                                    analysed_data.index.strftime(self.formatting).tolist())

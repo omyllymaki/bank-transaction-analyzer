@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
-from src.data_processing.data_analyzer import DataAnalyzer
+from src.data_processing.data_analyzer import calculate_pivot_table
 from src.gui.canvases.pie_canvas import PieCanvas
 from src.gui.canvases.stacked_bar_canvas import StackedBarsCanvas
 from src.gui.tabs.base_tab import BaseTab
@@ -28,7 +28,6 @@ class DistributionsTab(BaseTab):
         self.column_group_by = "target"
         self.current_output_option = "income"
 
-        self.analyzer = DataAnalyzer()
         self.bar_canvas = StackedBarsCanvas(y_axis_title="Amount (EUR)")
         self.pie_canvas = PieCanvas(threshold=0.01)
 
@@ -112,10 +111,10 @@ class DistributionsTab(BaseTab):
                 data_to_analyze = self.data[self.data.value < 0]
                 data_to_analyze["value"] = abs(data_to_analyze["value"])
 
-            pivot_table = self.analyzer.calculate_pivot_table(data_to_analyze,
-                                                              group_by=self.time_group_by,
-                                                              columns=self.column_group_by,
-                                                              threshold=self.threshold_value)
+            pivot_table = calculate_pivot_table(data_to_analyze,
+                                                group_by=self.time_group_by,
+                                                columns=self.column_group_by,
+                                                threshold=self.threshold_value)
 
             if pivot_table.shape[0] > 0:
                 self.bar_canvas.plot(pivot_table)
@@ -125,4 +124,4 @@ class DistributionsTab(BaseTab):
     def _handle_pie_plotting(self, data):
         df, colors = data
         self.pie_canvas.figure_title = df.name
-        self.pie_canvas.plot(df.values/df.sum(), df.index, colors=np.array(colors))
+        self.pie_canvas.plot(df.values / df.sum(), df.index, colors=np.array(colors))
