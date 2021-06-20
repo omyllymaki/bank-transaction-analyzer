@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLine
 
 from src.data_processing.bank_selection import get_bank
 from src.data_processing.categorizer import Categorizer
-from src.data_processing.data_filtering import DataFilter
+from src.data_processing.data_filtering import filter_data
 from src.data_processing.prepare_data import prepare_data
 from src.gui.dialog_boxes import show_warning
 from src.gui.widgets import FloatLineEdit
@@ -33,7 +33,6 @@ class SideBar(QWidget):
         self.is_data_loaded = False
         self.filter_values = None
 
-        self.filter = DataFilter()
         self.categorizer = Categorizer(self.config["categories"])
         self.cleaned_data = None
         self.min_date_selector = QCalendarWidget(self)
@@ -133,7 +132,7 @@ class SideBar(QWidget):
     def _handle_filter_data(self):
         self._update_filtering_values()
         if self.cleaned_data is not None:
-            self.filtered_data = self.filter.filter(self.cleaned_data, **self.filter_values)
+            self.filtered_data = filter_data(self.cleaned_data, **self.filter_values)
             if self.filtered_data.empty:
                 show_warning("Warning", "No data to analyze")
             else:

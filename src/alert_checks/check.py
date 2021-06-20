@@ -4,7 +4,7 @@ from typing import List, Union
 import pandas as pd
 
 from src.alert_checks.options import OnFail, Grouping, Aggregation
-from src.data_processing.data_filtering import DataFilter
+from src.data_processing.data_filtering import filter_data
 
 
 class Check:
@@ -41,7 +41,7 @@ class StandardCheck(Check):
 
     def pipeline(self, df: pd.DataFrame) -> Union[float, List[float]]:
         if self.filtering:
-            df = DataFilter().filter(df, **self.filtering)
+            df = filter_data(df, **self.filtering)
         if self.group_by:
             df = df.set_index("time").groupby(pd.Grouper(freq=self.group_by.value))
         if self.aggregation:
