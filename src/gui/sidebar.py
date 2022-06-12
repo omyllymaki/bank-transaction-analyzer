@@ -7,12 +7,9 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog, \
     QInputDialog, QHBoxLayout
 
-from src.data_processing.bank_selection import get_bank
 from src.data_processing.data_analysis import categorize
 from src.data_processing.data_filtering import filter_data
-from src.data_processing.loaders.new_nordea_loader import NewNordeaLoader
-from src.data_processing.prepare_data import prepare_data
-from src.data_processing.transformers.new_nordea_transformer import NewNordeaTransformer
+from src.data_processing.data_preprocessing import DataPreprocessor
 from src.gui.dialog_boxes import show_warning
 from src.gui.widgets import FloatLineEdit
 from src.utils import load_json, save_json
@@ -25,6 +22,7 @@ class SideBar(QWidget):
     def __init__(self, config):
         super().__init__()
 
+        self.data_preprocessor = DataPreprocessor()
         self.config = config
         self.cleaned_data = None
         self.filtered_data = None
@@ -101,9 +99,9 @@ class SideBar(QWidget):
         self.load_data()
 
     def load_data(self):
-        self.cleaned_data = prepare_data(file_paths=self.file_paths,
-                                         drop_data=self.config["drop_data"],
-                                         categories=self.config["categories"])
+        self.cleaned_data = self.data_preprocessor.get_data(file_paths=self.file_paths,
+                                                            drop_data=self.config["drop_data"],
+                                                            categories=self.config["categories"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self._handle_filter_data()
