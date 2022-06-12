@@ -2,7 +2,8 @@
 
 Bank Transaction Analyzer provides analysis and visualization of bank transaction data.
 
-By default the analyzer works with Nordea internet bank data but can be customized to work with other data formats too.
+By default, the analyzer works with Nordea internet bank data (both old and new format) but can be customized to work 
+with other banks and data formats too.
 
 # Before usage
 
@@ -13,7 +14,9 @@ For Ubuntu users there is installation script: ```./install.sh```.
 
 # Basic usage
 
-* Export your data from Nordea internet bank (Tilit / Tilitapahtumat ja tilin tiedot / Tapahtumaluettelo).
+* Export your data from Nordea internet bank 
+  * Old internet bank: Tilit / Tilitapahtumat ja tilin tiedot / Tapahtumaluettelo
+  * New internet bank: Talous / tilit / Tapahtumat ja tiedot / CSV
 * Start GUI program from command line by typing ```python3 main.py [-- config config_path]``` or simply ```./run.sh [config_path]``` if you are using virtualenv with Ubuntu.
 * Load data with load button which opens file dialog where you can choose multiple files for analysis.
 * Set filter values and press Enter to apply filtering.
@@ -74,16 +77,20 @@ You can make your own category by creating new item in categories.json file or b
 
 ## Using application with non-default data format
 
-By default the analyzer works with Nordea internet bank data, with certain data format. However, the application can be used with other data formats too. This is done by implementing custom Loader and Transformer class.
+By default the analyzer works with Nordea internet bank data, with certain data format. However, the application can be 
+used with other data formats too. This is done by implementing custom Loader and Transformer class.
 
 Loader loads the raw data from files. It needs to inherit and implement LoaderInterface class.
 
-Transformer collects relevant information from raw data and converts it to specified format that can be handled by application. It needs to inherit and implement TransformerInterface class. Output of Transformer is validated. It needs to pass validation checks defined in src/data_processing/validation.py file:
+Transformer collects relevant information from raw data and converts it to specified format that can be handled by 
+application. It needs to inherit and implement TransformerInterface class. Output of Transformer is validated. It needs 
+to pass validation checks defined in src/data_processing/validation.py file:
 
 ```
 schema = pandas_schema.Schema([
         Column('value', decimal_validation + nan_validation),
         Column('time', datetime_validation + nan_validation),
+        Column('bank', string_validation + nan_validation),
         Column('target', string_validation),
         Column('message', string_validation),
         Column('event', string_validation),
@@ -91,7 +98,8 @@ schema = pandas_schema.Schema([
     ])
 ```
 
-When custom Loader and Transformer classes are created, they can be used by adding bank option to src/data_processing/bank_selection.py file and selecting that bank in config.json file.
+When custom Loader and Transformer classes are created, they can be used by adding bank to DataPreprocessor class
+(src/data_processing/data_preprocessing.py).
 
 ## Alert checks
 
