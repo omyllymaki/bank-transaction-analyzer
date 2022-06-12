@@ -1,1 +1,1 @@
-SW_VERSION = 0.2
+SW_VERSION = 0.3
