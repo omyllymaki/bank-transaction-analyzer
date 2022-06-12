@@ -1,6 +1,5 @@
 import datetime
 import re
-from typing import Dict
 
 import pandas as pd
 import regex
@@ -16,11 +15,8 @@ def filter_data(data: pd.DataFrame,
                 message: str = None,
                 event: str = None,
                 category: str = None,
-                drop_data: Dict[str, list] = None
                 ) -> pd.DataFrame:
     filtered_data = data.copy()
-    if drop_data is not None:
-        filtered_data = reject_rows(filtered_data, drop_data)
 
     filters = [
         [date_min_filter, "time", min_date],
@@ -62,12 +58,6 @@ def float_max_filter(data, filter_by, value):
 
 def string_filter(data, filter_by, pattern):
     return data[data[filter_by].apply(regex_find, args=(pattern.strip(),))]
-
-
-def reject_rows(data: pd.DataFrame, drop_data: Dict[str, list]) -> pd.DataFrame:
-    for column_name, row_name in drop_data.items():
-        data = data.loc[~data[column_name].isin(row_name)]
-    return data
 
 
 def regex_find(string, pattern):

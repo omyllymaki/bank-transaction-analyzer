@@ -1,12 +1,11 @@
 import hashlib
 import logging
 import re
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 import pandas as pd
 
 from src.data_processing.data_analysis import categorize
-from src.data_processing.data_filtering import filter_data
 from src.data_processing.loaders.new_nordea_loader import NewNordeaLoader
 from src.data_processing.loaders.nordea_loader import NordeaLoader
 from src.data_processing.transformers.new_nordea_transformer import NewNordeaTransformer
@@ -40,7 +39,7 @@ class DataPreprocessor:
     def get_data(self,
                  file_paths: List[str],
                  drop_data: Dict[str, list] = None,
-                 categories: dict = None) -> pd.DataFrame:
+                 categories: dict = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
         combined_transformed_data = pd.DataFrame(columns=COLUMNS)
         for path in file_paths:
@@ -57,12 +56,12 @@ class DataPreprocessor:
 
         validate(combined_transformed_data)
         preprocessed_data = self.preprocess_data(combined_transformed_data)
-        filtered_data = filter_data(preprocessed_data, drop_data=drop_data)
+        filtered_data, removed_data = self.drop_rows(preprocessed_data, drop_data=drop_data)
         if categories:
             filtered_data["category"] = categorize(filtered_data, categories)
         else:
             filtered_data["category"] = "NA"
-        return filtered_data
+        return filtered_data, removed_data
 
     @staticmethod
     def preprocess_data(data: pd.DataFrame) -> pd.DataFrame:
@@ -76,3 +75,12 @@ class DataPreprocessor:
         data['id'] = [hashlib.md5(i.encode('utf-8')).hexdigest() for i in s]
         data_processed = data.sort_values('time')
         return data_processed
+
+    @staticmethod
+    def drop_rows(data: pd.DataFrame, drop_data: Dict[str, list]) -> Tuple[pd.DataFrame, pd.DataFrame]:
+        data_removed = pd.DataFrame(columns=data.columns)
+        for column_name, row_name in drop_data.items():
+            i = data[column_name].isin(row_name)
+            data_removed = pd.concat([data_removed, data.loc[i]])
+            data = data.loc[~i]
+        return data, data_removed
