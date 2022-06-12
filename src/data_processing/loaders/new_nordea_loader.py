@@ -12,7 +12,7 @@ class NewNordeaLoader(LoaderInterface):
         raw_data_list = []
         for path in file_paths:
             df = pd.read_csv(path, sep=';', header=0)
-            df["Tilinumero"] = re.findall("TILI (.*) -", path)[0]
+            df["Tilinumero"] = re.findall("TILI (.*) -", path)[0].replace(' ', '')
             raw_data_list.append(df)
         data = pd.concat(raw_data_list)
         return data
