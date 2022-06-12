@@ -23,17 +23,9 @@ class Bank:
         self.loader = loader
         self.transformer = transformer
         self.regexp_pattern = regexp_pattern
-        self.paths = []
 
-    def get_data(self):
-        if len(self.paths) > 0:
-            raw_data = self.loader.load(self.paths)
-            return self.transformer.transform(raw_data)
-        else:
-            return pd.DataFrame(columns=COLUMNS)
-
-    def clear(self):
-        self.paths = []
+    def get_data(self, path):
+        return self.transformer.transform(self.loader.load([path]))
 
 
 class DataPreprocessor:
@@ -49,22 +41,18 @@ class DataPreprocessor:
                  drop_data: Dict[str, list] = None,
                  categories: dict = None) -> pd.DataFrame:
 
-        for bank in self.banks:
-            bank.clear()
-
+        combined_transformed_data = pd.DataFrame(columns=COLUMNS)
         for path in file_paths:
-            found_bank = False
+            bank_found = False
             for bank in self.banks:
                 if re.search(bank.regexp_pattern, path):
-                    bank.paths.append(path)
-                    found_bank = True
-            if not found_bank:
-                raise Exception(f"Unknown bank for file: {path}")
+                    bank_data = bank.get_data(path)
+                    combined_transformed_data = pd.concat([combined_transformed_data, bank_data])
+                    bank_found = True
+                    break
 
-        combined_transformed_data = pd.DataFrame(columns=COLUMNS)
-        for bank in self.banks:
-            bank_data = bank.get_data()
-            combined_transformed_data = pd.concat([combined_transformed_data, bank_data])
+            if not bank_found:
+                raise Exception(f"Unknown bank for file: {path}")
 
         validate(combined_transformed_data)
         preprocessed_data = self.preprocess_data(combined_transformed_data)
