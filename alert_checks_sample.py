@@ -7,8 +7,7 @@ from src.alert_checks.check import Check
 from src.alert_checks.check_runner import CheckRunner
 from src.alert_checks.options import Criteria, OnFail
 from src.alert_checks.utils import checks_from_json
-from src.data_processing.bank_selection import get_bank
-from src.data_processing.prepare_data import prepare_data
+from src.data_processing.data_preprocessing import DataPreprocessor
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
@@ -17,10 +16,8 @@ PATH = "./test_data"
 
 def load_data() -> pd.DataFrame:
     files = [os.path.join(PATH, f) for f in os.listdir(PATH) if f.endswith(".txt")]
-    bank = get_bank("Nordea")
-    data = prepare_data(file_paths=files,
-                        data_loader=bank.loader,
-                        data_transformer=bank.transformer)
+    processor = DataPreprocessor()
+    data = processor.get_data(file_paths=files)
     return data
 
 
