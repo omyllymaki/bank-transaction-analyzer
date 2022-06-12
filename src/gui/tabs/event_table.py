@@ -13,7 +13,7 @@ from src.utils import load_json, save_json
 
 class EventTableTab(BaseTab):
     drop_data_added_signal = pyqtSignal()
-    show_columns = ["target", "account_number", "value", "time", "message", "event", "category", "bank"]
+    show_columns = ["target", "account_number", "value", "time", "message", "event", "category", "bank", "id"]
 
     def __init__(self, config):
         self.config = config

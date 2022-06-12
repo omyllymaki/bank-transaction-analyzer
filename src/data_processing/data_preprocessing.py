@@ -1,3 +1,4 @@
+import hashlib
 import logging
 import re
 from typing import List, Dict
@@ -71,5 +72,7 @@ class DataPreprocessor:
         data['month'] = data['time'].dt.month
         data['week'] = data['time'].dt.isocalendar().week
         data['day'] = data['time'].dt.day
+        s = (data['account_number'] + data['target'] + data['value'].astype(str) + data['time'].astype(str)).values
+        data['id'] = [hashlib.md5(i.encode('utf-8')).hexdigest() for i in s]
         data_processed = data.sort_values('time')
         return data_processed
