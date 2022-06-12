@@ -32,6 +32,7 @@ def validate(data: pd.DataFrame):
     schema = pandas_schema.Schema([
         Column('value', decimal_validation + nan_validation),
         Column('time', datetime_validation + nan_validation),
+        Column('bank', string_validation + nan_validation),
         Column('target', string_validation),
         Column('message', string_validation),
         Column('event', string_validation),

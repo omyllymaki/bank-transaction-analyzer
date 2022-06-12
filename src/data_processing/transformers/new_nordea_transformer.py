@@ -1,15 +1,14 @@
 from datetime import datetime
 
+import numpy as np
 import pandas as pd
 
 from src.data_processing.transformers.transformer_interface import TransformerInterface
 
 
-class NordeaTransformer(TransformerInterface):
+class NewNordeaTransformer(TransformerInterface):
     mapping = {
-        "target": "Saaja/Maksaja",
-        "message": "Viesti",
-        "event": "Tapahtuma",
+        "target": "Otsikko",
         "value": "Määrä",
         "time": "Kirjauspäivä",
         "account_number": "Tilinumero"
@@ -21,13 +20,18 @@ class NordeaTransformer(TransformerInterface):
             transformed_data[col_target] = data[col_source]
         transformed_data["value"] = transformed_data["value"].apply(self._convert_string_to_float)
         transformed_data["time"] = transformed_data["time"].apply(self._convert_string_to_datetime)
-        transformed_data["bank"] = "Nordea (old format)"
+        transformed_data["message"] = transformed_data["message"] = transformed_data["target"] + " " + transformed_data["time"].astype(str) + " " + transformed_data["value"].astype(str)
+        transformed_data["event"] = np.nan
+        transformed_data["bank"] = "Nordea (new format)"
+        transformed_data = transformed_data.dropna(subset=["time", "value"])
         return transformed_data
 
     @staticmethod
     def _convert_string_to_datetime(date_str: str) -> datetime:
-        date_datetime = datetime.strptime(date_str, '%d.%m.%Y')
-        return date_datetime
+        try:
+            return datetime.strptime(date_str, '%d.%m.%Y')
+        except ValueError:
+            return np.nan
 
     @staticmethod
     def _convert_string_to_float(value: str) -> float:
