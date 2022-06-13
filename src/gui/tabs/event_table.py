@@ -1,22 +1,16 @@
-import json
-
 import pandas as pd
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QRadioButton, QVBoxLayout, QMenu, QAction, QAbstractItemView
+from PyQt5 import QtWidgets
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QVBoxLayout, QAbstractItemView
 
 from src.gui.dataframe_model import DataFrameModel
-from src.gui.dialog_boxes import show_warning
 from src.gui.tabs.base_tab import BaseTab
-from src.utils import load_json, save_json
 
 
 class EventTableTab(BaseTab):
-    drop_data_added_signal = pyqtSignal()
-    show_columns = ["target", "account_number", "value", "time", "message", "event", "category", "bank", "id"]
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, show_columns):
+        self.show_columns = show_columns
         self.table_view = QtWidgets.QTableView()
         self.table_view.setObjectName("tableView")
         self.header = self.table_view.horizontalHeader()
@@ -88,31 +82,3 @@ class EventTableTab(BaseTab):
             self.table_data_sorted = table_data.sort_values(sort_col_name, ascending=self.ascending)
             model = DataFrameModel(self.table_data_sorted)
             self.table_view.setModel(model)
-
-    def contextMenuEvent(self, event):
-        if not self.group_by_target:
-            self.menu = QMenu(self)
-            action = QAction('Add to drop data file', self)
-            action.triggered.connect(lambda: self.add_to_drop_data(event))
-            self.menu.addAction(action)
-            self.menu.popup(QtGui.QCursor.pos())
-
-    def add_to_drop_data(self, event):
-        col_index = self.table_view.currentIndex().column()
-        row_index = self.table_view.currentIndex().row()
-        column = self.table_data_sorted.columns[col_index]
-        content = self.table_data_sorted.iloc[row_index, col_index]
-
-        try:
-            drop_data = load_json(self.config["paths"]["drop_data"])
-            values = drop_data.get(column, None)
-            if values:
-                drop_data[column] = values + [content]
-            else:
-                drop_data[column] = [content]
-            save_json(self.config["paths"]["drop_data"], drop_data)
-            self.drop_data_added_signal.emit()
-
-        except Exception as e:
-            print(e)
-            show_warning("Drop data addition failure", "Something went wrong")
