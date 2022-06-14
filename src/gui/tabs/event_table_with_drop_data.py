@@ -10,9 +10,9 @@ from src.utils import load_json, save_json
 class EventTableWithDropDataTab(EventTableTab):
     drop_data_added_signal = pyqtSignal()
 
-    def __init__(self, show_columns, config):
+    def __init__(self, config):
         self.config = config
-        super().__init__(show_columns)
+        super().__init__()
 
     def contextMenuEvent(self, event):
         if not self.group_by_target:

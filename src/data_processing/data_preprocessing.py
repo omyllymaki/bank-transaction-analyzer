@@ -5,6 +5,7 @@ from typing import List, Dict, Tuple
 
 import pandas as pd
 
+from constants import COLUMNS
 from src.data_processing.data_analysis import categorize
 from src.data_processing.loaders.new_nordea_loader import NewNordeaLoader
 from src.data_processing.loaders.nordea_loader import NordeaLoader
@@ -13,8 +14,6 @@ from src.data_processing.transformers.nordea_transformer import NordeaTransforme
 from src.data_processing.validation import validate
 
 logger = logging.getLogger(__name__)
-
-COLUMNS = ['value', 'time', 'target', 'message', 'event', 'account_number', 'bank']
 
 
 class Bank:
@@ -41,7 +40,7 @@ class DataPreprocessor:
                  drop_data: Dict[str, list] = None,
                  categories: dict = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
-        combined_transformed_data = pd.DataFrame(columns=COLUMNS)
+        combined_transformed_data = pd.DataFrame()
         for path in file_paths:
             bank_found = False
             for bank in self.banks:
@@ -56,11 +55,11 @@ class DataPreprocessor:
 
         validate(combined_transformed_data)
         preprocessed_data = self.preprocess_data(combined_transformed_data)
-        filtered_data, removed_data = self.drop_rows(preprocessed_data, drop_data=drop_data)
         if categories:
-            filtered_data["category"] = categorize(filtered_data, categories)
+            preprocessed_data["category"] = categorize(preprocessed_data, categories)
         else:
-            filtered_data["category"] = "NA"
+            preprocessed_data["category"] = "NA"
+        filtered_data, removed_data = self.drop_rows(preprocessed_data, drop_data=drop_data)
         return filtered_data, removed_data
 
     @staticmethod

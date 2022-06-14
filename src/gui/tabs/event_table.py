@@ -3,14 +3,14 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QVBoxLayout, QAbstractItemView
 
+from constants import COLUMNS
 from src.gui.dataframe_model import DataFrameModel
 from src.gui.tabs.base_tab import BaseTab
 
 
 class EventTableTab(BaseTab):
 
-    def __init__(self, show_columns):
-        self.show_columns = show_columns
+    def __init__(self):
         self.table_view = QtWidgets.QTableView()
         self.table_view.setObjectName("tableView")
         self.header = self.table_view.horizontalHeader()
@@ -54,7 +54,7 @@ class EventTableTab(BaseTab):
         self._render_table()
 
     def handle_data(self, data):
-        self.data = data[self.show_columns]
+        self.data = data[COLUMNS]
         self._group_data()
         self._render_table()
 

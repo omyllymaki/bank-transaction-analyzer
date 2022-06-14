@@ -7,9 +7,6 @@ from src.gui.tabs.income_and_outcome import IncomeAndOutcomeTab
 from src.gui.tabs.indicators import IndicatorsTab
 from src.gui.tabs.distributions import DistributionsTab
 
-EVENT_COLUMNS = ["target", "account_number", "value", "time", "message", "event", "category", "bank", "id"]
-PREFILTERED_EVENT_COLUMNS = ["target", "account_number", "value", "time", "message", "event", "bank", "id"]
-
 
 class TabHandler(QWidget):
     def __init__(self, config):
@@ -19,9 +16,9 @@ class TabHandler(QWidget):
             'Incomes & outcomes': IncomeAndOutcomeTab(),
             'Distributions': DistributionsTab(),
             'Indicators': IndicatorsTab(config["indicators"]),
-            'Events': EventTableWithDropDataTab(EVENT_COLUMNS, config),
+            'Events': EventTableWithDropDataTab(config),
         }
-        self.prefiltered_event_table = EventTableTab(PREFILTERED_EVENT_COLUMNS)
+        self.prefiltered_event_table = EventTableTab()
 
         self.content = QTabWidget()
         for tab_name, tab in self.tabs.items():
