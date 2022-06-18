@@ -24,6 +24,7 @@ class MainView(QWidget):
 
     def _set_connections(self):
         self.sidebar.data_filtered_signal.connect(self._handle_plotting)
+        self.sidebar.data_loaded_signal.connect(self._handle_data_loaded)
         self.sidebar.new_indicator_created_signal.connect(self._handle_new_indicator_created)
         self.tab_handler.tabs["Events"].drop_data_added_signal.connect(self._handle_drop_data_added)
 
@@ -41,4 +42,8 @@ class MainView(QWidget):
         self._update_config()
         self.sidebar.config = self.updated_config
         self.sidebar.load_data()
+
+    def _handle_data_loaded(self, data: pd.DataFrame):
+        self.tab_handler.handle_prefiltered_data(data)
+
 
