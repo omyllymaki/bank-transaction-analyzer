@@ -20,11 +20,12 @@ class SideBar(QWidget):
     data_filtered_signal = pyqtSignal(pd.DataFrame)
     new_indicator_created_signal = pyqtSignal()
 
-    def __init__(self, config):
+    def __init__(self, config, config_path):
         super().__init__()
 
         self.data_preprocessor = DataPreprocessor()
         self.config = config
+        self.config_path = config_path
         self.cleaned_data = None
         self.filtered_data = None
         self.min_value = None
@@ -145,8 +146,12 @@ class SideBar(QWidget):
         if not ok:
             return
         try:
-            new_indicators = self._write_filtering_values_to_file(self.config["paths"]["indicators"], name)
-            self.config["indicators"] = new_indicators
+            new_indicator = self._get_filtering_values()
+            config = load_json(self.config_path)
+            indicators = config
+            indicators[name] = new_indicator
+            config["indicators"] = indicators
+            self.config["indicators"] = new_indicator
             self.new_indicator_created_signal.emit()
         except Exception as e:
             print(e)
@@ -157,26 +162,27 @@ class SideBar(QWidget):
         if not ok:
             return
         try:
-            new_categories = self._write_filtering_values_to_file(self.config["paths"]["categories"], name)
+            new_categories = self._get_filtering_values()
             self.config["categories"] = new_categories
             self._update_categories()
         except Exception as e:
             print(e)
             show_warning("Category creation failure", "Something went wrong")
 
-    def _write_filtering_values_to_file(self, file_path, name):
+    def _get_filtering_values(self):
         self._update_filtering_values()
         filter_values = {k: v for k, v in self.filter_values.items() if v != "" and pd.notnull(v)}
         filter_values.pop("min_date", None)
         filter_values.pop("max_date", None)
-        values = load_json(file_path)
-        values[name] = filter_values
-        save_json(file_path, values)
-        return values
+        return filter_values
+        # values = load_json(file_path)
+        # values[name] = filter_values
+        # save_json(file_path, values)
+        # return values
 
     def _get_file_paths(self) -> List[str]:
         file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis',
-                                                     directory=self.config["default_data_dir"])
+                                                     directory=self.config["general"]["default_data_dir"])
         return file_paths
 
     def _get_min_date(self) -> datetime:

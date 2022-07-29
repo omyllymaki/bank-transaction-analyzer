@@ -10,8 +10,8 @@ from src.utils import load_json, save_json
 class EventTableWithDropDataTab(EventTableTab):
     drop_data_added_signal = pyqtSignal()
 
-    def __init__(self, config):
-        self.config = config
+    def __init__(self, config_path):
+        self.config_path = config_path
         super().__init__()
 
     def contextMenuEvent(self, event):
@@ -29,13 +29,15 @@ class EventTableWithDropDataTab(EventTableTab):
         content = self.table_data_sorted.iloc[row_index, col_index]
 
         try:
-            drop_data = load_json(self.config["paths"]["drop_data"])
+            config = load_json(self.config_path)
+            drop_data = config["drop_data"]
             values = drop_data.get(column, None)
             if values:
                 drop_data[column] = values + [content]
             else:
                 drop_data[column] = [content]
-            save_json(self.config["paths"]["drop_data"], drop_data)
+            config["drop_data"] = drop_data
+            save_json(self.config_path, config)
             self.drop_data_added_signal.emit()
 
         except Exception as e:

@@ -9,14 +9,14 @@ from src.gui.tabs.distributions import DistributionsTab
 
 
 class TabHandler(QWidget):
-    def __init__(self, config):
+    def __init__(self, config, config_path):
         super().__init__()
 
         self.tabs = {
             'Incomes & outcomes': IncomeAndOutcomeTab(),
             'Distributions': DistributionsTab(),
             'Indicators': IndicatorsTab(config["indicators"]),
-            'Events': EventTableWithDropDataTab(config),
+            'Events': EventTableWithDropDataTab(config_path),
         }
         self.prefiltered_event_table = EventTableTab()
 

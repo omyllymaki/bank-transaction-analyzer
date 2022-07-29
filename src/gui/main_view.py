@@ -3,16 +3,16 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout
 
 from src.gui.sidebar import SideBar
 from src.gui.tabs.tab_handler import TabHandler
-from src.utils import load_configurations
+from src.utils import load_configurations, load_json
 
 
 class MainView(QWidget):
-    def __init__(self, config):
+    def __init__(self, config_path):
         super().__init__()
-        self.orig_config = config
+        self.config_path = config_path
         self._update_config()
-        self.sidebar = SideBar(self.updated_config)
-        self.tab_handler = TabHandler(self.updated_config)
+        self.sidebar = SideBar(self.updated_config, config_path)
+        self.tab_handler = TabHandler(self.updated_config, config_path)
         self._set_layout()
         self._set_connections()
 
@@ -32,7 +32,7 @@ class MainView(QWidget):
         self.tab_handler.handle_data(data)
 
     def _update_config(self):
-        self.updated_config = {**self.orig_config, **load_configurations(self.orig_config["paths"])}
+        self.updated_config = load_json(self.config_path)
 
     def _handle_new_indicator_created(self):
         self._update_config()
