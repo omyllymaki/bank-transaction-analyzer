@@ -31,7 +31,7 @@ class NewNordeaTransformer(TransformerInterface):
         try:
             return datetime.strptime(date_str, '%d.%m.%Y')
         except ValueError:
-            return np.nan
+            return datetime.strptime(date_str, '%Y/%m/%d')
 
     @staticmethod
     def _convert_string_to_float(value: str) -> float:
