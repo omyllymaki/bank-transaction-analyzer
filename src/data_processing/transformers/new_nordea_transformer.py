@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 
 import numpy as np
 import pandas as pd
@@ -28,6 +28,8 @@ class NewNordeaTransformer(TransformerInterface):
 
     @staticmethod
     def _convert_string_to_datetime(date_str: str) -> datetime:
+        if date_str == "Varaus":
+            return datetime.now()
         try:
             return datetime.strptime(date_str, '%d.%m.%Y')
         except ValueError:
