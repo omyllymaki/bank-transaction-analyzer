@@ -20,7 +20,7 @@ class NewNordeaTransformer(TransformerInterface):
             transformed_data[col_target] = data[col_source]
         transformed_data["value"] = transformed_data["value"].apply(self._convert_string_to_float)
         transformed_data["time"] = transformed_data["time"].apply(self._convert_string_to_datetime)
-        transformed_data["message"] = transformed_data["message"] = transformed_data["target"] + " " + transformed_data["time"].astype(str) + " " + transformed_data["value"].astype(str)
+        transformed_data["message"] = np.nan
         transformed_data["event"] = np.nan
         transformed_data["bank"] = "Nordea (new format)"
         transformed_data = transformed_data.dropna(subset=["time", "value"])
