@@ -34,6 +34,7 @@ Following files under configurations folder can be used for configuration:
 * drop_data.json
 * indicators.json
 * categories.json
+* notes.json
 
 **Drop data**
 
@@ -50,6 +51,10 @@ You can make your own indicator by creating new item in indicators.json file or 
 Events are classified to different categories.  E.g. one could create category "Transport expenses" by selecting "target" as "vr|taksi|abc|teboil|neste" and "max_value" as 0. Note that every event can have only one category.
 
 You can make your own category by creating new item in categories.json file or by selecting suitable filter values from GUI and pressing "Create category from existing filters" button. If an event matches to multiple categories, then the last category in file will be used as the category of event.
+
+**Notes**
+
+Notes files contains free notes for events, using event ids as keys. This file will be filled automatically based on notes user has added in tabs "Events" and "Events filtered out". The content of the file will be loaded when app launches and all the existing notes are shown in GUI.
 
 # Screenshots (with simulated test data provided)
 
