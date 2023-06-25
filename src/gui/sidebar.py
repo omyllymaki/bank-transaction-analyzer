@@ -42,6 +42,7 @@ class SideBar(QWidget):
         self.message_line = QLineEdit(self)
         self.event_line = QLineEdit(self)
         self.category_line = QLineEdit(self)
+        self.labels_line = QLineEdit(self)
         self.notes_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
@@ -73,6 +74,8 @@ class SideBar(QWidget):
         self.layout.addWidget(self.event_line)
         self.layout.addWidget(QLabel('Category contains (regexp pattern)'))
         self.layout.addWidget(self.category_line)
+        self.layout.addWidget(QLabel('Labels contains (regexp pattern)'))
+        self.layout.addWidget(self.labels_line)
         self.layout.addWidget(QLabel('Notes contains (regexp pattern)'))
         self.layout.addWidget(self.notes_line)
         self.layout.addWidget(self.load_button)
@@ -95,6 +98,7 @@ class SideBar(QWidget):
         self.message_line.returnPressed.connect(self._handle_filter_data)
         self.event_line.returnPressed.connect(self._handle_filter_data)
         self.category_line.returnPressed.connect(self._handle_filter_data)
+        self.labels_line.returnPressed.connect(self._handle_filter_data)
         self.notes_line.returnPressed.connect(self._handle_filter_data)
 
     def _handle_load_button_clicked(self):
@@ -107,6 +111,7 @@ class SideBar(QWidget):
         self.cleaned_data, removed_data = self.data_preprocessor.get_data(file_paths=self.file_paths,
                                                                           drop_data=self.config["drop_data"],
                                                                           categories=self.config["categories"],
+                                                                          labels=self.config["labels"],
                                                                           notes=self.config["notes"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
@@ -130,6 +135,7 @@ class SideBar(QWidget):
             min_value=self.min_value,
             max_value=self.max_value,
             category=self._get_category(),
+            labels=self._get_labels(),
             notes=self._get_notes()
         )
 
@@ -205,6 +211,9 @@ class SideBar(QWidget):
 
     def _get_category(self) -> str:
         return self.category_line.text()
+
+    def _get_labels(self) -> str:
+        return self.labels_line.text()
 
     def _get_notes(self) -> str:
         return self.notes_line.text()

@@ -6,7 +6,7 @@ from typing import List, Dict, Tuple
 import pandas as pd
 
 from constants import COLUMNS
-from src.data_processing.data_analysis import categorize
+from src.data_processing.data_analysis import categorize, extract_labels
 from src.data_processing.loaders.new_nordea_loader import NewNordeaLoader
 from src.data_processing.loaders.nordea_loader import NordeaLoader
 from src.data_processing.transformers.new_nordea_transformer import NewNordeaTransformer
@@ -39,7 +39,8 @@ class DataPreprocessor:
                  file_paths: List[str],
                  notes: Dict[str, str],
                  drop_data: Dict[str, list] = None,
-                 categories: dict = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
+                 categories: dict = None,
+                 labels: dict = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
         combined_transformed_data = pd.DataFrame()
         for path in file_paths:
@@ -61,9 +62,15 @@ class DataPreprocessor:
         else:
             preprocessed_data["category"] = "NA"
 
+        if labels:
+            preprocessed_data["labels"] = extract_labels(preprocessed_data, labels)
+        else:
+            preprocessed_data["labels"] = "NA"
+
         preprocessed_data["notes"] = ""
         for event_id, note in notes.items():
             preprocessed_data.loc[preprocessed_data.id == event_id, "notes"] = note
+
         filtered_data, removed_data = self.drop_rows(preprocessed_data, drop_data=drop_data)
         return filtered_data, removed_data
 

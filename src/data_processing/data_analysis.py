@@ -76,3 +76,20 @@ def categorize(df: pd.DataFrame, specifications: dict) -> np.array:
         filtered = filter_data(dfc, **filter_values)
         dfc["category"].loc[filtered.index.values] = name
     return dfc["category"].values
+
+
+def extract_labels(df: pd.DataFrame, specifications: dict) -> np.array:
+    dfc = df.copy()
+    dfc.reset_index(inplace=True, drop=True)
+    indices_map = {}
+    for label, label_specs in specifications.items():
+        filtered_data = filter_data(dfc, **label_specs)
+        indices_map[label] = filtered_data.index.tolist()
+
+    dfc["labels"] = [[] for r in range(dfc.shape[0])]
+    for label, indices in indices_map.items():
+        for i in indices:
+            dfc["labels"].loc[i].append(label)
+
+    dfc["labels"] = dfc.labels.apply(lambda x: " | ".join(x))
+    return dfc["labels"].values
