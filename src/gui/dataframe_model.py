@@ -1,9 +1,8 @@
 import math
 
-import pandas as pd
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtGui import QBrush
 import numpy as np
+from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import pyqtSignal
 
 
 class DataFrameModel(QtCore.QAbstractTableModel):
@@ -11,14 +10,19 @@ class DataFrameModel(QtCore.QAbstractTableModel):
     Class to populate a table view with a pandas dataframe
     """
 
+    data_edited_signal = pyqtSignal(tuple)
     colors_green = ["#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#006d2c", "#00441b"]
     colors_red = ["#fff5eb", "#fee6ce", "#fdd0a2", "#fdae6b", "#fd8d3c", "#f16913", "#d94801", "#a63603", "#7f2704"]
 
-    def __init__(self, data, parent=None):
+    def __init__(self, data, parent=None, columns_for_edition=None):
         QtCore.QAbstractTableModel.__init__(self, parent)
         self._data = data
         self._max_values = self._data.max()
         self._min_values = self._data.min()
+        if columns_for_edition:
+            self.columns_for_edition = columns_for_edition
+        else:
+            self.columns_for_edition = []
 
     def rowCount(self, parent=None):
         return self._data.shape[0]
@@ -54,3 +58,19 @@ class DataFrameModel(QtCore.QAbstractTableModel):
         if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
             return self._data.columns[col]
         return None
+
+    def setData(self, index, value, role):
+        if role == QtCore.Qt.EditRole:
+            self._data.iloc[index.row(), index.column()] = value
+            i = self._data.index[index.row()]
+            c = self._data.columns[index.column()]
+            self.data_edited_signal.emit((i, c, value))
+            return True
+        return False
+
+    def flags(self, index):
+        if index.column() in self.columns_for_edition:
+            if not index.isValid():
+                return QtCore.Qt.ItemIsEnabled
+            return super().flags(index) | QtCore.Qt.ItemIsEditable
+        return super().flags(index)

@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QVBoxLayout, QAbstractItemView
 
-from constants import COLUMNS
+from constants import COLUMNS, EDITABLE_COLUMNS
 from src.gui.dataframe_model import DataFrameModel
 from src.gui.tabs.base_tab import BaseTab
 
@@ -16,11 +16,11 @@ class EventTableTab(BaseTab):
         self.header = self.table_view.horizontalHeader()
         self.group_by_target = False
         self.group_by = "target"
-        self.data = None
         self.table_data_sorted = None
         self.grouped_data = None
         self.sort_col_index = 0
         self.ascending = True
+        self.model = DataFrameModel(pd.DataFrame())
 
         super().__init__()
 
@@ -80,5 +80,10 @@ class EventTableTab(BaseTab):
                 table_data = self.data
             sort_col_name = table_data.columns[self.sort_col_index]
             self.table_data_sorted = table_data.sort_values(sort_col_name, ascending=self.ascending)
-            model = DataFrameModel(self.table_data_sorted)
-            self.table_view.setModel(model)
+            self.model = DataFrameModel(self.table_data_sorted, columns_for_edition=EDITABLE_COLUMNS)
+            self.table_view.setModel(self.model)
+            self.model.data_edited_signal.connect(self._handle_data_edited)
+
+    def _handle_data_edited(self, data):
+        index, column, value = data
+        self.data.loc[index, column] = value

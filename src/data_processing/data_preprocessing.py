@@ -37,6 +37,7 @@ class DataPreprocessor:
 
     def get_data(self,
                  file_paths: List[str],
+                 notes: Dict[str, str],
                  drop_data: Dict[str, list] = None,
                  categories: dict = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
@@ -46,7 +47,7 @@ class DataPreprocessor:
             for bank in self.banks:
                 if re.search(bank.regexp_pattern, path):
                     bank_data = bank.get_data(path)
-                    combined_transformed_data = pd.concat([combined_transformed_data, bank_data])
+                    combined_transformed_data = pd.concat([combined_transformed_data, bank_data], ignore_index=True)
                     bank_found = True
                     break
 
@@ -59,6 +60,10 @@ class DataPreprocessor:
             preprocessed_data["category"] = categorize(preprocessed_data, categories)
         else:
             preprocessed_data["category"] = "NA"
+
+        preprocessed_data["notes"] = ""
+        for event_id, note in notes.items():
+            preprocessed_data.loc[preprocessed_data.id == event_id, "notes"] = note
         filtered_data, removed_data = self.drop_rows(preprocessed_data, drop_data=drop_data)
         return filtered_data, removed_data
 
