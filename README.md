@@ -22,6 +22,7 @@ For Ubuntu users there is installation script: ```./install.sh```.
 * Set filter values and press Enter to apply filtering.
 * Change tabs to see different views and analyses for your filtered data.
 * Events tab table can be sorted (left click) or grouped (right click) by any column by clicking corresponding column name.
+* Add free form notes to events in Events tab
 
 Note:
 Some simulated test data is also provided (in test_data folder). This data can be used to test application.
