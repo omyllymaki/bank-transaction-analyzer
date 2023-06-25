@@ -69,7 +69,8 @@ class DataFrameModel(QtCore.QAbstractTableModel):
         return False
 
     def flags(self, index):
-        if index.column() in self.columns_for_edition:
+        col_name = self._data.columns[index.column()]
+        if col_name in self.columns_for_edition:
             if not index.isValid():
                 return QtCore.Qt.ItemIsEnabled
             return super().flags(index) | QtCore.Qt.ItemIsEditable
