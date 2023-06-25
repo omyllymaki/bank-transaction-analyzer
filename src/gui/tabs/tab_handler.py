@@ -17,13 +17,12 @@ class TabHandler(QWidget):
             'Distributions': DistributionsTab(),
             'Indicators': IndicatorsTab(config["indicators"]),
             'Events': EventTableWithDropDataTab(config),
+            "Events filtered out": EventTableTab()
         }
-        self.prefiltered_event_table = EventTableTab()
 
         self.content = QTabWidget()
         for tab_name, tab in self.tabs.items():
             self.content.addTab(tab, tab_name)
-        self.content.addTab(self.prefiltered_event_table, "Prefiltered events")
         self._set_layout()
 
     def _set_layout(self):
@@ -31,11 +30,17 @@ class TabHandler(QWidget):
         self.layout.addWidget(self.content)
 
     def handle_data(self, data: pd.DataFrame):
-        for tab in self.tabs.values():
-            tab.handle_data(data)
+        for tab_name, tab in self.tabs.items():
+            if tab_name != "Events filtered out":
+                tab.handle_data(data)
 
     def handle_prefiltered_data(self, data: pd.DataFrame):
-        self.prefiltered_event_table.handle_data(data)
+        self.tabs["Events filtered out"].handle_data(data)
 
     def update_config(self, config):
         self.tabs["Indicators"].update_indicators(config["indicators"])
+
+    def get_notes(self):
+        d1 = self.tabs['Events'].get_notes()
+        d2 = self.tabs['Events filtered out'].get_notes()
+        return {**d1, **d2}

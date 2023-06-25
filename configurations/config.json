@@ -3,6 +3,7 @@
   "paths": {
     "drop_data": "configurations/drop_data.json",
     "indicators": "configurations/indicators.json",
-    "categories": "configurations/categories.json"
+    "categories": "configurations/categories.json",
+    "notes": "configurations/notes.json"
   }
 }
