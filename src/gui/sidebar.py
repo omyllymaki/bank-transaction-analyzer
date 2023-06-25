@@ -42,6 +42,7 @@ class SideBar(QWidget):
         self.message_line = QLineEdit(self)
         self.event_line = QLineEdit(self)
         self.category_line = QLineEdit(self)
+        self.notes_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
         self.load_button = QPushButton('Load data')
@@ -72,6 +73,8 @@ class SideBar(QWidget):
         self.layout.addWidget(self.event_line)
         self.layout.addWidget(QLabel('Category contains (regexp pattern)'))
         self.layout.addWidget(self.category_line)
+        self.layout.addWidget(QLabel('Notes contains (regexp pattern)'))
+        self.layout.addWidget(self.notes_line)
         self.layout.addWidget(self.load_button)
         self.layout.addWidget(self.create_indicator_button)
         self.layout.addWidget(self.create_category_button)
@@ -92,6 +95,7 @@ class SideBar(QWidget):
         self.message_line.returnPressed.connect(self._handle_filter_data)
         self.event_line.returnPressed.connect(self._handle_filter_data)
         self.category_line.returnPressed.connect(self._handle_filter_data)
+        self.notes_line.returnPressed.connect(self._handle_filter_data)
 
     def _handle_load_button_clicked(self):
         self.file_paths = self._get_file_paths()
@@ -125,7 +129,8 @@ class SideBar(QWidget):
             event=self._get_event(),
             min_value=self.min_value,
             max_value=self.max_value,
-            category=self._get_category()
+            category=self._get_category(),
+            notes=self._get_notes()
         )
 
     def _handle_filter_data(self):
@@ -200,6 +205,9 @@ class SideBar(QWidget):
 
     def _get_category(self) -> str:
         return self.category_line.text()
+
+    def _get_notes(self) -> str:
+        return self.notes_line.text()
 
     def _handle_min_value_changed(self):
         self.min_value, self.min_value_is_valid = self.min_value_line.get_value()
