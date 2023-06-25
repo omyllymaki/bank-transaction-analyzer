@@ -16,16 +16,17 @@ def main():
     args = parser.parse_args()
     print(f"Reading configuration from {args.config}")
     config = load_json(args.config)
+
     app = QApplication(sys.argv)
     mw = MainWindow(config)
     mw.show()
     app.exec()
 
-    # Save the current notes
-    df = mw.main_view.tab_handler.tabs['Events'].data[["id", "notes"]]
-    df = df[df.notes.str.len() > 0]
-    notes_dict = dict(zip(df.id, df.notes))
-    save_json(config["paths"]["notes"], notes_dict)
+    # Save the notes when the app is closed
+    current_notes = load_json(config["paths"]["notes"])
+    new_notes = mw.main_view.tab_handler.get_notes()
+    combined_notes = {**current_notes, **new_notes}
+    save_json(config["paths"]["notes"], combined_notes)
 
 if __name__ == "__main__":
     main()

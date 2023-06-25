@@ -87,3 +87,8 @@ class EventTableTab(BaseTab):
     def _handle_data_edited(self, data):
         index, column, value = data
         self.data.loc[index, column] = value
+
+    def get_notes(self):
+        df = self.data[["id", "notes"]]
+        df = df[df.notes.str.len() > 0]
+        return dict(zip(df.id, df.notes))
