@@ -16,7 +16,8 @@ def filter_data(data: pd.DataFrame,
                 event: str = None,
                 category: str = None,
                 labels: str = None,
-                notes: str = None
+                notes: str = None,
+                id: str = None
                 ) -> pd.DataFrame:
     filtered_data = data.copy()
 
@@ -31,7 +32,8 @@ def filter_data(data: pd.DataFrame,
         [string_filter, "event", event],
         [string_filter, "category", category],
         [string_filter, "labels", labels],
-        [string_filter, "notes", notes]
+        [string_filter, "notes", notes],
+        [string_filter, "id", id]
     ]
 
     for f in filters:
