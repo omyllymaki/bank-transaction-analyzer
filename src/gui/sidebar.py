@@ -7,7 +7,7 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog, \
     QInputDialog, QHBoxLayout
 
-from src.data_processing.data_analysis import categorize
+from src.data_processing.data_analysis import categorize, extract_labels
 from src.data_processing.data_filtering import filter_data
 from src.data_processing.data_preprocessing import DataPreprocessor
 from src.gui.dialog_boxes import show_warning
@@ -18,7 +18,6 @@ from src.utils import load_json, save_json
 class SideBar(QWidget):
     data_loaded_signal = pyqtSignal(pd.DataFrame)
     data_filtered_signal = pyqtSignal(pd.DataFrame)
-    new_indicator_created_signal = pyqtSignal()
 
     def __init__(self, config):
         super().__init__()
@@ -47,7 +46,7 @@ class SideBar(QWidget):
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
         self.load_button = QPushButton('Load data')
-        self.create_indicator_button = QPushButton('Create indicator from existing filters')
+        self.create_label_button = QPushButton('Create label from existing filters')
         self.create_category_button = QPushButton('Create category from existing filters')
         self._set_layout()
         self._set_connections()
@@ -79,12 +78,12 @@ class SideBar(QWidget):
         self.layout.addWidget(QLabel('Notes contains (regexp pattern)'))
         self.layout.addWidget(self.notes_line)
         self.layout.addWidget(self.load_button)
-        self.layout.addWidget(self.create_indicator_button)
+        self.layout.addWidget(self.create_label_button)
         self.layout.addWidget(self.create_category_button)
 
     def _set_connections(self):
         self.load_button.clicked.connect(self._handle_load_button_clicked)
-        self.create_indicator_button.clicked.connect(self._handle_create_new_indicator)
+        self.create_label_button.clicked.connect(self._handle_create_new_label)
         self.create_category_button.clicked.connect(self._handle_create_new_category)
         self.min_value_line.textChanged.connect(self._handle_min_value_changed)
         self.max_value_line.textChanged.connect(self._handle_max_value_changed)
@@ -152,17 +151,22 @@ class SideBar(QWidget):
         self.cleaned_data["categories"] = categorize(self.cleaned_data, self.config["categories"])
         self._handle_filter_data()
 
-    def _handle_create_new_indicator(self):
-        name, ok = QInputDialog.getText(self, 'New indicator', 'Type the name of new indicator')
+    def _update_labels(self):
+        labels = extract_labels(self.cleaned_data, self.config["labels"])
+        self.cleaned_data["labels"] = [" ; ".join(l) for l in labels]
+        self._handle_filter_data()
+
+    def _handle_create_new_label(self):
+        name, ok = QInputDialog.getText(self, 'New label', 'Type the name of new label')
         if not ok:
             return
         try:
-            new_indicators = self._write_filtering_values_to_file(self.config["paths"]["indicators"], name)
-            self.config["indicators"] = new_indicators
-            self.new_indicator_created_signal.emit()
+            new_labels = self._write_filtering_values_to_file(self.config["paths"]["labels"], name)
+            self.config["labels"] = new_labels
+            self._update_labels()
         except Exception as e:
             print(e)
-            show_warning("Indicator creation failure", "Something went wrong")
+            show_warning("Label creation failure", "Something went wrong")
 
     def _handle_create_new_category(self):
         name, ok = QInputDialog.getText(self, 'New category', 'Type the name of new category')

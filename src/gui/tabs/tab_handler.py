@@ -35,9 +35,6 @@ class TabHandler(QWidget):
     def handle_prefiltered_data(self, data: pd.DataFrame):
         self.tabs["Events filtered out"].handle_data(data)
 
-    def update_config(self, config):
-        self.tabs["Indicators"].update_indicators(config["indicators"])
-
     def get_notes(self):
         d1 = self.tabs['Events'].get_notes()
         d2 = self.tabs['Events filtered out'].get_notes()
