@@ -22,7 +22,7 @@ For Ubuntu users there is installation script: ```./install.sh```.
 * Set filter values and press Enter to apply filtering.
 * Change tabs to see different views and analyses for your filtered data.
 * Events tab table can be sorted (left click) or grouped (right click) by any column by clicking corresponding column name.
-* Add free form notes to events in Events tab
+* Add free form notes to events in Events tab.
 
 Note:
 Some simulated test data is also provided (in test_data folder). This data can be used to test application.
@@ -33,25 +33,25 @@ Following files under configurations folder can be used for configuration:
 
 * config.json
 * drop_data.json
-* indicators.json
 * categories.json
+* labels.json
 * notes.json
 
 **Drop data**
 
-drop_data.json specifies which items should be always filtered out. E.g. "target": ["Liisa", "Mikko"] would filter out all the rows where target is Liisa or Mikko. You can add new items to drop_data list by modifying drop_data.json file directly or from Events tab by right clicking event you want to add to drop_data list.    
-
-**Indicators**
-
-Indicator is a thing you want to follow over time. It can be e.g. salary, traveling expenses, housing costs, sport expenses and so on. E.g. "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa" as target would group purchases from multiple stores.
-
-You can make your own indicator by creating new item in indicators.json file or by selecting suitable filter values from GUI and pressing "Create indicator from existing filters" button.
+drop_data.json specifies which items should be always filtered out. E.g. "target": ["Liisa", "Mikko"] would filter out all the rows where target is Liisa or Mikko. You can add new items to drop_data list by modifying drop_data.json file directly or from Events tab by right clicking event you want to add to drop_data list.
 
 **Categories**
 
-Events are classified to different categories.  E.g. one could create category "Transport expenses" by selecting "target" as "vr|taksi|abc|teboil|neste" and "max_value" as 0. Note that every event can have only one category.
+Events are classified to different categories.  E.g. one could create category "Transport expenses" by selecting "target" as "vr|taksi|abc|teboil|neste" and "max_value" as 0. Every event can have only one category.
 
-You can make your own category by creating new item in categories.json file or by selecting suitable filter values from GUI and pressing "Create category from existing filters" button. If an event matches to multiple categories, then the last category in file will be used as the category of event.
+You can make your own category by creating new item in categories.json file or by selecting suitable filter values from GUI and pressing "Create category from existing filters" button. If an event matches to multiple categories, then the last category in the file will be used as the category of event.
+
+**Labels**
+
+Labels work like categories with the difference that event can have multiple labels.
+
+You can make your own label by creating new item in labels.json file or by selecting suitable filter values from GUI and pressing "Create label from existing filters" button.
 
 **Notes**
 
