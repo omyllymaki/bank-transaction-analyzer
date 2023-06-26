@@ -91,5 +91,4 @@ def extract_labels(df: pd.DataFrame, specifications: dict) -> np.array:
         for i in indices:
             dfc["labels"].loc[i].append(label)
 
-    dfc["labels"] = dfc.labels.apply(lambda x: " | ".join(x))
     return dfc["labels"].values

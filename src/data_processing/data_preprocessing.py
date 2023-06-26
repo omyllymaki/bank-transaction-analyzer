@@ -63,7 +63,8 @@ class DataPreprocessor:
             preprocessed_data["category"] = "NA"
 
         if labels:
-            preprocessed_data["labels"] = extract_labels(preprocessed_data, labels)
+            labels = extract_labels(preprocessed_data, labels)
+            preprocessed_data["labels"] = [" ; ".join(l) for l in labels]
         else:
             preprocessed_data["labels"] = "NA"
 
