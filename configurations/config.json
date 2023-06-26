@@ -2,7 +2,7 @@
   "default_data_dir": "./test_data",
   "paths": {
     "drop_data": "configurations/drop_data.json",
-    "indicators": "configurations/indicators.json",
+    "labels": "configurations/labels.json",
     "categories": "configurations/categories.json",
     "notes": "configurations/notes.json"
   }

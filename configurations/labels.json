@@ -1,0 +1,12 @@
+{
+    "Income": {
+        "min_value": 0.0
+    },
+    "Outcome": {
+        "max_value": 0.0
+    },
+    "Example label": {
+        "target": "elizabeth ball",
+        "message": "test message"
+    }
+}
