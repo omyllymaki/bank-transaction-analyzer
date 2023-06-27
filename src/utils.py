@@ -25,7 +25,7 @@ def save_pickle(path, data):
 def load_configurations(paths):
     output = {}
     output["drop_data"] = load_json(paths["drop_data"])
-    output["indicators"] = load_json(paths["indicators"])
+    output["labels"] = load_json(paths["labels"])
     output["categories"] = load_json(paths["categories"])
     output["notes"] = load_json(paths["notes"])
     return output

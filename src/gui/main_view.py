@@ -25,7 +25,6 @@ class MainView(QWidget):
     def _set_connections(self):
         self.sidebar.data_filtered_signal.connect(self._handle_plotting)
         self.sidebar.data_loaded_signal.connect(self._handle_data_loaded)
-        self.sidebar.new_indicator_created_signal.connect(self._handle_new_indicator_created)
         self.tab_handler.tabs["Events"].drop_data_added_signal.connect(self._handle_drop_data_added)
 
     def _handle_plotting(self, data: pd.DataFrame):
@@ -33,10 +32,6 @@ class MainView(QWidget):
 
     def _update_config(self):
         self.updated_config = {**self.orig_config, **load_configurations(self.orig_config["paths"])}
-
-    def _handle_new_indicator_created(self):
-        self._update_config()
-        self.tab_handler.update_config(self.updated_config)
 
     def _handle_drop_data_added(self):
         self._update_config()

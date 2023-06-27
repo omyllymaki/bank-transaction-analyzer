@@ -4,7 +4,6 @@ from PyQt5.QtWidgets import QWidget, QTabWidget, QVBoxLayout
 from src.gui.tabs.event_table import EventTableTab
 from src.gui.tabs.event_table_with_drop_data import EventTableWithDropDataTab
 from src.gui.tabs.income_and_outcome import IncomeAndOutcomeTab
-from src.gui.tabs.indicators import IndicatorsTab
 from src.gui.tabs.distributions import DistributionsTab
 
 
@@ -15,7 +14,6 @@ class TabHandler(QWidget):
         self.tabs = {
             'Incomes & outcomes': IncomeAndOutcomeTab(),
             'Distributions': DistributionsTab(),
-            'Indicators': IndicatorsTab(config["indicators"]),
             'Events': EventTableWithDropDataTab(config),
             "Events filtered out": EventTableTab()
         }
@@ -36,9 +34,6 @@ class TabHandler(QWidget):
 
     def handle_prefiltered_data(self, data: pd.DataFrame):
         self.tabs["Events filtered out"].handle_data(data)
-
-    def update_config(self, config):
-        self.tabs["Indicators"].update_indicators(config["indicators"])
 
     def get_notes(self):
         d1 = self.tabs['Events'].get_notes()
