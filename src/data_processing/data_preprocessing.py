@@ -92,7 +92,7 @@ class DataPreprocessor:
 
     @staticmethod
     def get_ids(data: pd.DataFrame) -> List[str]:
-        s = data['account_number']
+        s = data['account_number'].copy()
         s += " " + data['target']
         s += " " + data['message']
         s += " " + data['account_number']
