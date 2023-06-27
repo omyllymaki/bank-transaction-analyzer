@@ -42,6 +42,7 @@ class SideBar(QWidget):
         self.event_line = QLineEdit(self)
         self.category_line = QLineEdit(self)
         self.labels_line = QLineEdit(self)
+        self.id_line = QLineEdit(self)
         self.notes_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
@@ -78,6 +79,7 @@ class SideBar(QWidget):
             ("Event:", self.event_line),
             ("Category", self.category_line),
             ("Labels", self.labels_line),
+            ("Id", self.id_line),
             ("Notes", self.notes_line)
         ]
         for item in hbox_widgets:
@@ -105,6 +107,7 @@ class SideBar(QWidget):
         self.event_line.returnPressed.connect(self._handle_filter_data)
         self.category_line.returnPressed.connect(self._handle_filter_data)
         self.labels_line.returnPressed.connect(self._handle_filter_data)
+        self.id_line.returnPressed.connect(self._handle_filter_data)
         self.notes_line.returnPressed.connect(self._handle_filter_data)
 
     def _handle_load_button_clicked(self):
@@ -142,6 +145,7 @@ class SideBar(QWidget):
             max_value=self.max_value,
             category=self._get_category(),
             labels=self._get_labels(),
+            id=self._get_id(),
             notes=self._get_notes()
         )
 
@@ -228,6 +232,9 @@ class SideBar(QWidget):
 
     def _get_notes(self) -> str:
         return self.notes_line.text()
+
+    def _get_id(self) -> str:
+        return self.id_line.text()
 
     def _handle_min_value_changed(self):
         self.min_value, self.min_value_is_valid = self.min_value_line.get_value()
