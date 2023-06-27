@@ -51,6 +51,13 @@ class SideBar(QWidget):
         self._set_layout()
         self._set_connections()
 
+    def _create_hbox_with_text(self, text, widget):
+        layout = QHBoxLayout()
+        layout.addWidget(QLabel(text, widget))
+        layout.addWidget(widget)
+        return layout
+
+
     def _set_layout(self):
         self.layout = QVBoxLayout()
         self.layout.addWidget(QLabel('Min date'))
@@ -63,20 +70,20 @@ class SideBar(QWidget):
         layout.addWidget(QLabel('Max value'))
         layout.addWidget(self.max_value_line)
         self.layout.addLayout(layout)
-        self.layout.addWidget(QLabel('Target contains (regexp pattern)'))
-        self.layout.addWidget(self.target_line)
-        self.layout.addWidget(QLabel('Account number contains (regexp pattern)'))
-        self.layout.addWidget(self.account_number_line)
-        self.layout.addWidget(QLabel('Message contains (regexp pattern)'))
-        self.layout.addWidget(self.message_line)
-        self.layout.addWidget(QLabel('Event contains (regexp pattern)'))
-        self.layout.addWidget(self.event_line)
-        self.layout.addWidget(QLabel('Category contains (regexp pattern)'))
-        self.layout.addWidget(self.category_line)
-        self.layout.addWidget(QLabel('Labels contains (regexp pattern)'))
-        self.layout.addWidget(self.labels_line)
-        self.layout.addWidget(QLabel('Notes contains (regexp pattern)'))
-        self.layout.addWidget(self.notes_line)
+
+        hbox_widgets = [
+            ("Target:", self.target_line),
+            ("Account:", self.account_number_line),
+            ("Message:", self.message_line),
+            ("Event:", self.event_line),
+            ("Category", self.category_line),
+            ("Labels", self.labels_line),
+            ("Notes", self.notes_line)
+        ]
+        for item in hbox_widgets:
+            layout = self._create_hbox_with_text(item[0], item[1])
+            self.layout.addLayout(layout)
+
         self.layout.addWidget(self.load_button)
         self.layout.addWidget(self.create_label_button)
         self.layout.addWidget(self.create_category_button)
