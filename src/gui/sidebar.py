@@ -44,6 +44,7 @@ class SideBar(QWidget):
         self.labels_line = QLineEdit(self)
         self.id_line = QLineEdit(self)
         self.notes_line = QLineEdit(self)
+        self.is_duplicate_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
         self.load_button = QPushButton('Load data')
@@ -77,10 +78,11 @@ class SideBar(QWidget):
             ("Account:", self.account_number_line),
             ("Message:", self.message_line),
             ("Event:", self.event_line),
-            ("Category", self.category_line),
-            ("Labels", self.labels_line),
-            ("Id", self.id_line),
-            ("Notes", self.notes_line)
+            ("Category:", self.category_line),
+            ("Labels:", self.labels_line),
+            ("Id:", self.id_line),
+            ("Notes:", self.notes_line),
+            ("Is duplicate:", self.is_duplicate_line)
         ]
         for item in hbox_widgets:
             layout = self._create_hbox_with_text(item[0], item[1])
@@ -109,6 +111,7 @@ class SideBar(QWidget):
         self.labels_line.returnPressed.connect(self._handle_filter_data)
         self.id_line.returnPressed.connect(self._handle_filter_data)
         self.notes_line.returnPressed.connect(self._handle_filter_data)
+        self.is_duplicate_line.returnPressed.connect(self._handle_filter_data)
 
     def _handle_load_button_clicked(self):
         self.file_paths = self._get_file_paths()
@@ -121,7 +124,8 @@ class SideBar(QWidget):
                                                                           drop_data=self.config["drop_data"],
                                                                           categories=self.config["categories"],
                                                                           labels=self.config["labels"],
-                                                                          notes=self.config["notes"])
+                                                                          notes=self.config["notes"],
+                                                                          safe_duplicates=self.config["safe_duplicates"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self.data_loaded_signal.emit(removed_data)
@@ -146,7 +150,8 @@ class SideBar(QWidget):
             category=self._get_category(),
             labels=self._get_labels(),
             id=self._get_id(),
-            notes=self._get_notes()
+            notes=self._get_notes(),
+            is_duplicate=self._get_is_duplicate()
         )
 
     def _handle_filter_data(self):
@@ -235,6 +240,9 @@ class SideBar(QWidget):
 
     def _get_id(self) -> str:
         return self.id_line.text()
+
+    def _get_is_duplicate(self) -> bool:
+        return bool(self.is_duplicate_line.text())
 
     def _handle_min_value_changed(self):
         self.min_value, self.min_value_is_valid = self.min_value_line.get_value()

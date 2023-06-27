@@ -17,7 +17,8 @@ def filter_data(data: pd.DataFrame,
                 category: str = None,
                 labels: str = None,
                 notes: str = None,
-                id: str = None
+                id: str = None,
+                is_duplicate: bool = None
                 ) -> pd.DataFrame:
     filtered_data = data.copy()
 
@@ -33,7 +34,8 @@ def filter_data(data: pd.DataFrame,
         [string_filter, "category", category],
         [string_filter, "labels", labels],
         [string_filter, "notes", notes],
-        [string_filter, "id", id]
+        [string_filter, "id", id],
+        [boolean_filter, "is_duplicate", is_duplicate]
     ]
 
     for f in filters:
@@ -60,6 +62,9 @@ def float_min_filter(data, filter_by, value):
 
 def float_max_filter(data, filter_by, value):
     return data[data[filter_by] <= value]
+
+def boolean_filter(data, filter_by, value):
+    return data[data[filter_by] == value]
 
 
 def string_filter(data, filter_by, pattern):

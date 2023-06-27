@@ -3,6 +3,7 @@ import logging
 import re
 from typing import List, Dict, Tuple
 
+import numpy as np
 import pandas as pd
 
 from constants import COLUMNS
@@ -40,7 +41,8 @@ class DataPreprocessor:
                  notes: Dict[str, str],
                  drop_data: Dict[str, list] = None,
                  categories: dict = None,
-                 labels: dict = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
+                 labels: dict = None,
+                 safe_duplicates: List[str] = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
         combined_transformed_data = pd.DataFrame()
         for path in file_paths:
@@ -71,6 +73,19 @@ class DataPreprocessor:
         preprocessed_data["notes"] = ""
         for event_id, note in notes.items():
             preprocessed_data.loc[preprocessed_data.id == event_id, "notes"] = note
+
+        grouped_by_id = preprocessed_data.groupby("id").count()
+        duplicates_ids = np.unique(grouped_by_id[grouped_by_id.target > 1].index)
+        print(f"Found {len(duplicates_ids)} duplicate ids")
+
+        if safe_duplicates:
+            for duplicate_id in duplicates_ids:
+                if duplicate_id not in safe_duplicates:
+                    print(f"WARNING: found duplicate id that is not listed in safe duplicates: {duplicate_id}")
+
+        preprocessed_data["is_duplicate"] = False
+        for duplicate_id in duplicates_ids:
+            preprocessed_data['is_duplicate'][preprocessed_data.id == duplicate_id] = True
 
         filtered_data, removed_data = self.drop_rows(preprocessed_data, drop_data=drop_data)
         return filtered_data, removed_data
