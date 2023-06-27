@@ -78,7 +78,7 @@ class DataPreprocessor:
         duplicates_ids = np.unique(grouped_by_id[grouped_by_id.target > 1].index)
         print(f"Found {len(duplicates_ids)} duplicate ids")
 
-        if safe_duplicates:
+        if safe_duplicates is not None:
             for duplicate_id in duplicates_ids:
                 if duplicate_id not in safe_duplicates:
                     print(f"WARNING: found duplicate id that is not listed in safe duplicates: {duplicate_id}")
