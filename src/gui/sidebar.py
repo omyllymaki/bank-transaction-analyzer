@@ -59,7 +59,6 @@ class SideBar(QWidget):
         layout.addWidget(widget)
         return layout
 
-
     def _set_layout(self):
         self.layout = QVBoxLayout()
         self.layout.addWidget(QLabel('Min date'))
@@ -125,7 +124,8 @@ class SideBar(QWidget):
                                                                           categories=self.config["categories"],
                                                                           labels=self.config["labels"],
                                                                           notes=self.config["notes"],
-                                                                          safe_duplicates=self.config["safe_duplicates"])
+                                                                          safe_duplicates=self.config[
+                                                                              "safe_duplicates"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self.data_loaded_signal.emit(removed_data)
@@ -242,7 +242,13 @@ class SideBar(QWidget):
         return self.id_line.text()
 
     def _get_is_duplicate(self) -> bool:
-        return bool(self.is_duplicate_line.text())
+        text = self.is_duplicate_line.text()
+        if text == "True":
+            return True
+        elif text == "False":
+            return False
+        else:
+            return None
 
     def _handle_min_value_changed(self):
         self.min_value, self.min_value_is_valid = self.min_value_line.get_value()
