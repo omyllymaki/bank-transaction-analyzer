@@ -3,6 +3,7 @@ import logging
 import re
 from typing import List, Dict, Tuple
 
+import numpy as np
 import pandas as pd
 
 from constants import COLUMNS
@@ -72,19 +73,35 @@ class DataPreprocessor:
         for event_id, note in notes.items():
             preprocessed_data.loc[preprocessed_data.id == event_id, "notes"] = note
 
+        grouped_by_id = preprocessed_data.groupby("id").count()
+        duplicates_ids = np.unique(grouped_by_id[grouped_by_id.target > 1].index)
+
+        preprocessed_data["is_duplicate"] = False
+        for duplicate_id in duplicates_ids:
+            preprocessed_data['is_duplicate'][preprocessed_data.id == duplicate_id] = True
+
         filtered_data, removed_data = self.drop_rows(preprocessed_data, drop_data=drop_data)
         return filtered_data, removed_data
 
     @staticmethod
-    def preprocess_data(data: pd.DataFrame) -> pd.DataFrame:
+    def get_ids(data: pd.DataFrame) -> List[str]:
+        s = data['account_number'].copy()
+        s += " " + data['target']
+        s += " " + data['message']
+        s += " " + data['account_number']
+        s += " " + data['event']
+        s += " " + data['value'].astype(str)
+        s += " " + data['time'].astype(str)
+        return [hashlib.md5(i.encode('utf-8')).hexdigest() for i in s]
+
+    def preprocess_data(self, data: pd.DataFrame) -> pd.DataFrame:
         str_columns = ['account_number', 'message', 'event', 'target']
         data[str_columns] = data[str_columns].fillna("NA")
         data['year'] = data['time'].dt.year
         data['month'] = data['time'].dt.month
         data['week'] = data['time'].dt.isocalendar().week
         data['day'] = data['time'].dt.day
-        s = (data['account_number'] + data['target'] + data['value'].astype(str) + data['time'].astype(str)).values
-        data['id'] = [hashlib.md5(i.encode('utf-8')).hexdigest() for i in s]
+        data['id'] = self.get_ids(data)
         data_processed = data.sort_values('time')
         return data_processed
 

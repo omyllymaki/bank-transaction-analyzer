@@ -42,7 +42,9 @@ class SideBar(QWidget):
         self.event_line = QLineEdit(self)
         self.category_line = QLineEdit(self)
         self.labels_line = QLineEdit(self)
+        self.id_line = QLineEdit(self)
         self.notes_line = QLineEdit(self)
+        self.is_duplicate_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
         self.load_button = QPushButton('Load data')
@@ -50,6 +52,12 @@ class SideBar(QWidget):
         self.create_category_button = QPushButton('Create category from existing filters')
         self._set_layout()
         self._set_connections()
+
+    def _create_hbox_with_text(self, text, widget):
+        layout = QHBoxLayout()
+        layout.addWidget(QLabel(text, widget))
+        layout.addWidget(widget)
+        return layout
 
     def _set_layout(self):
         self.layout = QVBoxLayout()
@@ -63,20 +71,22 @@ class SideBar(QWidget):
         layout.addWidget(QLabel('Max value'))
         layout.addWidget(self.max_value_line)
         self.layout.addLayout(layout)
-        self.layout.addWidget(QLabel('Target contains (regexp pattern)'))
-        self.layout.addWidget(self.target_line)
-        self.layout.addWidget(QLabel('Account number contains (regexp pattern)'))
-        self.layout.addWidget(self.account_number_line)
-        self.layout.addWidget(QLabel('Message contains (regexp pattern)'))
-        self.layout.addWidget(self.message_line)
-        self.layout.addWidget(QLabel('Event contains (regexp pattern)'))
-        self.layout.addWidget(self.event_line)
-        self.layout.addWidget(QLabel('Category contains (regexp pattern)'))
-        self.layout.addWidget(self.category_line)
-        self.layout.addWidget(QLabel('Labels contains (regexp pattern)'))
-        self.layout.addWidget(self.labels_line)
-        self.layout.addWidget(QLabel('Notes contains (regexp pattern)'))
-        self.layout.addWidget(self.notes_line)
+
+        hbox_widgets = [
+            ("Target:", self.target_line),
+            ("Account:", self.account_number_line),
+            ("Message:", self.message_line),
+            ("Event:", self.event_line),
+            ("Category:", self.category_line),
+            ("Labels:", self.labels_line),
+            ("Id:", self.id_line),
+            ("Notes:", self.notes_line),
+            ("Is duplicate:", self.is_duplicate_line)
+        ]
+        for item in hbox_widgets:
+            layout = self._create_hbox_with_text(item[0], item[1])
+            self.layout.addLayout(layout)
+
         self.layout.addWidget(self.load_button)
         self.layout.addWidget(self.create_label_button)
         self.layout.addWidget(self.create_category_button)
@@ -98,7 +108,9 @@ class SideBar(QWidget):
         self.event_line.returnPressed.connect(self._handle_filter_data)
         self.category_line.returnPressed.connect(self._handle_filter_data)
         self.labels_line.returnPressed.connect(self._handle_filter_data)
+        self.id_line.returnPressed.connect(self._handle_filter_data)
         self.notes_line.returnPressed.connect(self._handle_filter_data)
+        self.is_duplicate_line.returnPressed.connect(self._handle_filter_data)
 
     def _handle_load_button_clicked(self):
         self.file_paths = self._get_file_paths()
@@ -135,7 +147,9 @@ class SideBar(QWidget):
             max_value=self.max_value,
             category=self._get_category(),
             labels=self._get_labels(),
-            notes=self._get_notes()
+            id=self._get_id(),
+            notes=self._get_notes(),
+            is_duplicate=self._get_is_duplicate()
         )
 
     def _handle_filter_data(self):
@@ -221,6 +235,18 @@ class SideBar(QWidget):
 
     def _get_notes(self) -> str:
         return self.notes_line.text()
+
+    def _get_id(self) -> str:
+        return self.id_line.text()
+
+    def _get_is_duplicate(self) -> bool:
+        text = self.is_duplicate_line.text()
+        if text == "True":
+            return True
+        elif text == "False":
+            return False
+        else:
+            return None
 
     def _handle_min_value_changed(self):
         self.min_value, self.min_value_is_valid = self.min_value_line.get_value()
