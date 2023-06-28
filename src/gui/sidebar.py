@@ -123,9 +123,7 @@ class SideBar(QWidget):
                                                                           drop_data=self.config["drop_data"],
                                                                           categories=self.config["categories"],
                                                                           labels=self.config["labels"],
-                                                                          notes=self.config["notes"],
-                                                                          safe_duplicates=self.config[
-                                                                              "safe_duplicates"])
+                                                                          notes=self.config["notes"])
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self.data_loaded_signal.emit(removed_data)

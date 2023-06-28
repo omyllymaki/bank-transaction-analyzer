@@ -28,5 +28,4 @@ def load_configurations(paths):
     output["labels"] = load_json(paths["labels"])
     output["categories"] = load_json(paths["categories"])
     output["notes"] = load_json(paths["notes"])
-    output["safe_duplicates"] = load_json(paths["safe_duplicates"])
     return output

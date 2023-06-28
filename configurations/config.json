@@ -4,7 +4,6 @@
     "drop_data": "configurations/drop_data.json",
     "labels": "configurations/labels.json",
     "categories": "configurations/categories.json",
-    "notes": "configurations/notes.json",
-    "safe_duplicates": "configurations/safe_duplicates.json"
+    "notes": "configurations/notes.json"
   }
 }
