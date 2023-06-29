@@ -114,3 +114,4 @@ requirements_dev.txt
 src/data_processing/classification/personal_parameters.py
 src/data_processing/classification/personal_train_classifier.py
 personal_config.json
+data_checks.py
