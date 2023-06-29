@@ -29,13 +29,15 @@ Some simulated test data is also provided (in test_data folder). This data can b
 
 # Configuration
 
-Following files under configurations folder can be used for configuration:
+Config file is used for configuration. It contains
 
-* config.json
-* drop_data.json
-* categories.json
-* labels.json
-* notes.json
+* General configs
+* Drop data
+* Categories
+* Labels
+* Notes
+
+You can make your own configurations by creating a file with same format as in config.json example file or just by directly modifying it.
 
 **Drop data**
 
