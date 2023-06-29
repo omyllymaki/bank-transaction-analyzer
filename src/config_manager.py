@@ -59,5 +59,5 @@ class ConfigManager:
         combined_notes = {**current_notes, **notes}
         self.config[NOTES_KEY] = combined_notes
 
-    def get_config(self):
+    def get_config(self) -> dict:
         return self.config.copy()

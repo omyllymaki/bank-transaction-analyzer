@@ -127,10 +127,7 @@ class SideBar(QWidget):
 
     def load_data(self):
         self.cleaned_data, removed_data = self.data_preprocessor.get_data(file_paths=self.file_paths,
-                                                                          drop_data=self.config["drop_data"],
-                                                                          categories=self.config["categories"],
-                                                                          labels=self.config["labels"],
-                                                                          notes=self.config["notes"])
+                                                                          config=self.config)
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self.data_loaded_signal.emit(removed_data)
