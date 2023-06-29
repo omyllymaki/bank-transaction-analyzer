@@ -107,8 +107,3 @@ schema = pandas_schema.Schema([
 When custom Loader and Transformer classes are created, they can be used by adding bank to DataPreprocessor class
 (src/data_processing/data_preprocessing.py).
 
-## Alert checks
-
-alert_checks folder contains some utilities to run different kind of alert checks to data. See alert_checks_sample.py as
-an example. You can run it by typing ```python3 alert_checks_sample.py```; the checks are made to data in test_data folder by default.
-
