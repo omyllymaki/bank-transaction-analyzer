@@ -1,0 +1,63 @@
+{
+    "general": {
+        "default_data_dir": "test_data"
+    },
+    "drop_data": {
+        "target": [
+            "Alexandra Edwards",
+            "Aimee Dodd"
+        ]
+    },
+    "categories": {
+        "Food & Drink": {
+            "target": "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa|alko",
+            "max_value": 0
+        },
+        "Shopping": {
+            "target": "power|dressmann|clas ohlson|new yorker|hennes mauritz|kirjakauppa|sokos|tokmanni|verkkokauppa|gigantti|cdon|stadium",
+            "max_value": 0
+        },
+        "Beauty & Health": {
+            "target": "apteekki|parturi|specsavers|optikko|instrumentarium|hammas",
+            "max_value": 0
+        },
+        "Transport": {
+            "target": "vr|taksi|abc|teboil|neste",
+            "max_value": 0
+        },
+        "Restaurant": {
+            "target": "buffa|cafe|kebab|pizza|ravintola|mauno|grilli|food|unica|fazer|restaurant|sodexo|food|kahvi|subway",
+            "max_value": 0
+        },
+        "Phone, Internet, Electricity": {
+            "target": "dna|telia|kss energia|sähkö",
+            "max_value": 0
+        },
+        "Small incomes": {
+            "min_value": 0
+        },
+        "Large incomes": {
+            "min_value": 500
+        }
+    },
+    "labels": {
+        "Income": {
+            "min_value": 0.0
+        },
+        "Outcome": {
+            "max_value": 0.0
+        },
+        "Example label": {
+            "target": "elizabeth ball",
+            "message": "test message"
+        },
+        "Names starting with A": {
+            "target": "^a"
+        }
+    },
+    "notes": {
+        "cd49976c2590de12a2b13a0549294a86": "Test note 3",
+        "803ff5a3eba7175ae4dff2cca8785e64": "Test note 2",
+        "c8920e1866c09d8a0438e4ca106e804b": "Test note 1"
+    }
+}
