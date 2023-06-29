@@ -70,10 +70,6 @@ Notes files contains free notes for events, using event ids as keys. This file w
 </p>
 
 <p align="center">
-<img src="screenshots/indicators.jpg" width="800px" />
-</p>
-
-<p align="center">
 <img src="screenshots/events.jpg" width="800px" />
 </p>
 
