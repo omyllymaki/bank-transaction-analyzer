@@ -29,13 +29,15 @@ Some simulated test data is also provided (in test_data folder). This data can b
 
 # Configuration
 
-Following files under configurations folder can be used for configuration:
+Config file is used for configuration. It contains
 
-* config.json
-* drop_data.json
-* categories.json
-* labels.json
-* notes.json
+* General configs
+* Drop data
+* Categories
+* Labels
+* Notes
+
+You can make your own configurations by creating a file with same format as in config.json example file or just by directly modifying it.
 
 **Drop data**
 
@@ -106,9 +108,4 @@ schema = pandas_schema.Schema([
 
 When custom Loader and Transformer classes are created, they can be used by adding bank to DataPreprocessor class
 (src/data_processing/data_preprocessing.py).
-
-## Alert checks
-
-alert_checks folder contains some utilities to run different kind of alert checks to data. See alert_checks_sample.py as
-an example. You can run it by typing ```python3 alert_checks_sample.py```; the checks are made to data in test_data folder by default.
 

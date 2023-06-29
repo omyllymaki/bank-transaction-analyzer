@@ -8,13 +8,13 @@ from src.gui.tabs.distributions import DistributionsTab
 
 
 class TabHandler(QWidget):
-    def __init__(self, config):
+    def __init__(self):
         super().__init__()
 
         self.tabs = {
             'Incomes & outcomes': IncomeAndOutcomeTab(),
             'Distributions': DistributionsTab(),
-            'Events': EventTableWithDropDataTab(config),
+            'Events': EventTableWithDropDataTab(),
             "Events filtered out": EventTableTab()
         }
 

@@ -20,12 +20,3 @@ def load_pickle(path):
 def save_pickle(path, data):
     with open(path, 'wb') as handle:
         pickle.dump(data, handle, protocol=pickle.HIGHEST_PROTOCOL)
-
-
-def load_configurations(paths):
-    output = {}
-    output["drop_data"] = load_json(paths["drop_data"])
-    output["labels"] = load_json(paths["labels"])
-    output["categories"] = load_json(paths["categories"])
-    output["notes"] = load_json(paths["notes"])
-    return output

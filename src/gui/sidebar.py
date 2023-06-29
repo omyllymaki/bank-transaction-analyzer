@@ -7,6 +7,7 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog, \
     QInputDialog, QHBoxLayout
 
+from src.config_manager import GENERAL_KEY
 from src.data_processing.data_analysis import categorize, extract_labels
 from src.data_processing.data_filtering import filter_data
 from src.data_processing.data_preprocessing import DataPreprocessor
@@ -18,6 +19,8 @@ from src.utils import load_json, save_json
 class SideBar(QWidget):
     data_loaded_signal = pyqtSignal(pd.DataFrame)
     data_filtered_signal = pyqtSignal(pd.DataFrame)
+    new_category_created_signal = pyqtSignal(tuple)
+    new_label_created_signal = pyqtSignal(tuple)
 
     def __init__(self, config):
         super().__init__()
@@ -52,6 +55,10 @@ class SideBar(QWidget):
         self.create_category_button = QPushButton('Create category from existing filters')
         self._set_layout()
         self._set_connections()
+
+    def set_config(self, config):
+        self.config = config
+        self.load_data()
 
     def _create_hbox_with_text(self, text, widget):
         layout = QHBoxLayout()
@@ -120,10 +127,7 @@ class SideBar(QWidget):
 
     def load_data(self):
         self.cleaned_data, removed_data = self.data_preprocessor.get_data(file_paths=self.file_paths,
-                                                                          drop_data=self.config["drop_data"],
-                                                                          categories=self.config["categories"],
-                                                                          labels=self.config["labels"],
-                                                                          notes=self.config["notes"])
+                                                                          config=self.config)
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self.data_loaded_signal.emit(removed_data)
@@ -136,7 +140,10 @@ class SideBar(QWidget):
         self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
 
     def _update_filtering_values(self):
-        self.filter_values = dict(
+        self.filter_values = self._get_filter_values()
+
+    def _get_filter_values(self):
+        return dict(
             min_date=self._get_min_date(),
             max_date=self._get_max_date(),
             target=self._get_target(),
@@ -174,25 +181,22 @@ class SideBar(QWidget):
         name, ok = QInputDialog.getText(self, 'New label', 'Type the name of new label')
         if not ok:
             return
-        try:
-            new_labels = self._write_filtering_values_to_file(self.config["paths"]["labels"], name)
-            self.config["labels"] = new_labels
-            self._update_labels()
-        except Exception as e:
-            print(e)
-            show_warning("Label creation failure", "Something went wrong")
+        new_label_data = self._get_cleaned_filter_values()
+        self.new_label_created_signal.emit((name, new_label_data))
 
     def _handle_create_new_category(self):
         name, ok = QInputDialog.getText(self, 'New category', 'Type the name of new category')
         if not ok:
             return
-        try:
-            new_categories = self._write_filtering_values_to_file(self.config["paths"]["categories"], name)
-            self.config["categories"] = new_categories
-            self._update_categories()
-        except Exception as e:
-            print(e)
-            show_warning("Category creation failure", "Something went wrong")
+        new_category_data = self._get_cleaned_filter_values()
+        self.new_category_created_signal.emit((name, new_category_data))
+
+    def _get_cleaned_filter_values(self):
+        filter_values = self._get_filter_values()
+        filter_values = {k: v for k, v in filter_values.items() if v != "" and pd.notnull(v)}
+        filter_values.pop("min_date", None)
+        filter_values.pop("max_date", None)
+        return filter_values
 
     def _write_filtering_values_to_file(self, file_path, name):
         self._update_filtering_values()
@@ -206,7 +210,7 @@ class SideBar(QWidget):
 
     def _get_file_paths(self) -> List[str]:
         file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis',
-                                                     directory=self.config["default_data_dir"])
+                                                     directory=self.config[GENERAL_KEY]["default_data_dir"])
         return file_paths
 
     def _get_min_date(self) -> datetime:
