@@ -11,16 +11,17 @@ class TabHandler(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.tabs = {
-            'Incomes & outcomes': IncomeAndOutcomeTab(),
-            'Distributions': DistributionsTab(),
-            'Events': EventTableWithDropDataTab(),
-            "Events filtered out": EventTableTab()
-        }
+        self.incomes_and_outcomes_tab = IncomeAndOutcomeTab()
+        self.distributions_tab = DistributionsTab()
+        self.events_tab = EventTableWithDropDataTab()
+        self.events_filtered_out_tab = EventTableTab()
 
         self.content = QTabWidget()
-        for tab_name, tab in self.tabs.items():
-            self.content.addTab(tab, tab_name)
+        self.content.addTab(self.incomes_and_outcomes_tab, "Incomes & Outcomes")
+        self.content.addTab(self.distributions_tab, "Distributions")
+        self.content.addTab(self.events_tab, "Events")
+        self.content.addTab(self.events_filtered_out_tab, "events filtered out")
+
         self._set_layout()
 
     def _set_layout(self):
@@ -28,14 +29,13 @@ class TabHandler(QWidget):
         self.layout.addWidget(self.content)
 
     def handle_data(self, data: pd.DataFrame):
-        for tab_name, tab in self.tabs.items():
-            if tab_name != "Events filtered out":
-                tab.handle_data(data)
+        for tab in [self.incomes_and_outcomes_tab, self.distributions_tab, self.events_tab]:
+            tab.handle_data(data)
 
     def handle_prefiltered_data(self, data: pd.DataFrame):
-        self.tabs["Events filtered out"].handle_data(data)
+        self.events_filtered_out_tab.handle_data(data)
 
     def get_notes(self):
-        d1 = self.tabs['Events'].get_notes()
-        d2 = self.tabs['Events filtered out'].get_notes()
+        d1 = self.events_tab.get_notes()
+        d2 = self.events_filtered_out_tab.get_notes()
         return {**d1, **d2}

@@ -26,7 +26,7 @@ class MainView(QWidget):
         self.sidebar.data_loaded_signal.connect(self._handle_data_loaded)
         self.sidebar.new_category_created_signal.connect(self._handle_new_category_created)
         self.sidebar.new_label_created_signal.connect(self._handle_new_label_created)
-        self.tab_handler.tabs["Events"].drop_data_added_signal.connect(self._handle_drop_data_added)
+        self.tab_handler.events_tab.drop_data_added_signal.connect(self._handle_drop_data_added)
 
     def _handle_plotting(self, data: pd.DataFrame):
         self.tab_handler.handle_data(data)
