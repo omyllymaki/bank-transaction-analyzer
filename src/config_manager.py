@@ -55,9 +55,8 @@ class ConfigManager:
         self.config[DROP_DATA_KEY] = drop_data
 
     def add_notes(self, notes: Notes) -> None:
-        current_notes = self.config[NOTES_KEY]
-        combined_notes = {**current_notes, **notes}
-        self.config[NOTES_KEY] = combined_notes
+        for event_id, note in notes.items():
+            self.config[NOTES_KEY][event_id] = note
 
     def get_config(self) -> dict:
         return self.config.copy()
