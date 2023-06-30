@@ -12,7 +12,7 @@ from src.data_processing.data_analysis import categorize, extract_labels
 from src.data_processing.data_filtering import filter_data
 from src.data_processing.data_preprocessing import DataPreprocessor
 from src.gui.dialog_boxes import show_warning
-from src.gui.widgets import FloatLineEdit
+from src.gui.widgets import FloatLineEdit, TextLineEdit
 from src.utils import load_json, save_json
 
 
@@ -39,14 +39,14 @@ class SideBar(QWidget):
         self.cleaned_data = None
         self.min_date_selector = QCalendarWidget(self)
         self.max_date_selector = QCalendarWidget(self)
-        self.target_line = QLineEdit(self)
-        self.account_number_line = QLineEdit(self)
-        self.message_line = QLineEdit(self)
-        self.event_line = QLineEdit(self)
-        self.category_line = QLineEdit(self)
-        self.labels_line = QLineEdit(self)
-        self.id_line = QLineEdit(self)
-        self.notes_line = QLineEdit(self)
+        self.target_line = TextLineEdit(self)
+        self.account_number_line = TextLineEdit(self)
+        self.message_line = TextLineEdit(self)
+        self.event_line = TextLineEdit(self)
+        self.category_line = TextLineEdit(self)
+        self.labels_line = TextLineEdit(self)
+        self.id_line = TextLineEdit(self)
+        self.notes_line = TextLineEdit(self)
         self.is_duplicate_line = QLineEdit(self)
         self.min_value_line = FloatLineEdit(self)
         self.max_value_line = FloatLineEdit(self)
@@ -146,16 +146,16 @@ class SideBar(QWidget):
         return dict(
             min_date=self._get_min_date(),
             max_date=self._get_max_date(),
-            target=self._get_target(),
-            account_number=self._get_account_number(),
-            message=self._get_message(),
-            event=self._get_event(),
+            target=self.target_line.get_value(),
+            account_number=self.account_number_line.get_value(),
+            message=self.message_line.get_value(),
+            event=self.event_line.get_value(),
             min_value=self.min_value,
             max_value=self.max_value,
-            category=self._get_category(),
-            labels=self._get_labels(),
-            id=self._get_id(),
-            notes=self._get_notes(),
+            category=self.category_line.get_value(),
+            labels=self.labels_line.get_value(),
+            id=self.id_line.get_value(),
+            notes=self.notes_line.get_value(),
             is_duplicate=self._get_is_duplicate()
         )
 
@@ -218,30 +218,6 @@ class SideBar(QWidget):
 
     def _get_max_date(self) -> datetime:
         return self.max_date_selector.selectedDate().toPyDate()
-
-    def _get_target(self) -> str:
-        return self.target_line.text()
-
-    def _get_account_number(self) -> str:
-        return self.account_number_line.text()
-
-    def _get_message(self) -> str:
-        return self.message_line.text()
-
-    def _get_event(self) -> str:
-        return self.event_line.text()
-
-    def _get_category(self) -> str:
-        return self.category_line.text()
-
-    def _get_labels(self) -> str:
-        return self.labels_line.text()
-
-    def _get_notes(self) -> str:
-        return self.notes_line.text()
-
-    def _get_id(self) -> str:
-        return self.id_line.text()
 
     def _get_is_duplicate(self) -> bool:
         text = self.is_duplicate_line.text()

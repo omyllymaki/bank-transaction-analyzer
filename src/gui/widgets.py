@@ -3,6 +3,24 @@ from typing import Union, Tuple
 from PyQt5.QtWidgets import QLineEdit
 
 
+class TextLineEdit(QLineEdit):
+
+    def __init__(self, *args):
+        super().__init__(*args)
+
+    def get_value(self) -> Union[str, None]:
+        """
+        Get content of field as str.
+        Return str value or None if not set.
+        """
+
+        text = super().text()
+        if text == "":
+            return None
+        else:
+            return text
+
+
 class FloatLineEdit(QLineEdit):
 
     def __init__(self, *args, min_value=None, max_value=None):
