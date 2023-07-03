@@ -63,14 +63,14 @@ class DataPreprocessor:
         categories = config.get(CATEGORIES_KEY)
         labels = config.get(LABELS_KEY)
         notes = config.get(NOTES_KEY)
-        self.update_categories(data, categories)
-        self.update_labels(data, labels)
-        self.update_notes(data, notes)
-        self.update_is_duplicate(data)
+        self.add_categories(data, categories)
+        self.add_labels(data, labels)
+        self.add_notes(data, notes)
+        self.add_is_duplicate(data)
         return data
 
     @staticmethod
-    def update_is_duplicate(data):
+    def add_is_duplicate(data):
         grouped_by_id = data.groupby("id").count()
         duplicates_ids = np.unique(grouped_by_id[grouped_by_id.target > 1].index)
         data["is_duplicate"] = False
@@ -78,14 +78,14 @@ class DataPreprocessor:
             data['is_duplicate'][data.id == duplicate_id] = True
 
     @staticmethod
-    def update_notes(data, notes):
+    def add_notes(data, notes):
         data["notes"] = ""
         if notes is not None:
             for event_id, note in notes.items():
                 data.loc[data.id == event_id, "notes"] = note
 
     @staticmethod
-    def update_labels(data, labels):
+    def add_labels(data, labels):
         if labels is not None:
             data_labels = extract_labels(data, labels)
             data["labels"] = [" ; ".join(l) for l in data_labels]
@@ -93,7 +93,7 @@ class DataPreprocessor:
             data["labels"] = "NA"
 
     @staticmethod
-    def update_categories(data, categories):
+    def add_categories(data, categories):
         if categories is not None:
             data["category"] = categorize(data, categories)
         else:

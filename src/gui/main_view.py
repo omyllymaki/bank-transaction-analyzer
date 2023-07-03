@@ -1,9 +1,7 @@
-import os
-
 import pandas as pd
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 
-from src.config_manager import GENERAL_KEY, DROP_DATA_KEY
+from src.config_manager import GENERAL_KEY, DROP_DATA_KEY, CATEGORIES_KEY, LABELS_KEY
 from src.data_processing.data_filtering import filter_data
 from src.data_processing.data_preprocessing import DataPreprocessor
 from src.gui.sidebar import SideBar
@@ -53,7 +51,7 @@ class MainView(QWidget):
         self.sidebar.set_dates(datetime_min, datetime_max)
 
     def _handle_filtered_data_changed(self, filter_values):
-        filter_values_nulls_removed = {k: v for k, v in filter_values.items() if v != "" and pd.notnull(v)}
+        filter_values_nulls_removed = self._remove_null_values_from_dict(filter_values)
         self.filtered_data = filter_data(self.data, **filter_values_nulls_removed)
         self.tab_handler.handle_data(self.filtered_data)
 
@@ -66,25 +64,48 @@ class MainView(QWidget):
         # self.sidebar.load_data()
 
     def _handle_new_category_created(self, data: tuple):
-        print("Not implemented yet")
-        # name = data[0]
-        # values = data[1]
-        # self.config_manager.add_category(name, values)
-        # self._handle_config_updates()
+        name = data[0]
+        filter_values = data[1]
+        filter_values_nulls_removed = self._remove_null_values_from_dict(filter_values)
+        filter_values_nulls_removed.pop("min_date")
+        filter_values_nulls_removed.pop("max_date")
+        self.config_manager.add_category(name, filter_values_nulls_removed)
+        categories = self.config_manager.get_config()[CATEGORIES_KEY]
+        self.data_processor.add_categories(self.filtered_data, categories)
+        self.data_processor.add_categories(self.data, categories)
+        self.data_processor.add_categories(self.removed_data, categories)
+        self.tab_handler.handle_data(self.filtered_data)
+        self.tab_handler.handle_removed_data(self.removed_data)
+        self.config_manager.save_config()
 
     def _handle_new_label_created(self, data: tuple):
-        print("Not implemented yet")
-        # name = data[0]
-        # values = data[1]
-        # self.config_manager.add_label(name, values)
-        # self._handle_config_updates()
+        name = data[0]
+        filter_values = data[1]
+        filter_values_nulls_removed = self._remove_null_values_from_dict(filter_values)
+        filter_values_nulls_removed.pop("min_date")
+        filter_values_nulls_removed.pop("max_date")
+        self.config_manager.add_label(name, filter_values_nulls_removed)
+        labels = self.config_manager.get_config()[LABELS_KEY]
+        self.data_processor.add_labels(self.filtered_data, labels)
+        self.data_processor.add_labels(self.data, labels)
+        self.data_processor.add_labels(self.removed_data, labels)
+        self.tab_handler.handle_data(self.filtered_data)
+        self.tab_handler.handle_removed_data(self.removed_data)
+        self.config_manager.save_config()
 
+    # TODO: make separate method to handle notes that are added to removed data
     def _handle_notes_edited(self, data: tuple):
-        print("Not implemented yet")
-        # event_id = data[0]
-        # note = data[1]
-        # if note == "":
-        #     self.config_manager.remove_note_if_exist(event_id)
-        # else:
-        #     self.config_manager.update_note(event_id, note)
-        # self._handle_config_updates()
+        event_id = data[0]
+        note = data[1]
+        if note == "":
+            self.config_manager.remove_note_if_exist(event_id)
+        else:
+            self.config_manager.update_note(event_id, note)
+        self.data.loc[self.data.id == event_id, "notes"] = note
+        self.filtered_data.loc[self.data.id == event_id, "notes"] = note
+        self.tab_handler.handle_data(self.filtered_data)
+        self.config_manager.save_config()
+
+    @staticmethod
+    def _remove_null_values_from_dict(d):
+        return {k: v for k, v in d.items() if v != "" and pd.notnull(v)}
