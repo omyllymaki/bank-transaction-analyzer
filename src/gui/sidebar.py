@@ -1,42 +1,23 @@
 from datetime import datetime
 from typing import List
 
-import pandas as pd
 from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog, \
     QInputDialog, QHBoxLayout
 
-from src.config_manager import GENERAL_KEY, DROP_DATA_KEY
-from src.data_processing.data_analysis import categorize, extract_labels
-from src.data_processing.data_filtering import filter_data
-from src.data_processing.data_preprocessing import DataPreprocessor
-from src.gui.dialog_boxes import show_warning
 from src.gui.widgets import FloatLineEdit, TextLineEdit
-from src.utils import load_json, save_json
 
 
 class SideBar(QWidget):
-    data_loaded_signal = pyqtSignal(pd.DataFrame)
-    data_filtered_signal = pyqtSignal(pd.DataFrame)
+    load_data_signal = pyqtSignal(list)
+    filter_values_changed_signal = pyqtSignal(dict)
     new_category_created_signal = pyqtSignal(tuple)
     new_label_created_signal = pyqtSignal(tuple)
 
-    def __init__(self, config):
+    def __init__(self, default_data_dir):
         super().__init__()
-
-        self.data_preprocessor = DataPreprocessor()
-        self.config = config
-        self.cleaned_data = None
-        self.filtered_data = None
-        self.min_value = None
-        self.max_value = None
-        self.min_value_is_valid = True
-        self.max_value_is_valid = True
-        self.is_data_loaded = False
-        self.filter_values = None
-
-        self.cleaned_data = None
+        self.default_data_dir = default_data_dir
         self.min_date_selector = QCalendarWidget(self)
         self.max_date_selector = QCalendarWidget(self)
         self.target_line = TextLineEdit(self)
@@ -55,10 +36,6 @@ class SideBar(QWidget):
         self.create_category_button = QPushButton('Create category from existing filters')
         self._set_layout()
         self._set_connections()
-
-    def set_config(self, config):
-        self.config = config
-        self.cleaned_data = self.data_preprocessor.update_notes_categories_labels(self.cleaned_data, self.config)
 
     def _create_hbox_with_text(self, text, widget):
         layout = QHBoxLayout()
@@ -102,47 +79,35 @@ class SideBar(QWidget):
         self.load_button.clicked.connect(self._handle_load_button_clicked)
         self.create_label_button.clicked.connect(self._handle_create_new_label)
         self.create_category_button.clicked.connect(self._handle_create_new_category)
-        self.min_value_line.textChanged.connect(self._handle_min_value_changed)
-        self.max_value_line.textChanged.connect(self._handle_max_value_changed)
-
-        self.min_date_selector.selectionChanged.connect(self._handle_filter_data)
-        self.max_date_selector.selectionChanged.connect(self._handle_filter_data)
-        self.min_value_line.returnPressed.connect(self._handle_filter_data)
-        self.max_value_line.returnPressed.connect(self._handle_filter_data)
-        self.target_line.returnPressed.connect(self._handle_filter_data)
-        self.account_number_line.returnPressed.connect(self._handle_filter_data)
-        self.message_line.returnPressed.connect(self._handle_filter_data)
-        self.event_line.returnPressed.connect(self._handle_filter_data)
-        self.category_line.returnPressed.connect(self._handle_filter_data)
-        self.labels_line.returnPressed.connect(self._handle_filter_data)
-        self.id_line.returnPressed.connect(self._handle_filter_data)
-        self.notes_line.returnPressed.connect(self._handle_filter_data)
-        self.is_duplicate_line.returnPressed.connect(self._handle_filter_data)
+        self.min_value_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.max_value_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.min_date_selector.selectionChanged.connect(self._handle_filtering_values_changed)
+        self.max_date_selector.selectionChanged.connect(self._handle_filtering_values_changed)
+        self.min_value_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.max_value_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.target_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.account_number_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.message_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.event_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.category_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.labels_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.id_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.notes_line.returnPressed.connect(self._handle_filtering_values_changed)
+        self.is_duplicate_line.returnPressed.connect(self._handle_filtering_values_changed)
 
     def _handle_load_button_clicked(self):
-        self.file_paths = self._get_file_paths()
-        if not self.file_paths:
+        file_paths = self._get_file_paths()
+        if not file_paths:
             return None
-        self.load_data()
+        self.load_data_signal.emit(file_paths)
 
-    def load_data(self):
-        self.cleaned_data, removed_data = self.data_preprocessor.get_data(file_paths=self.file_paths,
-                                                                          drop_data=self.config[DROP_DATA_KEY])
-        self.cleaned_data = self.data_preprocessor.update_notes_categories_labels(self.cleaned_data, self.config)
-        removed_data = self.data_preprocessor.update_notes_categories_labels(removed_data, self.config)
-        self._set_dates_based_on_data()
-        self.is_data_loaded = True
-        self.data_loaded_signal.emit(removed_data)
-        self._handle_filter_data()
+    def _handle_filtering_values_changed(self):
+        filter_values = self._get_filter_values()
+        self.filter_values_changed_signal.emit(filter_values)
 
-    def _set_dates_based_on_data(self):
-        datetime_min = self.cleaned_data.time.min()
-        datetime_max = self.cleaned_data.time.max()
+    def set_dates(self, datetime_min, datetime_max):
         self.min_date_selector.setSelectedDate(QtCore.QDate(datetime_min.year, datetime_min.month, datetime_min.day))
         self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
-
-    def _update_filtering_values(self):
-        self.filter_values = self._get_filter_values()
 
     def _get_filter_values(self):
         return dict(
@@ -152,8 +117,8 @@ class SideBar(QWidget):
             account_number=self.account_number_line.get_value(),
             message=self.message_line.get_value(),
             event=self.event_line.get_value(),
-            min_value=self.min_value,
-            max_value=self.max_value,
+            min_value=self.min_value_line.get_value()[0],
+            max_value=self.max_value_line.get_value()[0],
             category=self.category_line.get_value(),
             labels=self.labels_line.get_value(),
             id=self.id_line.get_value(),
@@ -161,58 +126,23 @@ class SideBar(QWidget):
             is_duplicate=self._get_is_duplicate()
         )
 
-    def _handle_filter_data(self):
-        self._update_filtering_values()
-        if self.cleaned_data is not None:
-            self.filtered_data = filter_data(self.cleaned_data, **self.filter_values)
-            if self.filtered_data.empty:
-                show_warning("Warning", "No data to analyze")
-            else:
-                self.data_filtered_signal.emit(self.filtered_data)
-
-    def _update_categories(self):
-        self.cleaned_data["categories"] = categorize(self.cleaned_data, self.config["categories"])
-        self._handle_filter_data()
-
-    def _update_labels(self):
-        labels = extract_labels(self.cleaned_data, self.config["labels"])
-        self.cleaned_data["labels"] = [" ; ".join(l) for l in labels]
-        self._handle_filter_data()
-
     def _handle_create_new_label(self):
         name, ok = QInputDialog.getText(self, 'New label', 'Type the name of new label')
         if not ok:
             return
-        new_label_data = self._get_cleaned_filter_values()
+        new_label_data = self._get_filter_values()
         self.new_label_created_signal.emit((name, new_label_data))
 
     def _handle_create_new_category(self):
         name, ok = QInputDialog.getText(self, 'New category', 'Type the name of new category')
         if not ok:
             return
-        new_category_data = self._get_cleaned_filter_values()
+        new_category_data = self._get_filter_values()
         self.new_category_created_signal.emit((name, new_category_data))
-
-    def _get_cleaned_filter_values(self):
-        filter_values = self._get_filter_values()
-        filter_values = {k: v for k, v in filter_values.items() if v != "" and pd.notnull(v)}
-        filter_values.pop("min_date", None)
-        filter_values.pop("max_date", None)
-        return filter_values
-
-    def _write_filtering_values_to_file(self, file_path, name):
-        self._update_filtering_values()
-        filter_values = {k: v for k, v in self.filter_values.items() if v != "" and pd.notnull(v)}
-        filter_values.pop("min_date", None)
-        filter_values.pop("max_date", None)
-        values = load_json(file_path)
-        values[name] = filter_values
-        save_json(file_path, values)
-        return values
 
     def _get_file_paths(self) -> List[str]:
         file_paths, _ = QFileDialog.getOpenFileNames(caption='Choose files for analysis',
-                                                     directory=self.config[GENERAL_KEY]["default_data_dir"])
+                                                     directory=self.default_data_dir)
         return file_paths
 
     def _get_min_date(self) -> datetime:
@@ -229,9 +159,3 @@ class SideBar(QWidget):
             return False
         else:
             return None
-
-    def _handle_min_value_changed(self):
-        self.min_value, self.min_value_is_valid = self.min_value_line.get_value()
-
-    def _handle_max_value_changed(self):
-        self.max_value, self.max_value_is_valid = self.max_value_line.get_value()
