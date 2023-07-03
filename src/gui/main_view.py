@@ -35,6 +35,7 @@ class MainView(QWidget):
         self.sidebar.new_category_created_signal.connect(self._handle_new_category_created)
         self.sidebar.new_label_created_signal.connect(self._handle_new_label_created)
         self.tab_handler.events_tab.drop_data_added_signal.connect(self._handle_drop_data_added)
+        self.tab_handler.events_tab.notes_edited_signal.connect(self._handle_notes_edited)
 
     def _handle_plotting(self, data: pd.DataFrame):
         self.tab_handler.handle_data(data)
@@ -53,15 +54,24 @@ class MainView(QWidget):
         name = data[0]
         values = data[1]
         self.config_manager.add_category(name, values)
-        self._handle_category_or_label_config_updates()
+        self._handle_config_updates()
 
     def _handle_new_label_created(self, data: tuple):
         name = data[0]
         values = data[1]
         self.config_manager.add_label(name, values)
-        self._handle_category_or_label_config_updates()
+        self._handle_config_updates()
 
-    def _handle_category_or_label_config_updates(self):
+    def _handle_notes_edited(self, data: tuple):
+        event_id = data[0]
+        note = data[1]
+        if note == "":
+            self.config_manager.remove_note_if_exist(event_id)
+        else:
+            self.config_manager.update_note(event_id, note)
+        self._handle_config_updates()
+
+    def _handle_config_updates(self):
         self.config_manager.save_config()
         config = self.config_manager.get_config()
         self.sidebar.set_config(config)

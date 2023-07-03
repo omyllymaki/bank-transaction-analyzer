@@ -58,5 +58,11 @@ class ConfigManager:
         for event_id, note in notes.items():
             self.config[NOTES_KEY][event_id] = note
 
+    def update_note(self, event_id, note: str) -> None:
+        self.config[NOTES_KEY][event_id] = note
+
+    def remove_note_if_exist(self, event_id) -> None:
+        self.config[NOTES_KEY].pop(event_id, None)
+
     def get_config(self) -> dict:
         return self.config.copy()

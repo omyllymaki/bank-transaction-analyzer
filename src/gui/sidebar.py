@@ -7,7 +7,7 @@ from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QCalendarWidget, QLabel, QLineEdit, QPushButton, QFileDialog, \
     QInputDialog, QHBoxLayout
 
-from src.config_manager import GENERAL_KEY
+from src.config_manager import GENERAL_KEY, DROP_DATA_KEY
 from src.data_processing.data_analysis import categorize, extract_labels
 from src.data_processing.data_filtering import filter_data
 from src.data_processing.data_preprocessing import DataPreprocessor
@@ -58,7 +58,7 @@ class SideBar(QWidget):
 
     def set_config(self, config):
         self.config = config
-        self.load_data()
+        self.cleaned_data = self.data_preprocessor.update_notes_categories_labels(self.cleaned_data, self.config)
 
     def _create_hbox_with_text(self, text, widget):
         layout = QHBoxLayout()
@@ -127,7 +127,9 @@ class SideBar(QWidget):
 
     def load_data(self):
         self.cleaned_data, removed_data = self.data_preprocessor.get_data(file_paths=self.file_paths,
-                                                                          config=self.config)
+                                                                          drop_data=self.config[DROP_DATA_KEY])
+        self.cleaned_data = self.data_preprocessor.update_notes_categories_labels(self.cleaned_data, self.config)
+        removed_data = self.data_preprocessor.update_notes_categories_labels(removed_data, self.config)
         self._set_dates_based_on_data()
         self.is_data_loaded = True
         self.data_loaded_signal.emit(removed_data)

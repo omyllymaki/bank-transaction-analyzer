@@ -39,12 +39,7 @@ class DataPreprocessor:
 
     def get_data(self,
                  file_paths: List[str],
-                 config: dict) -> Tuple[pd.DataFrame, pd.DataFrame]:
-
-        categories = config.get(CATEGORIES_KEY)
-        labels = config.get(LABELS_KEY)
-        notes = config.get(NOTES_KEY)
-        drop_data = config.get(DROP_DATA_KEY)
+                 drop_data: dict) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
         combined_transformed_data = pd.DataFrame()
         for path in file_paths:
@@ -62,36 +57,43 @@ class DataPreprocessor:
         validate(combined_transformed_data)
         preprocessed_data = self.preprocess_data(combined_transformed_data)
 
-        if categories is not None:
-            preprocessed_data["category"] = categorize(preprocessed_data, categories)
-        else:
-            preprocessed_data["category"] = "NA"
-
-        if labels is not None:
-            labels = extract_labels(preprocessed_data, labels)
-            preprocessed_data["labels"] = [" ; ".join(l) for l in labels]
-        else:
-            preprocessed_data["labels"] = "NA"
-
-        preprocessed_data["notes"] = ""
-
-        if notes is not None:
-            for event_id, note in notes.items():
-                preprocessed_data.loc[preprocessed_data.id == event_id, "notes"] = note
-
-        grouped_by_id = preprocessed_data.groupby("id").count()
-        duplicates_ids = np.unique(grouped_by_id[grouped_by_id.target > 1].index)
-
-        preprocessed_data["is_duplicate"] = False
-        for duplicate_id in duplicates_ids:
-            preprocessed_data['is_duplicate'][preprocessed_data.id == duplicate_id] = True
-
         if drop_data is not None:
             filtered_data, removed_data = self.drop_rows(preprocessed_data, drop_data=drop_data)
         else:
             filtered_data = preprocessed_data
             removed_data = pd.DataFrame()
         return filtered_data, removed_data
+
+    @staticmethod
+    def update_notes_categories_labels(data: pd.DataFrame, config: dict):
+        categories = config.get(CATEGORIES_KEY)
+        labels = config.get(LABELS_KEY)
+        notes = config.get(NOTES_KEY)
+
+        if categories is not None:
+            data["category"] = categorize(data, categories)
+        else:
+            data["category"] = "NA"
+
+        if labels is not None:
+            labels = extract_labels(data, labels)
+            data["labels"] = [" ; ".join(l) for l in labels]
+        else:
+            data["labels"] = "NA"
+
+        data["notes"] = ""
+        if notes is not None:
+            for event_id, note in notes.items():
+                data.loc[data.id == event_id, "notes"] = note
+
+        grouped_by_id = data.groupby("id").count()
+        duplicates_ids = np.unique(grouped_by_id[grouped_by_id.target > 1].index)
+
+        data["is_duplicate"] = False
+        for duplicate_id in duplicates_ids:
+            data['is_duplicate'][data.id == duplicate_id] = True
+
+        return data
 
     @staticmethod
     def get_ids(data: pd.DataFrame) -> List[str]:

@@ -22,10 +22,6 @@ def main():
     mw.show()
     app.exec()
 
-    new_notes = mw.main_view.tab_handler.get_notes()
-    config_manager.add_notes(new_notes)
-    config_manager.save_config()
-
 
 if __name__ == "__main__":
     main()
