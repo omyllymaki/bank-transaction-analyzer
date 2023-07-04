@@ -36,7 +36,8 @@ class MainView(QWidget):
         self.sidebar.new_label_created_signal.connect(self._handle_new_label_created)
 
         self.tab_handler.events_tab.drop_data_added_signal.connect(self._handle_drop_data_added)
-        self.tab_handler.events_tab.notes_edited_signal.connect(self._handle_notes_edited)
+        self.tab_handler.events_tab.notes_edited_signal.connect(self._handle_filtered_data_notes_edited)
+        self.tab_handler.events_filtered_out_tab.notes_edited_signal.connect(self._handle_removed_data_notes_edited)
 
     def _handle_load_data(self, file_paths):
         self.all_data = self.data_processor.get_data(file_paths)
@@ -101,8 +102,7 @@ class MainView(QWidget):
         self.tab_handler.handle_removed_data(self.removed_data)
         self.config_manager.save_config()
 
-    # TODO: make separate method to handle notes that are added to removed data
-    def _handle_notes_edited(self, data: tuple):
+    def _handle_filtered_data_notes_edited(self, data: tuple):
         event_id = data[0]
         note = data[1]
         if note == "":
@@ -112,6 +112,17 @@ class MainView(QWidget):
         self.data.loc[self.data.id == event_id, "notes"] = note
         self.filtered_data.loc[self.data.id == event_id, "notes"] = note
         self.tab_handler.handle_data(self.filtered_data)
+        self.config_manager.save_config()
+
+    def _handle_removed_data_notes_edited(self, data: tuple):
+        event_id = data[0]
+        note = data[1]
+        if note == "":
+            self.config_manager.remove_note_if_exist(event_id)
+        else:
+            self.config_manager.update_note(event_id, note)
+        self.removed_data.loc[self.removed_data.id == event_id, "notes"] = note
+        self.tab_handler.handle_removed_data(self.removed_data)
         self.config_manager.save_config()
 
     @staticmethod
