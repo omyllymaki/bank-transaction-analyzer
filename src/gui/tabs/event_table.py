@@ -90,8 +90,3 @@ class EventTableTab(BaseTab):
         self.data.loc[index, column] = value
         event_id = self.data["id"].loc[index]
         self.notes_edited_signal.emit((event_id, value))
-
-    def get_notes(self):
-        df = self.data[["id", "notes"]]
-        df = df[df.notes.str.len() > 0]
-        return dict(zip(df.id, df.notes))

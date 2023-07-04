@@ -34,8 +34,3 @@ class TabHandler(QWidget):
 
     def handle_removed_data(self, data: pd.DataFrame):
         self.events_filtered_out_tab.handle_data(data)
-
-    def get_notes(self):
-        d1 = self.events_tab.get_notes()
-        d2 = self.events_filtered_out_tab.get_notes()
-        return {**d1, **d2}
