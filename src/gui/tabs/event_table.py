@@ -1,6 +1,6 @@
 import pandas as pd
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import QVBoxLayout, QAbstractItemView
 
 from constants import COLUMNS, EDITABLE_COLUMNS
@@ -9,6 +9,7 @@ from src.gui.tabs.base_tab import BaseTab
 
 
 class EventTableTab(BaseTab):
+    notes_edited_signal = pyqtSignal(tuple)
 
     def __init__(self):
         self.table_view = QtWidgets.QTableView()
@@ -87,6 +88,8 @@ class EventTableTab(BaseTab):
     def _handle_data_edited(self, data):
         index, column, value = data
         self.data.loc[index, column] = value
+        event_id = self.data["id"].loc[index]
+        self.notes_edited_signal.emit((event_id, value))
 
     def get_notes(self):
         df = self.data[["id", "notes"]]

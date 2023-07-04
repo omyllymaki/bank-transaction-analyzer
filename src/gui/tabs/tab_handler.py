@@ -32,7 +32,7 @@ class TabHandler(QWidget):
         for tab in [self.incomes_and_outcomes_tab, self.distributions_tab, self.events_tab]:
             tab.handle_data(data)
 
-    def handle_prefiltered_data(self, data: pd.DataFrame):
+    def handle_removed_data(self, data: pd.DataFrame):
         self.events_filtered_out_tab.handle_data(data)
 
     def get_notes(self):
