@@ -13,6 +13,7 @@ class MainView(QWidget):
         super().__init__()
         self.config_manager = config_manager
         self.data_processor = DataPreprocessor()
+        self.all_data = None
         self.data = None
         self.removed_data = None
         self.filtered_data = None
@@ -38,10 +39,10 @@ class MainView(QWidget):
         self.tab_handler.events_tab.notes_edited_signal.connect(self._handle_notes_edited)
 
     def _handle_load_data(self, file_paths):
+        self.all_data = self.data_processor.get_data(file_paths)
         config = self.config_manager.get_config()
-        all_data = self.data_processor.get_data(file_paths)
-        self.data_processor.update_extra_columns(all_data, config)
-        self.data, self.removed_data = self.data_processor.drop_data(all_data, config[DROP_DATA_KEY])
+        self.data_processor.update_extra_columns(self.all_data, config)
+        self.data, self.removed_data = self.data_processor.drop_data(self.all_data, config[DROP_DATA_KEY])
         self.filtered_data = self.data.copy()
         self.tab_handler.handle_data(self.filtered_data)
         self.tab_handler.handle_removed_data(self.removed_data)
@@ -56,12 +57,19 @@ class MainView(QWidget):
         self.tab_handler.handle_data(self.filtered_data)
 
     def _handle_drop_data_added(self, data: tuple):
-        print("Not implemented yet")
-        # name = data[0]
-        # value = data[1]
-        # self.config_manager.add_drop_data(name, value)
-        # self.config_manager.save_config()
-        # self.sidebar.load_data()
+        name = data[0]
+        value = data[1]
+        self.config_manager.add_drop_data(name, value)
+
+        drop_data = self.config_manager.get_config()[DROP_DATA_KEY]
+        self.data, self.removed_data = self.data_processor.drop_data(self.all_data, drop_data)
+        current_filter_values = self.sidebar.get_filter_values()
+        filter_values_nulls_removed = self._remove_null_values_from_dict(current_filter_values)
+        self.filtered_data = filter_data(self.data, **filter_values_nulls_removed)
+
+        self.tab_handler.handle_data(self.filtered_data)
+        self.tab_handler.handle_removed_data(self.removed_data)
+        self.config_manager.save_config()
 
     def _handle_new_category_created(self, data: tuple):
         name = data[0]

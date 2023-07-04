@@ -102,14 +102,14 @@ class SideBar(QWidget):
         self.load_data_signal.emit(file_paths)
 
     def _handle_filtering_values_changed(self):
-        filter_values = self._get_filter_values()
+        filter_values = self.get_filter_values()
         self.filter_values_changed_signal.emit(filter_values)
 
     def set_dates(self, datetime_min, datetime_max):
         self.min_date_selector.setSelectedDate(QtCore.QDate(datetime_min.year, datetime_min.month, datetime_min.day))
         self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
 
-    def _get_filter_values(self):
+    def get_filter_values(self):
         return dict(
             min_date=self._get_min_date(),
             max_date=self._get_max_date(),
@@ -130,14 +130,14 @@ class SideBar(QWidget):
         name, ok = QInputDialog.getText(self, 'New label', 'Type the name of new label')
         if not ok:
             return
-        new_label_data = self._get_filter_values()
+        new_label_data = self.get_filter_values()
         self.new_label_created_signal.emit((name, new_label_data))
 
     def _handle_create_new_category(self):
         name, ok = QInputDialog.getText(self, 'New category', 'Type the name of new category')
         if not ok:
             return
-        new_category_data = self._get_filter_values()
+        new_category_data = self.get_filter_values()
         self.new_category_created_signal.emit((name, new_category_data))
 
     def _get_file_paths(self) -> List[str]:
