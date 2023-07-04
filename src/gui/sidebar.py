@@ -79,8 +79,6 @@ class SideBar(QWidget):
         self.load_button.clicked.connect(self._handle_load_button_clicked)
         self.create_label_button.clicked.connect(self._handle_create_new_label)
         self.create_category_button.clicked.connect(self._handle_create_new_category)
-        self.min_value_line.returnPressed.connect(self._handle_filtering_values_changed)
-        self.max_value_line.returnPressed.connect(self._handle_filtering_values_changed)
         self.min_date_selector.selectionChanged.connect(self._handle_filtering_values_changed)
         self.max_date_selector.selectionChanged.connect(self._handle_filtering_values_changed)
         self.min_value_line.returnPressed.connect(self._handle_filtering_values_changed)
