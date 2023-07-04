@@ -1,3 +1,5 @@
+import os
+
 import pandas as pd
 from PyQt5.QtWidgets import QWidget, QHBoxLayout
 
@@ -18,10 +20,16 @@ class MainView(QWidget):
         self.removed_data = None
         self.filtered_data = None
 
+        config = self.config_manager.get_config()
         self.tab_handler = TabHandler()
-        self.sidebar = SideBar(self.config_manager.get_config()[GENERAL_KEY]["default_data_dir"])
+        self.sidebar = SideBar(config[GENERAL_KEY]["default_data_dir"])
         self._set_layout()
         self._set_connections()
+
+        if config[GENERAL_KEY]["auto_load"]:
+            dir = config[GENERAL_KEY]["default_data_dir"]
+            paths = [os.path.join(dir, f) for f in os.listdir(dir) if f.endswith(".txt")]
+            self._handle_load_data(paths)
 
     def _set_layout(self):
         layout = QHBoxLayout()
