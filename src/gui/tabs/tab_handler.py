@@ -20,7 +20,7 @@ class TabHandler(QWidget):
         self.content.addTab(self.incomes_and_outcomes_tab, "Incomes & Outcomes")
         self.content.addTab(self.distributions_tab, "Distributions")
         self.content.addTab(self.events_tab, "Events")
-        self.content.addTab(self.events_filtered_out_tab, "events filtered out")
+        self.content.addTab(self.events_filtered_out_tab, "Events filtered out")
 
         self._set_layout()
 
