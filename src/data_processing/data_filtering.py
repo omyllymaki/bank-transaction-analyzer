@@ -66,11 +66,6 @@ def float_max_filter(data, filter_by, value):
 def boolean_filter(data, filter_by, value):
     return data[data[filter_by] == value]
 
-
 def string_filter(data, filter_by, pattern):
-    return data[data[filter_by].apply(regex_find, args=(pattern.strip(),))]
-
-
-def regex_find(string, pattern):
-    match = regex.search(pattern, string, flags=re.IGNORECASE)
-    return match is not None
+    i = data[filter_by].str.contains(pattern.strip(), flags=re.IGNORECASE)
+    return data[i]
