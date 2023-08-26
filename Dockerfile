@@ -20,8 +20,8 @@ COPY . /app
 RUN adduser -u 5678 --disabled-password --gecos "" appuser && chown -R appuser /app
 USER appuser
 
-# For debuging QT issues
-ENV QT_DEBUG_PLUGINS=1
+# Uncomment for debugging QT issues
+# ENV QT_DEBUG_PLUGINS=1
 
 RUN chmod +x ./run.sh
 ENTRYPOINT ["/app/run.sh"]
