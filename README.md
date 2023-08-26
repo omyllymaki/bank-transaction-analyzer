@@ -115,3 +115,18 @@ schema = pandas_schema.Schema([
 When custom Loader and Transformer classes are created, they can be used by adding bank to DataPreprocessor class
 (src/data_processing/data_preprocessing.py).
 
+## Docker
+
+Build docker image:
+
+```./docker-build.sh```
+
+Run docker container:
+
+```./docker-run.sh [config_file_path] [volume_mapping]```
+
+E.g. ```./docker-run.sh "personal_config.json" "/data:/app/data"``` will use personal_config.json file for configuration and maps host directory /data to container directory app/data.
+
+
+
+
