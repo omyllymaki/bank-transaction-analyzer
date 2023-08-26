@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 echo "Launching Bank Transaction Analyzer"
-source ./venv/bin/activate
+if [ -d "./venv/bin" ]; then
+  echo "Found virtualenv venv. Using that."
+  source ./venv/bin/activate
+fi
 if [ "$#" -eq "0" ]; then
   python main.py
 else

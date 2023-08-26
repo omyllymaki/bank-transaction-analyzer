@@ -27,7 +27,13 @@ class MainView(QWidget):
 
         if self.config_manager.config[GENERAL_KEY]["auto_load"]:
             dir = self.config_manager.config[GENERAL_KEY]["default_data_dir"]
+            if not os.path.exists(dir):
+                print(f"Directory {dir} doesn't exist and data will not be loaded")
+                return
             paths = [os.path.join(dir, f) for f in os.listdir(dir) if f.endswith(".txt")]
+            if len(paths) == 0:
+                print(f"Directory {dir} doesn't contain any txt files and data will not be loaded")
+                return
             self._handle_load_data(paths)
 
     def _set_layout(self):
@@ -50,7 +56,8 @@ class MainView(QWidget):
         self.data_all = self.data_processor.get_data(file_paths)
         self.data_processor.update_extra_columns(self.data_all, self.config_manager.config)
         self.data_not_removed, self.data_removed = self.data_processor.drop_data(self.data_all,
-                                                                                 self.config_manager.config[DROP_DATA_KEY])
+                                                                                 self.config_manager.config[
+                                                                                     DROP_DATA_KEY])
         self.data_filtered = self.data_not_removed.copy()
         self.tab_handler.handle_data(self.data_filtered)
         self.tab_handler.handle_removed_data(self.data_removed)
