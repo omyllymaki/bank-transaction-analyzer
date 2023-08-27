@@ -1,7 +1,8 @@
 {
     "general": {
         "default_data_dir": "test_data",
-        "auto_load": true
+        "auto_load": true,
+         "auto_load_match_pattern":  "./test_data/*.txt"
     },
     "drop_data": {
         "target": [

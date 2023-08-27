@@ -1,3 +1,5 @@
+import glob
+import logging
 import os
 
 import pandas as pd
@@ -8,6 +10,8 @@ from src.data_processing.data_filtering import filter_data
 from src.data_processing.data_preprocessing import DataPreprocessor
 from src.gui.sidebar import SideBar
 from src.gui.tabs.tab_handler import TabHandler
+
+logger = logging.getLogger(__name__)
 
 
 class MainView(QWidget):
@@ -26,13 +30,11 @@ class MainView(QWidget):
         self._set_connections()
 
         if self.config_manager.config[GENERAL_KEY]["auto_load"]:
-            dir = self.config_manager.config[GENERAL_KEY]["default_data_dir"]
-            if not os.path.exists(dir):
-                print(f"Directory {dir} doesn't exist and data will not be loaded")
-                return
-            paths = [os.path.join(dir, f) for f in os.listdir(dir) if f.endswith(".txt")]
+            logger.info(f"Auto load selected. Loading the data")
+            pattern = self.config_manager.config[GENERAL_KEY]["auto_load_match_pattern"]
+            paths = glob.glob(pattern)
             if len(paths) == 0:
-                print(f"Directory {dir} doesn't contain any txt files and data will not be loaded")
+                logger.info(f"Pattern {pattern} doesn't match any file. Auto loading will not be performed.")
                 return
             self._handle_load_data(paths)
 
