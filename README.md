@@ -117,15 +117,13 @@ When custom Loader and Transformer classes are created, they can be used by addi
 
 ## Docker
 
-Build docker image:
+Grant the Docker container access to the host system's X server, needed by QT.
+```xhost +local:docker```
 
-```./docker-build.sh```
+Then use docker commands to build image and run container. You can also use docker-compose file and simply run
+```docker-compose up```
 
-Run docker container:
-
-```./docker-run.sh [config_file_path] [volume_mapping]```
-
-E.g. ```./docker-run.sh "personal_config.json" "/data:/app/data"``` will use personal_config.json file for configuration and maps host directory /data to container directory app/data.
+Note that volume mappings should be modified to map your own config file and data to container.
 
 
 

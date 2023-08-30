@@ -1,0 +1,16 @@
+version: '3'
+services:
+  bank-transaction-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - ${HOME}/.Xauthority:/root/.Xauthority:ro
+      - ./test_data:/app/data
+      - ./config.json:/app/config.json
+    network_mode: host
+    stdin_open: true
+    tty: true
+    command: [ "config.json" ]
