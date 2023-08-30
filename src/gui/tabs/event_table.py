@@ -2,14 +2,15 @@ import pandas as pd
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, pyqtSignal
 from PyQt5.QtWidgets import QVBoxLayout, QAbstractItemView
-
-from constants import COLUMNS, EDITABLE_COLUMNS
 from src.gui.dataframe_model import DataFrameModel
 from src.gui.tabs.base_tab import BaseTab
 
 
 class EventTableTab(BaseTab):
     notes_edited_signal = pyqtSignal(tuple)
+    COLUMNS = ["target", "account_number", "value", "time", "message", "event", "category", "labels", "bank", "id",
+               "notes", "is_duplicate"]
+    EDITABLE_COLUMNS = ["notes"]
 
     def __init__(self):
         self.table_view = QtWidgets.QTableView()
@@ -55,7 +56,7 @@ class EventTableTab(BaseTab):
         self._render_table()
 
     def handle_data(self, data):
-        self.data = data[COLUMNS]
+        self.data = data[self.COLUMNS]
         self._group_data()
         self._render_table()
 
@@ -81,7 +82,7 @@ class EventTableTab(BaseTab):
                 table_data = self.data
             sort_col_name = table_data.columns[self.sort_col_index]
             self.table_data_sorted = table_data.sort_values(sort_col_name, ascending=self.ascending)
-            self.model = DataFrameModel(self.table_data_sorted, columns_for_edition=EDITABLE_COLUMNS)
+            self.model = DataFrameModel(self.table_data_sorted, columns_for_edition=self.EDITABLE_COLUMNS)
             self.table_view.setModel(self.model)
             self.model.data_edited_signal.connect(self._handle_data_edited)
 
