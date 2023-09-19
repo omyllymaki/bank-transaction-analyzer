@@ -88,7 +88,7 @@ class DataPreprocessor:
     def add_labels(data, labels):
         if labels is not None:
             data_labels = extract_labels(data, labels)
-            data["labels"] = [" ; ".join(l) for l in data_labels]
+            data["labels"] = [" | ".join(l) for l in data_labels]
         else:
             data["labels"] = "NA"
 

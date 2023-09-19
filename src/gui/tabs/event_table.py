@@ -1,7 +1,7 @@
 import pandas as pd
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtCore import Qt, pyqtSignal
-from PyQt5.QtWidgets import QVBoxLayout, QAbstractItemView
+from PyQt5.QtWidgets import QVBoxLayout, QAbstractItemView, QPushButton, QFileDialog
 from src.gui.dataframe_model import DataFrameModel
 from src.gui.tabs.base_tab import BaseTab
 
@@ -15,6 +15,7 @@ class EventTableTab(BaseTab):
     def __init__(self):
         self.table_view = QtWidgets.QTableView()
         self.table_view.setObjectName("tableView")
+        self.export_data_button = QPushButton('Export data')
         self.header = self.table_view.horizontalHeader()
         self.group_by_target = False
         self.group_by = "target"
@@ -29,6 +30,7 @@ class EventTableTab(BaseTab):
     def _set_layout(self):
         self.layout = QVBoxLayout()
         self.layout.addWidget(self.table_view)
+        self.layout.addWidget(self.export_data_button, alignment=QtCore.Qt.AlignLeft)
         self.setLayout(self.layout)
 
     def _set_connections(self):
@@ -37,6 +39,7 @@ class EventTableTab(BaseTab):
         self.header.setContextMenuPolicy(Qt.CustomContextMenu)
         self.header.customContextMenuRequested.connect(self._handle_header_right_clicked)
         self.header.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.export_data_button.clicked.connect(self._handle_data_export)
 
     def _handle_header_right_clicked(self, position):
         index = self.header.logicalIndexAt(position)
@@ -91,3 +94,14 @@ class EventTableTab(BaseTab):
         self.data.loc[index, column] = value
         event_id = self.data["id"].loc[index]
         self.notes_edited_signal.emit((event_id, value))
+
+    def _handle_data_export(self):
+        file_filter = "CSV Files (*.csv)"
+        file_path, _ = QFileDialog.getSaveFileName(
+            self,
+            "Save File",
+            "",
+            file_filter,
+        )
+        if file_path:
+            self.model._data.to_csv(file_path)
