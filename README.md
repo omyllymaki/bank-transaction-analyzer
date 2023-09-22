@@ -7,7 +7,7 @@ with other banks and data formats too.
 
 # Before usage
 
-* Install Python >= 3.6.
+* Install Python >= 3.8.
 * Install requirements.
 
 For Ubuntu users there is installation script: ```./install.sh```.

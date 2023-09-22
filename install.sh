@@ -7,7 +7,7 @@ if ! hash python; then
 fi
 
 ver=$(python3 -V 2>&1 | sed 's/.* \([0-9]\).\([0-9]\).*/\1\2/')
-if [ "$ver" -lt "36" ]; then
+if [ "$ver" -lt "38" ]; then
   echo "This app requires python 3.6 or greater"
   exit 1
 else
