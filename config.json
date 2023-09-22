@@ -2,7 +2,7 @@
     "general": {
         "default_data_dir": "test_data",
         "auto_load": true,
-         "auto_load_match_pattern":  "./test_data/*.txt"
+        "auto_load_match_pattern": "./test_data/*.txt"
     },
     "drop_data": {
         "target": [
@@ -11,35 +11,24 @@
         ]
     },
     "categories": {
-        "Food & Drink": {
-            "target": "sale|prisma|citymarket|k market|s market|k supermarket|kylävalinta|lidl|siwa|alko",
-            "max_value": 0
+        "Income": {
+            "min_value": 0.0
         },
-        "Shopping": {
-            "target": "power|dressmann|clas ohlson|new yorker|hennes mauritz|kirjakauppa|sokos|tokmanni|verkkokauppa|gigantti|cdon|stadium",
-            "max_value": 0
+        "Outcome": {
+            "max_value": 0.0
         },
-        "Beauty & Health": {
-            "target": "apteekki|parturi|specsavers|optikko|instrumentarium|hammas",
-            "max_value": 0
+        "Example label": {
+            "target": "elizabeth ball",
+            "message": "test message"
         },
-        "Transport": {
-            "target": "vr|taksi|abc|teboil|neste",
-            "max_value": 0
+        "Names starting with A": {
+            "target": "^a"
         },
-        "Restaurant": {
-            "target": "buffa|cafe|kebab|pizza|ravintola|mauno|grilli|food|unica|fazer|restaurant|sodexo|food|kahvi|subway",
-            "max_value": 0
+        "Names starting with B": {
+            "target": "^b"
         },
-        "Phone, Internet, Electricity": {
-            "target": "dna|telia|kss energia|sähkö",
-            "max_value": 0
-        },
-        "Small incomes": {
-            "min_value": 0
-        },
-        "Large incomes": {
-            "min_value": 500
+        "Names starting with C": {
+            "target": "^c"
         }
     },
     "labels": {
@@ -55,11 +44,18 @@
         },
         "Names starting with A": {
             "target": "^a"
+        },
+        "Names starting with B": {
+            "target": "^b"
+        },
+        "Names starting with C": {
+            "target": "^c"
         }
     },
     "notes": {
-        "cd49976c2590de12a2b13a0549294a86": "Test note 3",
-        "803ff5a3eba7175ae4dff2cca8785e64": "Test note 2",
-        "c8920e1866c09d8a0438e4ca106e804b": "Test note 1"
+        "6c2316dfa1f32efe4e90dfb4c6f8bde5": "Test note 1",
+        "0453e5b7101c4205b30ce4a2abcd75ae": "Test note 2",
+        "c6bbc2b48ad445cc390bb1781078beb1": "Test note 3",
+        "5722e1b6e1bb5f6c70fc90708074b0ab": "Test note 4"
     }
 }
