@@ -69,11 +69,11 @@ class EventTableTab(BaseTab):
         grouped = self.data.groupby(self.group_by, as_index=False)
         grouped_data = pd.DataFrame()
         grouped_data[self.group_by] = grouped.first()[self.group_by]
-        grouped_data["sum"] = grouped.sum()["value"]
-        grouped_data["mean"] = grouped.mean()["value"]
-        grouped_data["median"] = grouped.median()["value"]
-        grouped_data["min"] = grouped.min()["value"]
-        grouped_data["max"] = grouped.max()["value"]
+        grouped_data["sum"] = grouped.sum(numeric_only=True)["value"]
+        grouped_data["mean"] = grouped.mean(numeric_only=True)["value"]
+        grouped_data["median"] = grouped.median(numeric_only=True)["value"]
+        grouped_data["min"] = grouped.min(numeric_only=True)["value"]
+        grouped_data["max"] = grouped.max(numeric_only=True)["value"]
         grouped_data["count"] = grouped.count()["value"]
         self.grouped_data = grouped_data
 

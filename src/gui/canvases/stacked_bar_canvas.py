@@ -24,7 +24,7 @@ class StackedBarsCanvas(BaseBarCanvas):
         x = 0
         for _, row in self.data.iterrows():
             values_sum = 0
-            for target, value in row.iteritems():
+            for target, value in row.items():
                 if value > 0:
                     self.axes.bar(x,
                                   value,
