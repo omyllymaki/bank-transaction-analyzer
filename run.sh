@@ -5,7 +5,7 @@ if [ -d "./venv/bin" ]; then
   source ./venv/bin/activate
 fi
 if [ "$#" -eq "0" ]; then
-  python main.py
+  python3 main.py
 else
-  python main.py --config $1
+  python3 main.py --config $1
 fi
