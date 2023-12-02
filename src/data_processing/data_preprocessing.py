@@ -33,7 +33,7 @@ class DataPreprocessor:
     def __init__(self):
         self.banks = [
             Bank(NordeaLoader(), NordeaTransformer(), "Tapahtumat"),
-            Bank(NewNordeaLoader(), NewNordeaTransformer(), "KÄYTTÖTILI"),
+            Bank(NewNordeaLoader(), NewNordeaTransformer(), "käyttötili"),
         ]
 
     def get_data(self, file_paths: List[str]) -> pd.DataFrame:
@@ -42,7 +42,7 @@ class DataPreprocessor:
         for path in file_paths:
             bank_found = False
             for bank in self.banks:
-                if re.search(bank.regexp_pattern, path):
+                if re.search(bank.regexp_pattern, path, re.IGNORECASE):
                     bank_data = bank.get_data(path)
                     combined_transformed_data = pd.concat([combined_transformed_data, bank_data], ignore_index=True)
                     bank_found = True
