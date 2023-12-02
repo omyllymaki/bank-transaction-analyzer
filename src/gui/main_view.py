@@ -31,10 +31,12 @@ class MainView(QWidget):
 
         if self.config_manager.config[GENERAL_KEY]["auto_load"]:
             logger.info(f"Auto load selected. Loading the data")
-            pattern = self.config_manager.config[GENERAL_KEY]["auto_load_match_pattern"]
-            paths = glob.glob(pattern)
+            patterns = self.config_manager.config[GENERAL_KEY]["auto_load_match_patterns"]
+            paths = []
+            for pattern in patterns:
+                paths += glob.glob(pattern)
             if len(paths) == 0:
-                logger.info(f"Pattern {pattern} doesn't match any file. Auto loading will not be performed.")
+                logger.info(f"Patterns {patterns} doesn't match any file. Auto loading will not be performed.")
                 return
             self._handle_load_data(paths)
 
