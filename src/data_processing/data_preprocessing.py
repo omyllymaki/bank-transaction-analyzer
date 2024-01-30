@@ -37,7 +37,12 @@ class DataPreprocessor:
         ]
 
     def get_data(self, file_paths: List[str]) -> pd.DataFrame:
+        combined_transformed_data = self.load_and_transform_data(file_paths)
+        validate(combined_transformed_data)
+        preprocessed_data = self.preprocess_data(combined_transformed_data)
+        return preprocessed_data
 
+    def load_and_transform_data(self, file_paths: List[str]) -> pd.DataFrame:
         combined_transformed_data = pd.DataFrame()
         for path in file_paths:
             bank_found = False
@@ -50,10 +55,7 @@ class DataPreprocessor:
 
             if not bank_found:
                 raise Exception(f"Unknown bank for file: {path}")
-
-        validate(combined_transformed_data)
-        preprocessed_data = self.preprocess_data(combined_transformed_data)
-        return preprocessed_data
+        return combined_transformed_data
 
     def drop_data(self, data, drop_data):
         filtered_data, removed_data = self.drop_rows(data, drop_data=drop_data)
