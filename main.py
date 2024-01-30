@@ -1,45 +1,40 @@
 import argparse
 import cProfile
-import logging
+import os
 import pstats
 import sys
-import os
+import time
 
 import pandas as pd
 from PyQt5.QtWidgets import QApplication
 
 from src.config_manager import ConfigManager
 from src.gui.main_window import MainWindow
+from src.utils import profile_decorator
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
-PROFILE = True
+PROFILE = False
+
+
+@profile_decorator("profile_data")
+def profile_main_window(config_manager):
+    return MainWindow(config_manager)
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("-c", "--config", default="config.json", help="Path to configuration.")
+    parser.add_argument("-c", "--config", default="personal_config.json", help="Path to configuration.")
     args = parser.parse_args()
     print(f"Reading configuration from {args.config}")
     config_manager = ConfigManager(args.config)
-    profiler = cProfile.Profile()
-
-    if PROFILE:
-        profiler.enable()
-
     app = QApplication(sys.argv)
-    mw = MainWindow(config_manager)
+    t1 = time.time()
+    mw = profile_main_window(config_manager) if PROFILE else MainWindow(config_manager)
+    t2 = time.time()
+    print(f"Main window initialization took {t2 - t1} s")
     mw.show()
     app.exec()
-
-    if PROFILE:
-        profiler.disable()
-        profiler.dump_stats("profile_data")
-        stats = pstats.Stats("profile_data")
-        stats.sort_stats("cumulative")
-        stats.print_stats()
-        stats.dump_stats("profile_data.stats")
-        os.system("snakeviz profile_data.stats")
 
 
 if __name__ == "__main__":
