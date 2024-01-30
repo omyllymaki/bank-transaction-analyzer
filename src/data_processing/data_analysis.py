@@ -1,7 +1,7 @@
 from typing import List
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from src.data_processing.data_filtering import filter_data
 
@@ -78,7 +78,7 @@ def categorize(df: pd.DataFrame, specifications: dict) -> np.array:
     return dfc["category"].values
 
 
-def extract_labels(df: pd.DataFrame, specifications: dict) -> np.array:
+def extract_labels(df: pd.DataFrame, specifications: dict) -> List[List[str]]:
     dfc = df.copy()
     dfc.reset_index(inplace=True, drop=True)
     indices_map = {}
@@ -86,9 +86,9 @@ def extract_labels(df: pd.DataFrame, specifications: dict) -> np.array:
         filtered_data = filter_data(dfc, **label_specs)
         indices_map[label] = filtered_data.index.tolist()
 
-    dfc["labels"] = [[] for r in range(dfc.shape[0])]
+    index_labels = {index: [] for index in dfc.index}
     for label, indices in indices_map.items():
         for i in indices:
-            dfc["labels"].loc[i].append(label)
+            index_labels[i].append(label)
 
-    return dfc["labels"].values
+    return list(index_labels.values())
