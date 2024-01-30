@@ -104,8 +104,12 @@ class SideBar(QWidget):
         self.filter_values_changed_signal.emit(filter_values)
 
     def set_dates(self, datetime_min, datetime_max):
+        self.min_date_selector.selectionChanged.disconnect(self._handle_filtering_values_changed)
+        self.max_date_selector.selectionChanged.disconnect(self._handle_filtering_values_changed)
         self.min_date_selector.setSelectedDate(QtCore.QDate(datetime_min.year, datetime_min.month, datetime_min.day))
         self.max_date_selector.setSelectedDate(QtCore.QDate(datetime_max.year, datetime_max.month, datetime_max.day))
+        self.min_date_selector.selectionChanged.connect(self._handle_filtering_values_changed)
+        self.max_date_selector.selectionChanged.connect(self._handle_filtering_values_changed)
 
     def get_filter_values(self):
         return dict(
