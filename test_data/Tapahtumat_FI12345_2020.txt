@@ -1,185 +1,185 @@
 Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
-Cheryl Martin-Morgan			-52.81	19.10.2020
-Dr. Jeffrey Baker			-31.26	28.04.2020
-Dr. Joseph Bailey	Test message 2	Test event 2	-12.68	04.02.2020
-Steven Hutchinson			-7.42	26.06.2020
-Pamela Ward		Test event 2	-15.01	17.08.2020
-Cheryl Martin-Morgan			-31.19	12.10.2020
-Lesley Rogers			-653.27	14.09.2020
-Maureen Jones-Powell	Test message 1		-42.88	02.12.2020
-Cheryl Martin-Morgan			-7.69	20.01.2020
-Dr. Jeffrey Baker			-20.13	16.03.2020
-John Smith-Summers			-29.08	16.11.2020
-Neil Peacock		Test event 1	-15.42	04.05.2020
-Cheryl Martin-Morgan	Test message 1		-17.51	26.02.2020
-Cheryl Martin-Morgan	Test message 2		-20.39	10.08.2020
-Miss Jennifer Hyde		Test event 1	-22.15	15.07.2020
-Cheryl Martin-Morgan			-20.55	22.09.2020
-Cheryl Martin-Morgan			-13.67	12.03.2020
-Cheryl Martin-Morgan	Test message 2		-33.05	11.05.2020
-Pamela Ward			-12.49	29.06.2020
-Cheryl Martin-Morgan			-12.71	15.04.2020
-Brett Campbell			-284.04	30.07.2020
-Cheryl Martin-Morgan			-12.76	30.07.2020
-Alexander Baker	Test message 2		-10.09	09.04.2020
-Ms. Paige Owen	Test message 2	Test event 1	-66.72	03.08.2020
-Dr. Bradley Harris		Test event 2	-43.08	27.01.2020
-Cheryl Martin-Morgan		Test event 2	-18.92	22.04.2020
-John Smith-Summers			-2.99	23.06.2020
-Mr. Craig Parkin			22.42	29.09.2020
-Cheryl Martin-Morgan		Test event 1	-25.86	21.02.2020
-Charlie Randall	Test message 1	Test event 2	-316.91	05.10.2020
-Cheryl Martin-Morgan		Test event 2	-34.42	22.06.2020
-Charles Gallagher		Test event 1	-6.2	02.09.2020
-Irene Owens		Test event 1	-21.43	31.07.2020
-Mrs. Carolyn Power			-50.25	09.04.2020
-Cheryl Martin-Morgan	Test message 1		-40.97	02.04.2020
-Lesley Rogers	Test message 2		269.73	27.10.2020
-Cheryl Martin-Morgan	Test message 1		-33.85	26.10.2020
-Irene Owen-Noble		Test event 2	-1.59	11.05.2020
-Yvonne Woodward			-35.9	07.01.2020
-Pamela Ward	Test message 2	Test event 1	-7.97	10.07.2020
-Cheryl Martin-Morgan	Test message 2		-14.46	31.08.2020
-Laura Harvey		Test event 2	-3.04	14.04.2020
-Dr. Carolyn Allen			-38.15	24.08.2020
-Janet Hussain	Test message 1	Test event 1	-74.06	15.06.2020
-Kyle Burke	Test message 1	Test event 2	-13.47	19.10.2020
-John Smith-Summers			-5.01	03.11.2020
-Lesley Rogers	Test message 1		147.95	04.02.2020
-Cheryl Martin-Morgan	Test message 2		-32.24	27.04.2020
-Dr. Craig Morgan			-11.35	03.03.2020
-Jemma Wood			-67.21	17.06.2020
-Cheryl Martin-Morgan		Test event 2	-10.83	17.06.2020
-Maureen Jones-Powell	Test message 1		-51.23	29.12.2020
-Fiona Leach		Test event 2	-13.97	06.05.2020
-Irene Owen-Noble			-5.7	23.04.2020
-Cheryl Martin-Morgan			-16.24	26.06.2020
-Irene Owen-Noble		Test event 2	-6.04	20.01.2020
-Dr. Daniel Wilson	Test message 2		-10.4	17.02.2020
-Cheryl Martin-Morgan		Test event 1	-31.97	21.09.2020
-Ms. Natasha Smith			-4.32	12.11.2020
-Edward Quinn		Test event 1	-4.92	13.05.2020
-Irene Owen-Noble	Test message 1		-3.13	22.05.2020
-Dr. Craig Morgan			-22.34	03.06.2020
-Leslie Thompson	Test message 2		-3.55	10.02.2020
-Cheryl Martin-Morgan	Test message 1		-12.21	14.09.2020
-Paige Wright			-14.87	23.11.2020
-Brett Campbell		Test event 1	-150.21	07.01.2020
-Dr. Leigh Bradley			-22.91	17.12.2020
-Cheryl Martin-Morgan		Test event 2	-24.55	10.06.2020
-Cheryl Martin-Morgan		Test event 1	-1.34	12.06.2020
-Kyle Burke			-26.72	29.06.2020
-Dr. Jeffrey Baker			-5.93	24.02.2020
-Maureen Jones-Powell		Test event 2	-15.81	26.11.2020
-Laura Harvey	Test message 2	Test event 1	-2.3	10.01.2020
-Jeremy Hughes			-12.34	24.02.2020
-Jonathan Thompson	Test message 1	Test event 2	-23.79	02.03.2020
-Clifford Smith			-12.44	08.06.2020
-Dr. Bradley Harris		Test event 2	-57.96	20.01.2020
-Cheryl Martin-Morgan		Test event 1	-11.19	06.07.2020
-Miss Lynn Thomas			-38.6	28.09.2020
-Cheryl Martin-Morgan			-5.22	07.04.2020
-Cheryl Martin-Morgan			-10.02	27.07.2020
-Clifford Smith			-7.54	10.03.2020
-Mr. Dean Smith		Test event 1	-9.27	01.06.2020
-Cheryl Martin-Morgan			-36.97	03.08.2020
-Miss Karen Dale	Test message 1		-9.17	10.02.2020
-Linda Baxter			-43.85	12.02.2020
-Lesley Rogers			24.54	21.09.2020
-Cheryl Martin-Morgan			-23.1	24.07.2020
-Miss Karen Dale			-9.1	06.04.2020
-Maureen Jones-Powell			-5.78	14.12.2020
-Dr. Jeffrey Baker	Test message 2		-22.53	01.06.2020
-Dr. Bradley Harris			-37.31	07.01.2020
-Pamela Ward	Test message 1	Test event 1	-16.55	29.06.2020
-Lesley Rogers			97.33	31.03.2020
-Janet Hussain	Test message 1	Test event 1	-12.57	03.08.2020
-Irene Owen-Noble			-10.19	03.02.2020
-Fiona Leach	Test message 1		-11.61	06.02.2020
-Cheryl Martin-Morgan	Test message 2		-5.63	09.11.2020
-Kyle Burke	Test message 2		-9.1	19.10.2020
-Lesley Rogers	Test message 2		129.0	02.12.2020
-Cheryl Martin-Morgan			-18.5	24.04.2020
-Dominic Harrison			-2.93	15.06.2020
-Lesley Rogers			251.23	16.11.2020
-Cheryl Martin-Morgan	Test message 1	Test event 2	-26.14	31.08.2020
-Miss Karen Dale		Test event 1	-7.27	14.04.2020
-Joyce Baker-Butler			-41.44	26.08.2020
-Cheryl Martin-Morgan			-20.77	29.05.2020
-Cheryl Martin-Morgan			-4.64	02.01.2020
-Elliott Williams	Test message 2	Test event 1	-8.11	26.10.2020
-Lesley Rogers		Test event 2	202.15	15.06.2020
-Lesley Rogers			98.73	14.09.2020
-Cheryl Martin-Morgan	Test message 2		-13.82	02.01.2020
-Cheryl Martin-Morgan			-13.59	30.03.2020
-Miss Marie Mason	Test message 2		-2.38	25.06.2020
-Miss Amber Ward	Test message 2	Test event 2	-11.63	30.11.2020
-Cheryl Martin-Morgan			-26.2	21.09.2020
-Irene Owen-Noble		Test event 2	-2.08	19.05.2020
-Dr. Luke Brady			-73.55	28.08.2020
-Zoe Clarke	Test message 2		-5.34	30.11.2020
-Cheryl Martin-Morgan		Test event 1	-38.75	02.09.2020
-Dr. Jeffrey Baker			-15.11	14.05.2020
-Cheryl Martin-Morgan			-30.39	25.05.2020
-Irene Owen-Noble	Test message 2		-1.54	23.03.2020
-Cheryl Martin-Morgan		Test event 2	-9.64	18.05.2020
-Cheryl Martin-Morgan	Test message 2		-17.8	02.03.2020
-Cheryl Martin-Morgan		Test event 1	-39.61	01.06.2020
-Paige Green		Test event 1	-27.51	22.06.2020
-Maureen Jones-Powell			-19.15	07.12.2020
-Dr. Craig Morgan			-11.57	07.02.2020
-Jonathan Thompson			-17.27	02.03.2020
-Cheryl Martin-Morgan	Test message 2	Test event 1	-32.48	25.06.2020
-Charles Gallagher			-7.57	08.07.2020
-Cheryl Martin-Morgan	Test message 2	Test event 1	-51.72	19.08.2020
-Irene Owen-Noble	Test message 1		-2.15	04.05.2020
-Bernard Hawkins	Test message 2		836.75	04.08.2020
-Irene Owen-Noble		Test event 1	-4.93	03.03.2020
-Dale Rose	Test message 2	Test event 1	-12.44	06.10.2020
-Cheryl Martin-Morgan	Test message 2		-56.16	17.09.2020
-Cheryl Martin-Morgan		Test event 1	-5.64	09.11.2020
-Jeremy Hughes	Test message 2		-27.2	24.01.2020
-Cheryl Martin-Morgan	Test message 2	Test event 1	-23.45	21.08.2020
-Cheryl Martin-Morgan		Test event 2	-14.14	21.09.2020
-Cheryl Martin-Morgan	Test message 2		-27.05	14.02.2020
-Cheryl Martin-Morgan			-19.46	05.10.2020
-Cheryl Martin-Morgan	Test message 1		-76.67	25.03.2020
-Cheryl Martin-Morgan		Test event 1	-15.18	06.04.2020
-Irene Owen-Noble	Test message 2	Test event 2	-10.07	13.01.2020
-Cheryl Martin-Morgan	Test message 1		-30.12	17.09.2020
-Ms. Yvonne Jones			-11.75	05.06.2020
-Joanne Fletcher			-40.14	17.11.2020
-Philip Parker		Test event 2	-6.69	13.07.2020
-Dr. Joseph Bailey	Test message 2		-5.58	27.01.2020
-Cheryl Martin-Morgan			-20.61	17.08.2020
-Cheryl Martin-Morgan	Test message 1	Test event 1	-25.44	20.04.2020
-Maureen Jones-Powell		Test event 1	-32.71	23.11.2020
-Ms. Abigail Burgess			-24.17	17.02.2020
-Lesley Rogers			-604.88	14.09.2020
-John Smith-Summers		Test event 2	-8.84	24.08.2020
-Cheryl Martin-Morgan	Test message 2		-2.3	13.03.2020
-Cheryl Martin-Morgan	Test message 2	Test event 1	-13.3	22.07.2020
-Dr. Craig Morgan		Test event 1	-22.07	17.04.2020
-Melanie Parkinson		Test event 2	-27.44	27.07.2020
-Cheryl Martin-Morgan	Test message 1	Test event 2	-13.72	24.01.2020
-Cheryl Martin-Morgan		Test event 2	-18.96	03.02.2020
-Maureen Jones-Powell			-25.78	12.11.2020
-Janet Hussain	Test message 2	Test event 1	-65.57	26.06.2020
-Cheryl Martin-Morgan	Test message 1		-15.12	29.06.2020
-Dr. Jeffrey Baker			-30.17	14.04.2020
-James Davies		Test event 1	-37.21	11.02.2020
-Cheryl Martin-Morgan			-3.89	31.01.2020
-Dr. Louis Rees			-12.01	31.08.2020
-Sam Wyatt-Collins			-106.42	28.01.2020
-Cheryl Martin-Morgan	Test message 2		-22.65	06.10.2020
-Cheryl Martin-Morgan	Test message 1		-24.52	08.06.2020
-Cheryl Martin-Morgan			-6.77	09.07.2020
-Cheryl Martin-Morgan	Test message 1		-25.39	04.05.2020
-Lesley Rogers			142.31	19.03.2020
-Cheryl Martin-Morgan			-41.13	10.02.2020
-John Smith-Summers	Test message 1		-11.22	20.11.2020
-Carly Murray			-13.2	28.09.2020
-Lesley Rogers	Test message 1		110.85	13.01.2020
-Cheryl Martin-Morgan		Test event 1	-11.77	11.05.2020
-Dr. Jeffrey Baker			-15.22	29.04.2020
+Cheryl Martin-Morgan			-52,81	19.10.2020
+Dr. Jeffrey Baker			-31,26	28.04.2020
+Dr. Joseph Bailey	Test message 2	Test event 2	-12,68	04.02.2020
+Steven Hutchinson			-7,42	26.06.2020
+Pamela Ward		Test event 2	-15,01	17.08.2020
+Cheryl Martin-Morgan			-31,19	12.10.2020
+Lesley Rogers			-653,27	14.09.2020
+Maureen Jones-Powell	Test message 1		-42,88	02.12.2020
+Cheryl Martin-Morgan			-7,69	20.01.2020
+Dr. Jeffrey Baker			-20,13	16.03.2020
+John Smith-Summers			-29,08	16.11.2020
+Neil Peacock		Test event 1	-15,42	04.05.2020
+Cheryl Martin-Morgan	Test message 1		-17,51	26.02.2020
+Cheryl Martin-Morgan	Test message 2		-20,39	10.08.2020
+Miss Jennifer Hyde		Test event 1	-22,15	15.07.2020
+Cheryl Martin-Morgan			-20,55	22.09.2020
+Cheryl Martin-Morgan			-13,67	12.03.2020
+Cheryl Martin-Morgan	Test message 2		-33,05	11.05.2020
+Pamela Ward			-12,49	29.06.2020
+Cheryl Martin-Morgan			-12,71	15.04.2020
+Brett Campbell			-284,04	30.07.2020
+Cheryl Martin-Morgan			-12,76	30.07.2020
+Alexander Baker	Test message 2		-10,09	09.04.2020
+Ms. Paige Owen	Test message 2	Test event 1	-66,72	03.08.2020
+Dr. Bradley Harris		Test event 2	-43,08	27.01.2020
+Cheryl Martin-Morgan		Test event 2	-18,92	22.04.2020
+John Smith-Summers			-2,99	23.06.2020
+Mr. Craig Parkin			22,42	29.09.2020
+Cheryl Martin-Morgan		Test event 1	-25,86	21.02.2020
+Charlie Randall	Test message 1	Test event 2	-316,91	05.10.2020
+Cheryl Martin-Morgan		Test event 2	-34,42	22.06.2020
+Charles Gallagher		Test event 1	-6,2	02.09.2020
+Irene Owens		Test event 1	-21,43	31.07.2020
+Mrs. Carolyn Power			-50,25	09.04.2020
+Cheryl Martin-Morgan	Test message 1		-40,97	02.04.2020
+Lesley Rogers	Test message 2		269,73	27.10.2020
+Cheryl Martin-Morgan	Test message 1		-33,85	26.10.2020
+Irene Owen-Noble		Test event 2	-1,59	11.05.2020
+Yvonne Woodward			-35,9	07.01.2020
+Pamela Ward	Test message 2	Test event 1	-7,97	10.07.2020
+Cheryl Martin-Morgan	Test message 2		-14,46	31.08.2020
+Laura Harvey		Test event 2	-3,04	14.04.2020
+Dr. Carolyn Allen			-38,15	24.08.2020
+Janet Hussain	Test message 1	Test event 1	-74,06	15.06.2020
+Kyle Burke	Test message 1	Test event 2	-13,47	19.10.2020
+John Smith-Summers			-5,01	03.11.2020
+Lesley Rogers	Test message 1		147,95	04.02.2020
+Cheryl Martin-Morgan	Test message 2		-32,24	27.04.2020
+Dr. Craig Morgan			-11,35	03.03.2020
+Jemma Wood			-67,21	17.06.2020
+Cheryl Martin-Morgan		Test event 2	-10,83	17.06.2020
+Maureen Jones-Powell	Test message 1		-51,23	29.12.2020
+Fiona Leach		Test event 2	-13,97	06.05.2020
+Irene Owen-Noble			-5,7	23.04.2020
+Cheryl Martin-Morgan			-16,24	26.06.2020
+Irene Owen-Noble		Test event 2	-6,04	20.01.2020
+Dr. Daniel Wilson	Test message 2		-10,4	17.02.2020
+Cheryl Martin-Morgan		Test event 1	-31,97	21.09.2020
+Ms. Natasha Smith			-4,32	12.11.2020
+Edward Quinn		Test event 1	-4,92	13.05.2020
+Irene Owen-Noble	Test message 1		-3,13	22.05.2020
+Dr. Craig Morgan			-22,34	03.06.2020
+Leslie Thompson	Test message 2		-3,55	10.02.2020
+Cheryl Martin-Morgan	Test message 1		-12,21	14.09.2020
+Paige Wright			-14,87	23.11.2020
+Brett Campbell		Test event 1	-150,21	07.01.2020
+Dr. Leigh Bradley			-22,91	17.12.2020
+Cheryl Martin-Morgan		Test event 2	-24,55	10.06.2020
+Cheryl Martin-Morgan		Test event 1	-1,34	12.06.2020
+Kyle Burke			-26,72	29.06.2020
+Dr. Jeffrey Baker			-5,93	24.02.2020
+Maureen Jones-Powell		Test event 2	-15,81	26.11.2020
+Laura Harvey	Test message 2	Test event 1	-2,3	10.01.2020
+Jeremy Hughes			-12,34	24.02.2020
+Jonathan Thompson	Test message 1	Test event 2	-23,79	02.03.2020
+Clifford Smith			-12,44	08.06.2020
+Dr. Bradley Harris		Test event 2	-57,96	20.01.2020
+Cheryl Martin-Morgan		Test event 1	-11,19	06.07.2020
+Miss Lynn Thomas			-38,6	28.09.2020
+Cheryl Martin-Morgan			-5,22	07.04.2020
+Cheryl Martin-Morgan			-10,02	27.07.2020
+Clifford Smith			-7,54	10.03.2020
+Mr. Dean Smith		Test event 1	-9,27	01.06.2020
+Cheryl Martin-Morgan			-36,97	03.08.2020
+Miss Karen Dale	Test message 1		-9,17	10.02.2020
+Linda Baxter			-43,85	12.02.2020
+Lesley Rogers			24,54	21.09.2020
+Cheryl Martin-Morgan			-23,1	24.07.2020
+Miss Karen Dale			-9,1	06.04.2020
+Maureen Jones-Powell			-5,78	14.12.2020
+Dr. Jeffrey Baker	Test message 2		-22,53	01.06.2020
+Dr. Bradley Harris			-37,31	07.01.2020
+Pamela Ward	Test message 1	Test event 1	-16,55	29.06.2020
+Lesley Rogers			97,33	31.03.2020
+Janet Hussain	Test message 1	Test event 1	-12,57	03.08.2020
+Irene Owen-Noble			-10,19	03.02.2020
+Fiona Leach	Test message 1		-11,61	06.02.2020
+Cheryl Martin-Morgan	Test message 2		-5,63	09.11.2020
+Kyle Burke	Test message 2		-9,1	19.10.2020
+Lesley Rogers	Test message 2		129,0	02.12.2020
+Cheryl Martin-Morgan			-18,5	24.04.2020
+Dominic Harrison			-2,93	15.06.2020
+Lesley Rogers			251,23	16.11.2020
+Cheryl Martin-Morgan	Test message 1	Test event 2	-26,14	31.08.2020
+Miss Karen Dale		Test event 1	-7,27	14.04.2020
+Joyce Baker-Butler			-41,44	26.08.2020
+Cheryl Martin-Morgan			-20,77	29.05.2020
+Cheryl Martin-Morgan			-4,64	02.01.2020
+Elliott Williams	Test message 2	Test event 1	-8,11	26.10.2020
+Lesley Rogers		Test event 2	202,15	15.06.2020
+Lesley Rogers			98,73	14.09.2020
+Cheryl Martin-Morgan	Test message 2		-13,82	02.01.2020
+Cheryl Martin-Morgan			-13,59	30.03.2020
+Miss Marie Mason	Test message 2		-2,38	25.06.2020
+Miss Amber Ward	Test message 2	Test event 2	-11,63	30.11.2020
+Cheryl Martin-Morgan			-26,2	21.09.2020
+Irene Owen-Noble		Test event 2	-2,08	19.05.2020
+Dr. Luke Brady			-73,55	28.08.2020
+Zoe Clarke	Test message 2		-5,34	30.11.2020
+Cheryl Martin-Morgan		Test event 1	-38,75	02.09.2020
+Dr. Jeffrey Baker			-15,11	14.05.2020
+Cheryl Martin-Morgan			-30,39	25.05.2020
+Irene Owen-Noble	Test message 2		-1,54	23.03.2020
+Cheryl Martin-Morgan		Test event 2	-9,64	18.05.2020
+Cheryl Martin-Morgan	Test message 2		-17,8	02.03.2020
+Cheryl Martin-Morgan		Test event 1	-39,61	01.06.2020
+Paige Green		Test event 1	-27,51	22.06.2020
+Maureen Jones-Powell			-19,15	07.12.2020
+Dr. Craig Morgan			-11,57	07.02.2020
+Jonathan Thompson			-17,27	02.03.2020
+Cheryl Martin-Morgan	Test message 2	Test event 1	-32,48	25.06.2020
+Charles Gallagher			-7,57	08.07.2020
+Cheryl Martin-Morgan	Test message 2	Test event 1	-51,72	19.08.2020
+Irene Owen-Noble	Test message 1		-2,15	04.05.2020
+Bernard Hawkins	Test message 2		836,75	04.08.2020
+Irene Owen-Noble		Test event 1	-4,93	03.03.2020
+Dale Rose	Test message 2	Test event 1	-12,44	06.10.2020
+Cheryl Martin-Morgan	Test message 2		-56,16	17.09.2020
+Cheryl Martin-Morgan		Test event 1	-5,64	09.11.2020
+Jeremy Hughes	Test message 2		-27,2	24.01.2020
+Cheryl Martin-Morgan	Test message 2	Test event 1	-23,45	21.08.2020
+Cheryl Martin-Morgan		Test event 2	-14,14	21.09.2020
+Cheryl Martin-Morgan	Test message 2		-27,05	14.02.2020
+Cheryl Martin-Morgan			-19,46	05.10.2020
+Cheryl Martin-Morgan	Test message 1		-76,67	25.03.2020
+Cheryl Martin-Morgan		Test event 1	-15,18	06.04.2020
+Irene Owen-Noble	Test message 2	Test event 2	-10,07	13.01.2020
+Cheryl Martin-Morgan	Test message 1		-30,12	17.09.2020
+Ms. Yvonne Jones			-11,75	05.06.2020
+Joanne Fletcher			-40,14	17.11.2020
+Philip Parker		Test event 2	-6,69	13.07.2020
+Dr. Joseph Bailey	Test message 2		-5,58	27.01.2020
+Cheryl Martin-Morgan			-20,61	17.08.2020
+Cheryl Martin-Morgan	Test message 1	Test event 1	-25,44	20.04.2020
+Maureen Jones-Powell		Test event 1	-32,71	23.11.2020
+Ms. Abigail Burgess			-24,17	17.02.2020
+Lesley Rogers			-604,88	14.09.2020
+John Smith-Summers		Test event 2	-8,84	24.08.2020
+Cheryl Martin-Morgan	Test message 2		-2,3	13.03.2020
+Cheryl Martin-Morgan	Test message 2	Test event 1	-13,3	22.07.2020
+Dr. Craig Morgan		Test event 1	-22,07	17.04.2020
+Melanie Parkinson		Test event 2	-27,44	27.07.2020
+Cheryl Martin-Morgan	Test message 1	Test event 2	-13,72	24.01.2020
+Cheryl Martin-Morgan		Test event 2	-18,96	03.02.2020
+Maureen Jones-Powell			-25,78	12.11.2020
+Janet Hussain	Test message 2	Test event 1	-65,57	26.06.2020
+Cheryl Martin-Morgan	Test message 1		-15,12	29.06.2020
+Dr. Jeffrey Baker			-30,17	14.04.2020
+James Davies		Test event 1	-37,21	11.02.2020
+Cheryl Martin-Morgan			-3,89	31.01.2020
+Dr. Louis Rees			-12,01	31.08.2020
+Sam Wyatt-Collins			-106,42	28.01.2020
+Cheryl Martin-Morgan	Test message 2		-22,65	06.10.2020
+Cheryl Martin-Morgan	Test message 1		-24,52	08.06.2020
+Cheryl Martin-Morgan			-6,77	09.07.2020
+Cheryl Martin-Morgan	Test message 1		-25,39	04.05.2020
+Lesley Rogers			142,31	19.03.2020
+Cheryl Martin-Morgan			-41,13	10.02.2020
+John Smith-Summers	Test message 1		-11,22	20.11.2020
+Carly Murray			-13,2	28.09.2020
+Lesley Rogers	Test message 1		110,85	13.01.2020
+Cheryl Martin-Morgan		Test event 1	-11,77	11.05.2020
+Dr. Jeffrey Baker			-15,22	29.04.2020

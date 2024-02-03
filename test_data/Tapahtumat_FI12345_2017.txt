@@ -1,314 +1,314 @@
 Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
-Robin O'Neill		Test event 2	-3.3	26.10.2017
-Amelia Lewis			-1.4	11.09.2017
-Claire Pritchard	Test message 2	Test event 2	-11.71	03.03.2017
-Geraldine Thompson		Test event 2	-7.64	02.06.2017
-Mr. Mohammad Moore	Test message 1		-10.67	02.11.2017
-Geraldine Thompson			-6.49	14.08.2017
-Dr. Robert Wilson	Test message 1	Test event 2	-3.28	18.09.2017
-Claire Pritchard	Test message 2	Test event 2	-11.91	20.03.2017
-Marian Roberts		Test event 2	-110.26	10.07.2017
-Charles Elliott	Test message 2		-9.1	25.09.2017
-Frances Morris	Test message 1	Test event 2	-18.64	05.06.2017
-Gerald Walton	Test message 1	Test event 1	-31.11	06.03.2017
-Kirsty Armstrong	Test message 1		6.27	28.02.2017
-Claire Pritchard	Test message 1		-10.55	02.03.2017
-Claire Pritchard		Test event 2	-5.05	10.03.2017
-Claire Pritchard		Test event 1	-6.71	13.06.2017
-Amy Butler-Smith			-12.15	09.08.2017
-Claire Pritchard			-14.29	04.01.2017
-Gareth Whitehead			-16.27	03.01.2017
-Geraldine Thompson			-23.5	20.02.2017
-Aimee Dodd	Test message 1		-6.41	15.09.2017
-Claire Collins-Powell			-6.51	27.11.2017
-Mrs. Hazel Lowe			-9.93	17.10.2017
-Geraldine Thompson	Test message 2		-9.91	17.08.2017
-Jane Mahmood			-17.22	18.07.2017
-Robin O'Neill			-7.94	29.11.2017
-Charles Elliott			-17.28	27.10.2017
-Claire Pritchard		Test event 1	-9.83	15.02.2017
-Sara Foster-Walker		Test event 1	514.26	06.02.2017
-Dr. Bradley Lewis	Test message 2	Test event 2	-27.35	13.09.2017
-Aimee Dodd	Test message 2	Test event 1	-11.34	25.10.2017
-Frances Morris			-4.37	15.06.2017
-Frances Morris			-5.56	14.06.2017
-Robin O'Neill			-2.48	05.10.2017
-Claire Pritchard			-6.3	20.06.2017
-Graham Butcher	Test message 2		-6.65	04.12.2017
-Ronald French	Test message 2		-579.15	07.02.2017
-Frances Morris			-23.89	26.04.2017
-Geraldine Thompson	Test message 2	Test event 2	-4.7	20.01.2017
-Dr. Maurice Hooper			-20.55	29.05.2017
-Dr. Elaine Williams			-6.71	18.04.2017
-Robin O'Neill			-11.53	14.11.2017
-John Robinson		Test event 1	-14.28	11.09.2017
-Martyn Bell		Test event 1	19.45	27.02.2017
-Claire Pritchard	Test message 2	Test event 2	-8.89	05.04.2017
-Robin O'Neill		Test event 2	-10.31	23.10.2017
-Geraldine Robson			-10.8	18.09.2017
-Judith Bailey		Test event 2	-15.59	11.09.2017
-Dr. Maurice Hooper			-22.48	11.05.2017
-Frances Morris			-16.87	24.03.2017
-Robin O'Neill		Test event 2	-10.3	16.10.2017
-Frances Morris		Test event 1	-4.36	24.01.2017
-Katie Allen			-2.63	27.11.2017
-Aimee Johnson-Wilson		Test event 1	-7.31	18.04.2017
-Claire Pritchard	Test message 1		-28.6	08.06.2017
-Aimee Johnson-Wilson			-31.19	26.06.2017
-Dr. Philip Evans			-9.19	09.01.2017
-Dr. Maurice Hooper	Test message 1		-33.28	20.02.2017
-Aimee Dodd			-4.57	04.10.2017
-Claire Pritchard			-6.1	23.05.2017
-Claire Pritchard		Test event 1	-8.88	15.06.2017
-Robin O'Neill		Test event 2	-8.24	18.12.2017
-Frances Morris	Test message 2		-37.34	24.04.2017
-Josh Grant		Test event 2	-8.35	27.02.2017
-Claire Pritchard	Test message 2		-6.56	03.01.2017
-Charles Elliott			-9.15	27.12.2017
-Geraldine Thompson	Test message 2		-4.88	09.08.2017
-Jacob Miller			-16.31	03.04.2017
-Robin O'Neill			-6.54	01.11.2017
-Robin O'Neill	Test message 2		-2.36	27.12.2017
-Claire Pritchard	Test message 2		-14.0	02.08.2017
-Graham Butcher		Test event 1	-6.05	21.09.2017
-Dr. Bradley Lewis		Test event 1	-17.11	15.09.2017
-Claire Pritchard			-10.1	07.03.2017
-Frances Morris		Test event 1	-13.45	07.06.2017
-Dr. Maurice Hooper			-49.49	31.07.2017
-Aimee Dodd		Test event 2	-6.21	20.10.2017
-Amelia Lewis	Test message 2	Test event 2	-3.35	10.03.2017
-Aimee Dodd	Test message 2	Test event 1	-5.07	13.09.2017
-Charles Elliott			-16.1	13.11.2017
-Aimee Johnson-Wilson		Test event 2	-6.22	27.06.2017
-Frances Morris		Test event 2	-13.46	17.07.2017
-Ashley Walsh-West			-10.65	24.04.2017
-Ms. Annette Myers	Test message 1		-16.96	12.06.2017
-Frances Morris	Test message 1		-15.38	13.03.2017
-Claire Pritchard			-6.28	13.03.2017
-Robin O'Neill			-12.19	11.12.2017
-Claire Pritchard			-11.86	09.02.2017
-Jamie Stokes		Test event 1	-17.33	29.03.2017
-Claire Pritchard		Test event 2	-9.34	10.08.2017
-Dr. Ashley Baxter			-19.7	31.07.2017
-Geraldine Thompson			-5.8	05.06.2017
-Sara Foster-Walker	Test message 2		81.99	04.09.2017
-Dr. Maurice Hooper			-21.19	04.08.2017
-Claire Pritchard	Test message 1	Test event 1	-7.62	03.02.2017
-Gail Edwards	Test message 2		-7.19	11.12.2017
-Geraldine Robson	Test message 2	Test event 2	-33.2	06.09.2017
-Jane Mahmood			-13.5	18.08.2017
-Graham Butcher		Test event 2	-9.32	08.11.2017
-Mr. Mohammad Moore	Test message 1		-13.65	01.09.2017
-Geraldine Thompson	Test message 2		-5.76	01.02.2017
-Albert Archer-Cooper	Test message 2	Test event 1	-44.14	12.06.2017
-Geraldine Thompson	Test message 2	Test event 2	-9.04	16.08.2017
-Sally Nicholson	Test message 1	Test event 1	-7.78	13.12.2017
-Dr. Bradley Lewis			-12.93	18.12.2017
-Karl Rowley	Test message 2		-8.39	14.12.2017
-Clare Hamilton			-10.69	14.09.2017
-Graham Butcher	Test message 1		-11.08	18.12.2017
-Dr. Maurice Hooper			-14.61	27.03.2017
-Frances Morris	Test message 2		-11.58	16.03.2017
-Geraldine Robson	Test message 2		-16.85	29.11.2017
-Claire Pritchard	Test message 2		-9.94	31.03.2017
-Laura Watts			-16.61	24.10.2017
-Dr. Bradley Lewis			-13.15	04.09.2017
-Aimee Dodd	Test message 1	Test event 1	-10.09	21.11.2017
-Diana Carey			-103.39	25.08.2017
-Claire Pritchard		Test event 1	-9.73	03.04.2017
-Claire Pritchard			-6.1	27.01.2017
-Robin O'Neill			-2.63	20.11.2017
-Frances Morris			-40.06	10.04.2017
-Frances Morris			-18.9	02.05.2017
-Kimberley Cunningham	Test message 2		-29.48	18.10.2017
-Sara Foster-Walker	Test message 1		148.62	27.01.2017
-Geraldine Thompson	Test message 2		-6.14	31.05.2017
-Robin O'Neill			-7.37	19.09.2017
-Sara Foster-Walker			207.64	28.03.2017
-Claire Pritchard	Test message 2	Test event 2	-7.13	04.04.2017
-Robin O'Neill	Test message 2		-8.29	24.11.2017
-Geraldine Thompson			-7.86	20.06.2017
-Claire Pritchard			-12.71	10.02.2017
-Claire Pritchard			-12.77	25.07.2017
-Claire Pritchard	Test message 2	Test event 2	-13.82	06.06.2017
-Dr. Bradley Lewis	Test message 1		-12.32	01.09.2017
-Karl Gray-Hunt	Test message 2		9.57	15.02.2017
-Terry Williams	Test message 1		-11.39	13.02.2017
-Claire Pritchard			-13.86	11.01.2017
-Diana Carey			-49.02	24.08.2017
-Geraldine Thompson		Test event 1	-8.2	24.07.2017
-Graham Butcher			-16.63	10.11.2017
-Dr. Maurice Hooper			-14.06	13.07.2017
-Dr. Bradley Lewis	Test message 2		-20.25	07.12.2017
-Amy Butler-Smith		Test event 1	-21.89	20.04.2017
-Robin O'Neill			-3.5	30.10.2017
-Albert Archer-Cooper	Test message 1	Test event 1	-21.67	17.02.2017
-Sara Foster-Walker		Test event 1	116.29	25.09.2017
-Sara Foster-Walker		Test event 2	187.25	08.05.2017
-Aimee Dodd	Test message 2	Test event 2	-6.03	07.12.2017
-Frances Morris			-18.75	24.02.2017
-Claire Pritchard	Test message 2		-12.12	27.02.2017
-Claire Pritchard	Test message 2		-6.05	26.05.2017
-Paula O'Brien			77.08	07.07.2017
-Claire Pritchard		Test event 2	-12.27	20.04.2017
-Amelia Lewis		Test event 2	-2.18	10.11.2017
-Howard Cole			-14.97	06.07.2017
-Frances Morris			-21.63	06.03.2017
-Dr. Robert Wilson	Test message 2	Test event 1	-3.55	18.09.2017
-Tony Harper	Test message 2	Test event 1	-44.71	13.03.2017
-Gordon Bibi			-13.28	08.09.2017
-Claire Pritchard	Test message 2		-9.77	16.06.2017
-Graham Butcher			-13.47	20.09.2017
-Claire Pritchard	Test message 1	Test event 1	-11.56	23.01.2017
-Dr. Joe Hyde	Test message 2		-1.65	24.04.2017
-Robin O'Neill			-4.52	17.10.2017
-Robin O'Neill		Test event 1	-8.44	26.10.2017
-Robin O'Neill		Test event 2	-2.27	24.11.2017
-Miss Michelle King			-8.12	09.01.2017
-Graham Butcher			-17.92	19.09.2017
-Robin O'Neill			-9.97	01.09.2017
-Sara Foster-Walker		Test event 2	140.94	14.11.2017
-Robin O'Neill	Test message 1		-22.81	27.10.2017
-Miss Michelle King	Test message 2		-4.42	15.05.2017
-Robin O'Neill	Test message 2	Test event 2	-7.03	17.11.2017
-Frances Morris			-13.49	08.05.2017
-Marilyn Hunt		Test event 2	-20.44	13.02.2017
-Frances Morris			-34.36	02.05.2017
-Robin O'Neill		Test event 1	-2.18	02.10.2017
-Claire Pritchard	Test message 1	Test event 1	-13.19	01.02.2017
-Dr. Bradley Lewis		Test event 1	-17.88	10.11.2017
-Claire Pritchard		Test event 1	-14.2	01.08.2017
-Mrs. Hazel Lowe			-12.72	30.10.2017
-Claire Pritchard			-13.41	10.01.2017
-Pauline Marsden		Test event 2	-11.17	21.02.2017
-Aimee Dodd	Test message 1	Test event 2	-10.03	17.11.2017
-Frances Morris			-14.17	29.05.2017
-Sara Foster-Walker		Test event 1	120.97	09.10.2017
-Donna Miles			-15.46	06.07.2017
-Amelia Lewis	Test message 1		-1.4	10.05.2017
-Miss Michelle King	Test message 2		-3.33	26.05.2017
-Claire Pritchard		Test event 2	-10.19	07.02.2017
-Alice Richards			-124.35	08.05.2017
-Claire Pritchard		Test event 2	-6.62	09.01.2017
-Geraldine Thompson			-1.31	24.04.2017
-Claire Pritchard			-4.62	13.02.2017
-Dr. Robin Brown		Test event 1	-4.43	27.12.2017
-Marion Chapman			-18.15	29.12.2017
-Robin O'Neill	Test message 1	Test event 1	-15.43	08.11.2017
-Geraldine Thompson			-10.71	13.04.2017
-Pauline Marsden			-13.81	08.06.2017
-Geraldine Thompson	Test message 2		-14.28	10.07.2017
-Claire Pritchard		Test event 1	-9.41	26.01.2017
-Frances Morris		Test event 1	-22.93	22.05.2017
-Frances Morris	Test message 2		-11.4	10.01.2017
-Dr. Bradley Lewis	Test message 2	Test event 2	-29.33	16.10.2017
-Hollie Ahmed	Test message 1		-14.08	18.09.2017
-Amelia Lewis	Test message 1	Test event 2	-1.8	12.06.2017
-Robin O'Neill		Test event 1	-22.59	11.09.2017
-Mark Cooke		Test event 2	-20.75	29.05.2017
-Lesley Murphy-Jones			-105.47	18.12.2017
-Claire Pritchard	Test message 1	Test event 2	-9.45	25.01.2017
-Claire Pritchard		Test event 1	-12.21	02.05.2017
-Nigel Foster			-11.41	02.05.2017
-Claire Pritchard		Test event 1	-10.75	17.05.2017
-Robin O'Neill	Test message 2	Test event 2	-7.9	21.08.2017
-Claire Pritchard			-14.37	14.02.2017
-Ms. Annette Myers			-10.19	12.06.2017
-Geraldine Thompson	Test message 2	Test event 1	-4.9	07.02.2017
-Robin O'Neill	Test message 2		-15.49	27.11.2017
-Dr. Philip Evans			-5.36	09.01.2017
-Geraldine Robson			-4.21	01.12.2017
-Dr. Bradley Lewis	Test message 2		-28.65	05.10.2017
-Graham Butcher			-6.9	07.09.2017
-Jemma Stevenson			-13.23	22.11.2017
-Josh Grant		Test event 2	-21.22	02.05.2017
-Geraldine Robson			-29.6	20.09.2017
-Geraldine Thompson			-2.05	26.06.2017
-Aimee Dodd	Test message 1	Test event 2	-13.94	28.09.2017
-Robin O'Neill			-19.37	14.12.2017
-Dr. Maurice Hooper		Test event 2	-12.65	24.07.2017
-Dr. Bradley Lewis			-27.1	04.12.2017
-Frances Morris			-8.68	13.04.2017
-Robin O'Neill		Test event 2	-3.53	10.10.2017
-Dr. Philip Evans	Test message 2		-20.54	09.01.2017
-Claire Pritchard	Test message 1		-10.59	22.03.2017
-Claire Pritchard		Test event 1	-9.3	18.04.2017
-Pauline Brown			-16.29	25.09.2017
-Dr. Maurice Hooper	Test message 2		-10.07	16.01.2017
-Claire Pritchard	Test message 1	Test event 2	-5.33	19.01.2017
-Geraldine Thompson			-11.63	11.07.2017
-Frances Morris			-3.97	12.07.2017
-Geraldine Thompson	Test message 2		-7.43	01.06.2017
-Geraldine Thompson		Test event 2	-2.51	30.05.2017
-Dr. Bradley Lewis		Test event 1	-15.38	25.08.2017
-Dr. Maurice Hooper			-0.59	12.06.2017
-Mr. Graham Brown	Test message 2		-5.69	10.08.2017
-Claire Pritchard	Test message 2		-8.62	01.06.2017
-Frances Morris	Test message 1	Test event 1	-20.98	07.04.2017
-Abigail Miller			-29.47	23.01.2017
-Graham Butcher			-13.14	20.12.2017
-Aimee Dodd	Test message 2	Test event 2	-4.97	08.12.2017
-Claire Pritchard		Test event 1	-5.01	26.04.2017
-Rhys Carpenter	Test message 2		33.51	14.02.2017
-Claire Pritchard	Test message 2		-8.49	28.02.2017
-Aimee Dodd		Test event 1	-5.65	07.11.2017
-Claire Pritchard		Test event 2	-9.07	12.05.2017
-Claire Pritchard	Test message 2		-22.01	22.05.2017
-Dr. Maurice Hooper	Test message 1	Test event 1	-25.06	30.03.2017
-Claire Pritchard	Test message 2		-4.28	12.01.2017
-Frances Morris			-20.42	23.01.2017
-Aimee Dodd			-7.17	05.10.2017
-Claire Pritchard			-7.13	24.04.2017
-Robin O'Neill			-3.05	11.12.2017
-Karl Rowley			-11.85	21.12.2017
-Dr. Bradley Lewis			-13.15	18.09.2017
-Claire Pritchard	Test message 2		-11.49	02.02.2017
-Dr. Bradley Lewis		Test event 1	-10.99	30.10.2017
-Graham Butcher			-15.97	05.09.2017
-Robin O'Neill	Test message 2	Test event 1	-5.07	04.12.2017
-Claire Pritchard			-6.72	02.06.2017
-Ellie Wells			-22.2	30.05.2017
-Josh Grant		Test event 2	-6.52	16.02.2017
-Josephine Ellis		Test event 1	-10.0	02.05.2017
-Mr. Stanley Sutton	Test message 2	Test event 2	-6.21	06.07.2017
-Sara Foster-Walker			213.35	16.08.2017
-Ms. Kayleigh Patel	Test message 1		-9.49	23.01.2017
-Robin O'Neill			-31.99	14.12.2017
-Robin O'Neill			-3.98	06.11.2017
-Robin O'Neill	Test message 2		-13.52	25.10.2017
-Aimee Dodd		Test event 1	-12.28	06.11.2017
-Dr. Bradley Lewis		Test event 2	-6.69	27.12.2017
-Robin O'Neill		Test event 2	-10.33	23.10.2017
-Ryan Price	Test message 1	Test event 1	-14.14	31.07.2017
-Aimee Dodd			-5.05	19.10.2017
-Robin O'Neill		Test event 1	-6.89	15.11.2017
-Geraldine Thompson		Test event 2	-23.14	02.01.2017
-Robin O'Neill			-3.54	28.11.2017
-Mark Cunningham		Test event 2	-5.33	17.01.2017
-Robin O'Neill		Test event 1	-1.77	13.11.2017
-Mrs. Ruth Shah	Test message 1		-6.14	16.01.2017
-Ryan Price		Test event 1	-34.78	14.08.2017
-Claire Pritchard			-4.98	30.01.2017
-Mr. Leigh Khan		Test event 1	43.09	26.01.2017
-John Robinson	Test message 1	Test event 2	-12.64	08.09.2017
-Claire Pritchard	Test message 1	Test event 2	-11.86	08.03.2017
-Joshua Baker-Smith			-4.75	24.07.2017
-Dr. Maurice Hooper	Test message 1		-63.42	13.02.2017
-Geraldine Thompson	Test message 2		-10.32	04.08.2017
-Robin O'Neill			-2.91	29.11.2017
-Claire Pritchard		Test event 2	-10.98	27.07.2017
-Dr. Bradley Lewis	Test message 2	Test event 1	-17.88	13.11.2017
-Robin O'Neill	Test message 1	Test event 2	-9.02	30.10.2017
-Claire Pritchard	Test message 1		-11.85	23.03.2017
-Aimee Dodd		Test event 1	-11.87	14.09.2017
-Dr. Ashley Baxter	Test message 1	Test event 2	-6.76	31.07.2017
-Aimee Dodd	Test message 2		-9.35	11.12.2017
-Graham Butcher			-15.32	12.09.2017
-Miss Danielle Evans		Test event 1	-31.8	22.05.2017
-Claire Pritchard	Test message 1		-12.13	04.05.2017
-Diana Carey		Test event 1	-832.61	25.08.2017
-Dr. Maurice Hooper		Test event 2	-20.67	15.08.2017
-Aimee Dodd			-13.12	23.11.2017
-Sara Foster-Walker			224.81	23.08.2017
-Amelia Lewis	Test message 2		-3.27	11.12.2017
+Robin O'Neill		Test event 2	-3,3	26.10.2017
+Amelia Lewis			-1,4	11.09.2017
+Claire Pritchard	Test message 2	Test event 2	-11,71	03.03.2017
+Geraldine Thompson		Test event 2	-7,64	02.06.2017
+Mr. Mohammad Moore	Test message 1		-10,67	02.11.2017
+Geraldine Thompson			-6,49	14.08.2017
+Dr. Robert Wilson	Test message 1	Test event 2	-3,28	18.09.2017
+Claire Pritchard	Test message 2	Test event 2	-11,91	20.03.2017
+Marian Roberts		Test event 2	-110,26	10.07.2017
+Charles Elliott	Test message 2		-9,1	25.09.2017
+Frances Morris	Test message 1	Test event 2	-18,64	05.06.2017
+Gerald Walton	Test message 1	Test event 1	-31,11	06.03.2017
+Kirsty Armstrong	Test message 1		6,27	28.02.2017
+Claire Pritchard	Test message 1		-10,55	02.03.2017
+Claire Pritchard		Test event 2	-5,05	10.03.2017
+Claire Pritchard		Test event 1	-6,71	13.06.2017
+Amy Butler-Smith			-12,15	09.08.2017
+Claire Pritchard			-14,29	04.01.2017
+Gareth Whitehead			-16,27	03.01.2017
+Geraldine Thompson			-23,5	20.02.2017
+Aimee Dodd	Test message 1		-6,41	15.09.2017
+Claire Collins-Powell			-6,51	27.11.2017
+Mrs. Hazel Lowe			-9,93	17.10.2017
+Geraldine Thompson	Test message 2		-9,91	17.08.2017
+Jane Mahmood			-17,22	18.07.2017
+Robin O'Neill			-7,94	29.11.2017
+Charles Elliott			-17,28	27.10.2017
+Claire Pritchard		Test event 1	-9,83	15.02.2017
+Sara Foster-Walker		Test event 1	514,26	06.02.2017
+Dr. Bradley Lewis	Test message 2	Test event 2	-27,35	13.09.2017
+Aimee Dodd	Test message 2	Test event 1	-11,34	25.10.2017
+Frances Morris			-4,37	15.06.2017
+Frances Morris			-5,56	14.06.2017
+Robin O'Neill			-2,48	05.10.2017
+Claire Pritchard			-6,3	20.06.2017
+Graham Butcher	Test message 2		-6,65	04.12.2017
+Ronald French	Test message 2		-579,15	07.02.2017
+Frances Morris			-23,89	26.04.2017
+Geraldine Thompson	Test message 2	Test event 2	-4,7	20.01.2017
+Dr. Maurice Hooper			-20,55	29.05.2017
+Dr. Elaine Williams			-6,71	18.04.2017
+Robin O'Neill			-11,53	14.11.2017
+John Robinson		Test event 1	-14,28	11.09.2017
+Martyn Bell		Test event 1	19,45	27.02.2017
+Claire Pritchard	Test message 2	Test event 2	-8,89	05.04.2017
+Robin O'Neill		Test event 2	-10,31	23.10.2017
+Geraldine Robson			-10,8	18.09.2017
+Judith Bailey		Test event 2	-15,59	11.09.2017
+Dr. Maurice Hooper			-22,48	11.05.2017
+Frances Morris			-16,87	24.03.2017
+Robin O'Neill		Test event 2	-10,3	16.10.2017
+Frances Morris		Test event 1	-4,36	24.01.2017
+Katie Allen			-2,63	27.11.2017
+Aimee Johnson-Wilson		Test event 1	-7,31	18.04.2017
+Claire Pritchard	Test message 1		-28,6	08.06.2017
+Aimee Johnson-Wilson			-31,19	26.06.2017
+Dr. Philip Evans			-9,19	09.01.2017
+Dr. Maurice Hooper	Test message 1		-33,28	20.02.2017
+Aimee Dodd			-4,57	04.10.2017
+Claire Pritchard			-6,1	23.05.2017
+Claire Pritchard		Test event 1	-8,88	15.06.2017
+Robin O'Neill		Test event 2	-8,24	18.12.2017
+Frances Morris	Test message 2		-37,34	24.04.2017
+Josh Grant		Test event 2	-8,35	27.02.2017
+Claire Pritchard	Test message 2		-6,56	03.01.2017
+Charles Elliott			-9,15	27.12.2017
+Geraldine Thompson	Test message 2		-4,88	09.08.2017
+Jacob Miller			-16,31	03.04.2017
+Robin O'Neill			-6,54	01.11.2017
+Robin O'Neill	Test message 2		-2,36	27.12.2017
+Claire Pritchard	Test message 2		-14,0	02.08.2017
+Graham Butcher		Test event 1	-6,05	21.09.2017
+Dr. Bradley Lewis		Test event 1	-17,11	15.09.2017
+Claire Pritchard			-10,1	07.03.2017
+Frances Morris		Test event 1	-13,45	07.06.2017
+Dr. Maurice Hooper			-49,49	31.07.2017
+Aimee Dodd		Test event 2	-6,21	20.10.2017
+Amelia Lewis	Test message 2	Test event 2	-3,35	10.03.2017
+Aimee Dodd	Test message 2	Test event 1	-5,07	13.09.2017
+Charles Elliott			-16,1	13.11.2017
+Aimee Johnson-Wilson		Test event 2	-6,22	27.06.2017
+Frances Morris		Test event 2	-13,46	17.07.2017
+Ashley Walsh-West			-10,65	24.04.2017
+Ms. Annette Myers	Test message 1		-16,96	12.06.2017
+Frances Morris	Test message 1		-15,38	13.03.2017
+Claire Pritchard			-6,28	13.03.2017
+Robin O'Neill			-12,19	11.12.2017
+Claire Pritchard			-11,86	09.02.2017
+Jamie Stokes		Test event 1	-17,33	29.03.2017
+Claire Pritchard		Test event 2	-9,34	10.08.2017
+Dr. Ashley Baxter			-19,7	31.07.2017
+Geraldine Thompson			-5,8	05.06.2017
+Sara Foster-Walker	Test message 2		81,99	04.09.2017
+Dr. Maurice Hooper			-21,19	04.08.2017
+Claire Pritchard	Test message 1	Test event 1	-7,62	03.02.2017
+Gail Edwards	Test message 2		-7,19	11.12.2017
+Geraldine Robson	Test message 2	Test event 2	-33,2	06.09.2017
+Jane Mahmood			-13,5	18.08.2017
+Graham Butcher		Test event 2	-9,32	08.11.2017
+Mr. Mohammad Moore	Test message 1		-13,65	01.09.2017
+Geraldine Thompson	Test message 2		-5,76	01.02.2017
+Albert Archer-Cooper	Test message 2	Test event 1	-44,14	12.06.2017
+Geraldine Thompson	Test message 2	Test event 2	-9,04	16.08.2017
+Sally Nicholson	Test message 1	Test event 1	-7,78	13.12.2017
+Dr. Bradley Lewis			-12,93	18.12.2017
+Karl Rowley	Test message 2		-8,39	14.12.2017
+Clare Hamilton			-10,69	14.09.2017
+Graham Butcher	Test message 1		-11,08	18.12.2017
+Dr. Maurice Hooper			-14,61	27.03.2017
+Frances Morris	Test message 2		-11,58	16.03.2017
+Geraldine Robson	Test message 2		-16,85	29.11.2017
+Claire Pritchard	Test message 2		-9,94	31.03.2017
+Laura Watts			-16,61	24.10.2017
+Dr. Bradley Lewis			-13,15	04.09.2017
+Aimee Dodd	Test message 1	Test event 1	-10,09	21.11.2017
+Diana Carey			-103,39	25.08.2017
+Claire Pritchard		Test event 1	-9,73	03.04.2017
+Claire Pritchard			-6,1	27.01.2017
+Robin O'Neill			-2,63	20.11.2017
+Frances Morris			-40,06	10.04.2017
+Frances Morris			-18,9	02.05.2017
+Kimberley Cunningham	Test message 2		-29,48	18.10.2017
+Sara Foster-Walker	Test message 1		148,62	27.01.2017
+Geraldine Thompson	Test message 2		-6,14	31.05.2017
+Robin O'Neill			-7,37	19.09.2017
+Sara Foster-Walker			207,64	28.03.2017
+Claire Pritchard	Test message 2	Test event 2	-7,13	04.04.2017
+Robin O'Neill	Test message 2		-8,29	24.11.2017
+Geraldine Thompson			-7,86	20.06.2017
+Claire Pritchard			-12,71	10.02.2017
+Claire Pritchard			-12,77	25.07.2017
+Claire Pritchard	Test message 2	Test event 2	-13,82	06.06.2017
+Dr. Bradley Lewis	Test message 1		-12,32	01.09.2017
+Karl Gray-Hunt	Test message 2		9,57	15.02.2017
+Terry Williams	Test message 1		-11,39	13.02.2017
+Claire Pritchard			-13,86	11.01.2017
+Diana Carey			-49,02	24.08.2017
+Geraldine Thompson		Test event 1	-8,2	24.07.2017
+Graham Butcher			-16,63	10.11.2017
+Dr. Maurice Hooper			-14,06	13.07.2017
+Dr. Bradley Lewis	Test message 2		-20,25	07.12.2017
+Amy Butler-Smith		Test event 1	-21,89	20.04.2017
+Robin O'Neill			-3,5	30.10.2017
+Albert Archer-Cooper	Test message 1	Test event 1	-21,67	17.02.2017
+Sara Foster-Walker		Test event 1	116,29	25.09.2017
+Sara Foster-Walker		Test event 2	187,25	08.05.2017
+Aimee Dodd	Test message 2	Test event 2	-6,03	07.12.2017
+Frances Morris			-18,75	24.02.2017
+Claire Pritchard	Test message 2		-12,12	27.02.2017
+Claire Pritchard	Test message 2		-6,05	26.05.2017
+Paula O'Brien			77,08	07.07.2017
+Claire Pritchard		Test event 2	-12,27	20.04.2017
+Amelia Lewis		Test event 2	-2,18	10.11.2017
+Howard Cole			-14,97	06.07.2017
+Frances Morris			-21,63	06.03.2017
+Dr. Robert Wilson	Test message 2	Test event 1	-3,55	18.09.2017
+Tony Harper	Test message 2	Test event 1	-44,71	13.03.2017
+Gordon Bibi			-13,28	08.09.2017
+Claire Pritchard	Test message 2		-9,77	16.06.2017
+Graham Butcher			-13,47	20.09.2017
+Claire Pritchard	Test message 1	Test event 1	-11,56	23.01.2017
+Dr. Joe Hyde	Test message 2		-1,65	24.04.2017
+Robin O'Neill			-4,52	17.10.2017
+Robin O'Neill		Test event 1	-8,44	26.10.2017
+Robin O'Neill		Test event 2	-2,27	24.11.2017
+Miss Michelle King			-8,12	09.01.2017
+Graham Butcher			-17,92	19.09.2017
+Robin O'Neill			-9,97	01.09.2017
+Sara Foster-Walker		Test event 2	140,94	14.11.2017
+Robin O'Neill	Test message 1		-22,81	27.10.2017
+Miss Michelle King	Test message 2		-4,42	15.05.2017
+Robin O'Neill	Test message 2	Test event 2	-7,03	17.11.2017
+Frances Morris			-13,49	08.05.2017
+Marilyn Hunt		Test event 2	-20,44	13.02.2017
+Frances Morris			-34,36	02.05.2017
+Robin O'Neill		Test event 1	-2,18	02.10.2017
+Claire Pritchard	Test message 1	Test event 1	-13,19	01.02.2017
+Dr. Bradley Lewis		Test event 1	-17,88	10.11.2017
+Claire Pritchard		Test event 1	-14,2	01.08.2017
+Mrs. Hazel Lowe			-12,72	30.10.2017
+Claire Pritchard			-13,41	10.01.2017
+Pauline Marsden		Test event 2	-11,17	21.02.2017
+Aimee Dodd	Test message 1	Test event 2	-10,03	17.11.2017
+Frances Morris			-14,17	29.05.2017
+Sara Foster-Walker		Test event 1	120,97	09.10.2017
+Donna Miles			-15,46	06.07.2017
+Amelia Lewis	Test message 1		-1,4	10.05.2017
+Miss Michelle King	Test message 2		-3,33	26.05.2017
+Claire Pritchard		Test event 2	-10,19	07.02.2017
+Alice Richards			-124,35	08.05.2017
+Claire Pritchard		Test event 2	-6,62	09.01.2017
+Geraldine Thompson			-1,31	24.04.2017
+Claire Pritchard			-4,62	13.02.2017
+Dr. Robin Brown		Test event 1	-4,43	27.12.2017
+Marion Chapman			-18,15	29.12.2017
+Robin O'Neill	Test message 1	Test event 1	-15,43	08.11.2017
+Geraldine Thompson			-10,71	13.04.2017
+Pauline Marsden			-13,81	08.06.2017
+Geraldine Thompson	Test message 2		-14,28	10.07.2017
+Claire Pritchard		Test event 1	-9,41	26.01.2017
+Frances Morris		Test event 1	-22,93	22.05.2017
+Frances Morris	Test message 2		-11,4	10.01.2017
+Dr. Bradley Lewis	Test message 2	Test event 2	-29,33	16.10.2017
+Hollie Ahmed	Test message 1		-14,08	18.09.2017
+Amelia Lewis	Test message 1	Test event 2	-1,8	12.06.2017
+Robin O'Neill		Test event 1	-22,59	11.09.2017
+Mark Cooke		Test event 2	-20,75	29.05.2017
+Lesley Murphy-Jones			-105,47	18.12.2017
+Claire Pritchard	Test message 1	Test event 2	-9,45	25.01.2017
+Claire Pritchard		Test event 1	-12,21	02.05.2017
+Nigel Foster			-11,41	02.05.2017
+Claire Pritchard		Test event 1	-10,75	17.05.2017
+Robin O'Neill	Test message 2	Test event 2	-7,9	21.08.2017
+Claire Pritchard			-14,37	14.02.2017
+Ms. Annette Myers			-10,19	12.06.2017
+Geraldine Thompson	Test message 2	Test event 1	-4,9	07.02.2017
+Robin O'Neill	Test message 2		-15,49	27.11.2017
+Dr. Philip Evans			-5,36	09.01.2017
+Geraldine Robson			-4,21	01.12.2017
+Dr. Bradley Lewis	Test message 2		-28,65	05.10.2017
+Graham Butcher			-6,9	07.09.2017
+Jemma Stevenson			-13,23	22.11.2017
+Josh Grant		Test event 2	-21,22	02.05.2017
+Geraldine Robson			-29,6	20.09.2017
+Geraldine Thompson			-2,05	26.06.2017
+Aimee Dodd	Test message 1	Test event 2	-13,94	28.09.2017
+Robin O'Neill			-19,37	14.12.2017
+Dr. Maurice Hooper		Test event 2	-12,65	24.07.2017
+Dr. Bradley Lewis			-27,1	04.12.2017
+Frances Morris			-8,68	13.04.2017
+Robin O'Neill		Test event 2	-3,53	10.10.2017
+Dr. Philip Evans	Test message 2		-20,54	09.01.2017
+Claire Pritchard	Test message 1		-10,59	22.03.2017
+Claire Pritchard		Test event 1	-9,3	18.04.2017
+Pauline Brown			-16,29	25.09.2017
+Dr. Maurice Hooper	Test message 2		-10,07	16.01.2017
+Claire Pritchard	Test message 1	Test event 2	-5,33	19.01.2017
+Geraldine Thompson			-11,63	11.07.2017
+Frances Morris			-3,97	12.07.2017
+Geraldine Thompson	Test message 2		-7,43	01.06.2017
+Geraldine Thompson		Test event 2	-2,51	30.05.2017
+Dr. Bradley Lewis		Test event 1	-15,38	25.08.2017
+Dr. Maurice Hooper			-0,59	12.06.2017
+Mr. Graham Brown	Test message 2		-5,69	10.08.2017
+Claire Pritchard	Test message 2		-8,62	01.06.2017
+Frances Morris	Test message 1	Test event 1	-20,98	07.04.2017
+Abigail Miller			-29,47	23.01.2017
+Graham Butcher			-13,14	20.12.2017
+Aimee Dodd	Test message 2	Test event 2	-4,97	08.12.2017
+Claire Pritchard		Test event 1	-5,01	26.04.2017
+Rhys Carpenter	Test message 2		33,51	14.02.2017
+Claire Pritchard	Test message 2		-8,49	28.02.2017
+Aimee Dodd		Test event 1	-5,65	07.11.2017
+Claire Pritchard		Test event 2	-9,07	12.05.2017
+Claire Pritchard	Test message 2		-22,01	22.05.2017
+Dr. Maurice Hooper	Test message 1	Test event 1	-25,06	30.03.2017
+Claire Pritchard	Test message 2		-4,28	12.01.2017
+Frances Morris			-20,42	23.01.2017
+Aimee Dodd			-7,17	05.10.2017
+Claire Pritchard			-7,13	24.04.2017
+Robin O'Neill			-3,05	11.12.2017
+Karl Rowley			-11,85	21.12.2017
+Dr. Bradley Lewis			-13,15	18.09.2017
+Claire Pritchard	Test message 2		-11,49	02.02.2017
+Dr. Bradley Lewis		Test event 1	-10,99	30.10.2017
+Graham Butcher			-15,97	05.09.2017
+Robin O'Neill	Test message 2	Test event 1	-5,07	04.12.2017
+Claire Pritchard			-6,72	02.06.2017
+Ellie Wells			-22,2	30.05.2017
+Josh Grant		Test event 2	-6,52	16.02.2017
+Josephine Ellis		Test event 1	-10,0	02.05.2017
+Mr. Stanley Sutton	Test message 2	Test event 2	-6,21	06.07.2017
+Sara Foster-Walker			213,35	16.08.2017
+Ms. Kayleigh Patel	Test message 1		-9,49	23.01.2017
+Robin O'Neill			-31,99	14.12.2017
+Robin O'Neill			-3,98	06.11.2017
+Robin O'Neill	Test message 2		-13,52	25.10.2017
+Aimee Dodd		Test event 1	-12,28	06.11.2017
+Dr. Bradley Lewis		Test event 2	-6,69	27.12.2017
+Robin O'Neill		Test event 2	-10,33	23.10.2017
+Ryan Price	Test message 1	Test event 1	-14,14	31.07.2017
+Aimee Dodd			-5,05	19.10.2017
+Robin O'Neill		Test event 1	-6,89	15.11.2017
+Geraldine Thompson		Test event 2	-23,14	02.01.2017
+Robin O'Neill			-3,54	28.11.2017
+Mark Cunningham		Test event 2	-5,33	17.01.2017
+Robin O'Neill		Test event 1	-1,77	13.11.2017
+Mrs. Ruth Shah	Test message 1		-6,14	16.01.2017
+Ryan Price		Test event 1	-34,78	14.08.2017
+Claire Pritchard			-4,98	30.01.2017
+Mr. Leigh Khan		Test event 1	43,09	26.01.2017
+John Robinson	Test message 1	Test event 2	-12,64	08.09.2017
+Claire Pritchard	Test message 1	Test event 2	-11,86	08.03.2017
+Joshua Baker-Smith			-4,75	24.07.2017
+Dr. Maurice Hooper	Test message 1		-63,42	13.02.2017
+Geraldine Thompson	Test message 2		-10,32	04.08.2017
+Robin O'Neill			-2,91	29.11.2017
+Claire Pritchard		Test event 2	-10,98	27.07.2017
+Dr. Bradley Lewis	Test message 2	Test event 1	-17,88	13.11.2017
+Robin O'Neill	Test message 1	Test event 2	-9,02	30.10.2017
+Claire Pritchard	Test message 1		-11,85	23.03.2017
+Aimee Dodd		Test event 1	-11,87	14.09.2017
+Dr. Ashley Baxter	Test message 1	Test event 2	-6,76	31.07.2017
+Aimee Dodd	Test message 2		-9,35	11.12.2017
+Graham Butcher			-15,32	12.09.2017
+Miss Danielle Evans		Test event 1	-31,8	22.05.2017
+Claire Pritchard	Test message 1		-12,13	04.05.2017
+Diana Carey		Test event 1	-832,61	25.08.2017
+Dr. Maurice Hooper		Test event 2	-20,67	15.08.2017
+Aimee Dodd			-13,12	23.11.2017
+Sara Foster-Walker			224,81	23.08.2017
+Amelia Lewis	Test message 2		-3,27	11.12.2017
