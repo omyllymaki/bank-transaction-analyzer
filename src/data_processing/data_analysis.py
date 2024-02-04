@@ -1,11 +1,13 @@
+import os
 from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
 from functools import partial, wraps
-from typing import List
+from typing import List, Callable
 
 import numpy as np
 import pandas as pd
 
 from src.data_processing.data_filtering import filter_data
+from src.data_processing.parallelization import process_df_parallel
 
 
 def calculate_incomes_and_outcomes(data: pd.DataFrame,
@@ -96,19 +98,13 @@ def _extract_labels(df: pd.DataFrame, specifications: dict) -> List[List[str]]:
     return list(index_labels.values())
 
 
-def extract_labels(df: pd.DataFrame, specifications: dict, n_processes=4) -> List[List[str]]:
-    tasks = np.array_split(df, n_processes)
+def extract_labels(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[List[str]]:
     f_extract_labels = partial(_extract_labels, specifications=specifications)
-    with ProcessPoolExecutor() as executor:
-        result = executor.map(f_extract_labels, tasks)
-
-    return [item for sublist in result for item in sublist]
+    f_conversion = lambda result: [item for sublist in result for item in sublist]
+    return process_df_parallel(df, f_extract_labels, f_conversion, n_tasks)
 
 
-def categorize(df: pd.DataFrame, specifications: dict, n_processes=4) -> List[str]:
-    tasks = np.array_split(df, n_processes)
-    f_categorize = partial(_categorize, specifications=specifications)
-    with ProcessPoolExecutor() as executor:
-        result = executor.map(f_categorize, tasks)
-
-    return [item for sublist in result for item in sublist]
+def categorize(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[str]:
+    f_extract_labels = partial(_categorize, specifications=specifications)
+    f_conversion = lambda result: [item for sublist in result for item in sublist]
+    return process_df_parallel(df, f_extract_labels, f_conversion, n_tasks)
