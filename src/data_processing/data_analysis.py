@@ -1,3 +1,5 @@
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from functools import partial, wraps
 from typing import List
 
 import numpy as np
@@ -68,17 +70,17 @@ def _group_data_by_columns(data: pd.DataFrame, group_by: str) -> pd.DataFrame:
     return grouped_data
 
 
-def categorize(df: pd.DataFrame, specifications: dict) -> np.array:
+def _categorize(df: pd.DataFrame, specifications: dict) -> List[str]:
     dfc = df.copy()
     dfc.reset_index(inplace=True, drop=True)
     dfc["category"] = "Other"
     for name, filter_values in specifications.items():
         filtered = filter_data(dfc, **filter_values)
         dfc["category"].loc[filtered.index.values] = name
-    return dfc["category"].values
+    return dfc["category"].values.tolist()
 
 
-def extract_labels(df: pd.DataFrame, specifications: dict) -> List[List[str]]:
+def _extract_labels(df: pd.DataFrame, specifications: dict) -> List[List[str]]:
     dfc = df.copy()
     dfc.reset_index(inplace=True, drop=True)
     indices_map = {}
@@ -92,3 +94,21 @@ def extract_labels(df: pd.DataFrame, specifications: dict) -> List[List[str]]:
             index_labels[i].append(label)
 
     return list(index_labels.values())
+
+
+def extract_labels(df: pd.DataFrame, specifications: dict, n_processes=4) -> List[List[str]]:
+    tasks = np.array_split(df, n_processes)
+    f_extract_labels = partial(_extract_labels, specifications=specifications)
+    with ProcessPoolExecutor() as executor:
+        result = executor.map(f_extract_labels, tasks)
+
+    return [item for sublist in result for item in sublist]
+
+
+def categorize(df: pd.DataFrame, specifications: dict, n_processes=4) -> List[str]:
+    tasks = np.array_split(df, n_processes)
+    f_categorize = partial(_categorize, specifications=specifications)
+    with ProcessPoolExecutor() as executor:
+        result = executor.map(f_categorize, tasks)
+
+    return [item for sublist in result for item in sublist]
