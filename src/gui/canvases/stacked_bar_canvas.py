@@ -15,7 +15,7 @@ class StackedBarsCanvas(BaseBarCanvas):
         self.colors = None
 
     def plot(self, data: pd.DataFrame):
-        self._initialize_figure()
+        self.axes.cla()
         self.data = data
 
         self.colors = generate_colors(self.data.shape[1])

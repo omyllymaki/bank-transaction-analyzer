@@ -11,6 +11,7 @@ class BarCanvas(BaseBarCanvas):
         self._initialize_figure()
 
     def plot(self, y: np.ndarray, x_labels: List[str], plot_average=True):
-        self._initialize_figure()
+        self.axes.cla()
+        self.axes.grid(True)
         self._plot_bar(y, x_labels, width=0.3, color='b', plot_average=plot_average)
         self._update_figure()

@@ -13,7 +13,8 @@ class DoubleBarCanvas(BaseBarCanvas):
         self._initialize_figure()
 
     def plot(self, y1: np.ndarray, y2: np.ndarray, x_labels: List[str] = None, plot_average=True):
-        self._initialize_figure()
+        self.axes.cla()
+        self.axes.grid(True)
         self._plot_bar(y1, x_labels, -0.15, width=0.3, color='b', label=self.y1_label)
         self._plot_bar(y2, x_labels, +0.15, width=0.3, color='r', label=self.y2_label)
         self.axes.legend()
