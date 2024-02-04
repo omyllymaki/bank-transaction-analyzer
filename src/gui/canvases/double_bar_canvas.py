@@ -10,7 +10,6 @@ class DoubleBarCanvas(BaseBarCanvas):
         super().__init__(figure_title, x_axis_title, y_axis_title)
         self.y1_label = y1_label
         self.y2_label = y2_label
-        self._initialize_figure()
 
     def plot(self, y1: np.ndarray, y2: np.ndarray, x_labels: List[str] = None, plot_average=True):
         self.axes.cla()
