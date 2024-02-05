@@ -1,82 +1,82 @@
 Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
-Dr. Mohammed Elliott			-49.09	14.09.2018
-Mark Baldwin			-75.43	07.12.2018
-Shane Miller	Test message 1		-27.7	27.12.2018
-Alex Sullivan-Edwards			-768.74	01.10.2018
-Alexander Martin		Test event 2	2600.99	25.10.2018
-Dr. Leonard Hunt	Test message 2		-93.04	25.09.2018
-Dr. Thomas Morton	Test message 1	Test event 1	-21.38	27.12.2018
-Marion Burton-Murphy			-1181.0	18.06.2018
-Toby Roberts		Test event 1	108.48	14.06.2018
-Helen Singh	Test message 1		-32.87	29.08.2018
-Dr. Leonard Hunt		Test event 1	-75.0	27.06.2018
-Julian Ellis			-33.72	16.01.2018
-Alex Sullivan-Edwards	Test message 2		-772.13	30.07.2018
-Timothy Jones			44.97	28.05.2018
-Alexander Martin			1613.42	25.01.2018
-Ms. Amelia Mills	Test message 1	Test event 2	-40.31	12.11.2018
-Alexander Martin			920.4	25.04.2018
-Alexander Martin	Test message 2	Test event 2	2026.81	25.05.2018
-Joyce Harrison			-171.19	12.11.2018
-Joyce Harrison	Test message 2		-431.88	29.03.2018
-Joyce Harrison			-385.53	28.06.2018
-Joyce Harrison			-513.04	31.01.2018
-Mohamed Thomson-Lee			-953.81	18.12.2018
-Dr. Julie Hunter		Test event 2	-6.17	26.10.2018
-Alexander Martin		Test event 2	43.3	27.11.2018
-Dr. Leonard Hunt	Test message 1		-47.19	18.12.2018
-Joyce Harrison	Test message 2		-686.14	27.07.2018
-Kimberley Fisher			5.06	02.01.2018
-Josephine Clarke		Test event 2	-637.85	23.11.2018
-Mrs. Kate Graham	Test message 2		-16.43	16.01.2018
-Dr. Leonard Hunt	Test message 2		-52.38	20.07.2018
-Kimberley Fisher		Test event 2	5.65	02.08.2018
-Joyce Harrison		Test event 2	-152.09	10.01.2018
-Alexander Martin	Test message 2	Test event 2	514.29	19.09.2018
-Dr. Leonard Hunt			-79.97	07.12.2018
-Alex Sullivan-Edwards	Test message 2	Test event 1	-647.49	02.01.2018
-Dr. Leonard Hunt		Test event 2	-20.71	20.08.2018
-Shane Miller			-21.06	24.09.2018
-Joyce Harrison	Test message 2	Test event 2	-604.45	29.05.2018
-Helen Singh			-17.45	19.06.2018
-Dr. Leonard Hunt		Test event 2	-61.55	13.07.2018
-Michelle Mason-Marsh	Test message 2		-17.54	29.01.2018
-Alexander Martin	Test message 1	Test event 2	730.49	23.11.2018
-Alexander Martin		Test event 1	6.24	27.12.2018
-Alexander Martin		Test event 2	1845.39	23.02.2018
-Alexander Martin			1275.16	21.12.2018
-Helen Singh		Test event 2	-35.2	24.01.2018
-Joyce Harrison			-445.73	19.04.2018
-Joyce Harrison			-342.99	25.09.2018
-Shane Miller			-14.34	23.10.2018
-Shane Miller	Test message 2		-7.9	23.08.2018
-Dr. Julie Hunter			-10.57	24.09.2018
-Kimberley Fisher	Test message 2		13.34	02.05.2018
-Joyce Harrison			-250.95	23.11.2018
-Josephine Clarke		Test event 1	-475.95	29.01.2018
-Dr. Leonard Hunt	Test message 2	Test event 2	-62.28	24.07.2018
-Joyce Harrison	Test message 1		-551.91	25.09.2018
-Alexander Martin	Test message 1		18.51	29.06.2018
-Alex Sullivan-Edwards			-369.61	03.04.2018
-Joyce Harrison			-403.79	27.12.2018
-Alexander Martin			10.28	05.03.2018
-Michelle Mason-Marsh			-52.16	27.03.2018
-Dr. Leonard Hunt	Test message 2		-50.82	21.05.2018
-Alexander Martin			14.99	15.01.2018
-Helen Singh			-21.81	31.12.2018
-Frederick Mellor		Test event 2	-220.33	03.09.2018
-Josephine Clarke			-692.76	28.03.2018
-Alex Sullivan-Edwards		Test event 1	-915.1	30.08.2018
-Michelle Mason-Marsh	Test message 1		-50.48	28.05.2018
-Kimberley Fisher			8.12	03.12.2018
-Shane Miller		Test event 1	-28.21	03.04.2018
-Michelle Mason-Marsh		Test event 2	-41.08	27.08.2018
-Garry Stevens			-10.3	24.09.2018
-Julian Ellis			-19.88	16.02.2018
-Maureen Harper	Test message 2		-75.48	16.04.2018
-Alexander Martin			1299.63	25.07.2018
-Joyce Harrison			-263.22	27.08.2018
-Ms. Amelia Mills		Test event 2	-56.19	16.07.2018
-Elliott Henderson		Test event 1	-77.81	11.06.2018
-Kimberley Fisher		Test event 1	9.18	02.02.2018
+Dr. Mohammed Elliott			-49,09	14.09.2018
+Mark Baldwin			-75,43	07.12.2018
+Shane Miller	Test message 1		-27,7	27.12.2018
+Alex Sullivan-Edwards			-768,74	01.10.2018
+Alexander Martin		Test event 2	2600,99	25.10.2018
+Dr. Leonard Hunt	Test message 2		-93,04	25.09.2018
+Dr. Thomas Morton	Test message 1	Test event 1	-21,38	27.12.2018
+Marion Burton-Murphy			-1181,0	18.06.2018
+Toby Roberts		Test event 1	108,48	14.06.2018
+Helen Singh	Test message 1		-32,87	29.08.2018
+Dr. Leonard Hunt		Test event 1	-75,0	27.06.2018
+Julian Ellis			-33,72	16.01.2018
+Alex Sullivan-Edwards	Test message 2		-772,13	30.07.2018
+Timothy Jones			44,97	28.05.2018
+Alexander Martin			1613,42	25.01.2018
+Ms. Amelia Mills	Test message 1	Test event 2	-40,31	12.11.2018
+Alexander Martin			920,4	25.04.2018
+Alexander Martin	Test message 2	Test event 2	2026,81	25.05.2018
+Joyce Harrison			-171,19	12.11.2018
+Joyce Harrison	Test message 2		-431,88	29.03.2018
+Joyce Harrison			-385,53	28.06.2018
+Joyce Harrison			-513,04	31.01.2018
+Mohamed Thomson-Lee			-953,81	18.12.2018
+Dr. Julie Hunter		Test event 2	-6,17	26.10.2018
+Alexander Martin		Test event 2	43,3	27.11.2018
+Dr. Leonard Hunt	Test message 1		-47,19	18.12.2018
+Joyce Harrison	Test message 2		-686,14	27.07.2018
+Kimberley Fisher			5,06	02.01.2018
+Josephine Clarke		Test event 2	-637,85	23.11.2018
+Mrs. Kate Graham	Test message 2		-16,43	16.01.2018
+Dr. Leonard Hunt	Test message 2		-52,38	20.07.2018
+Kimberley Fisher		Test event 2	5,65	02.08.2018
+Joyce Harrison		Test event 2	-152,09	10.01.2018
+Alexander Martin	Test message 2	Test event 2	514,29	19.09.2018
+Dr. Leonard Hunt			-79,97	07.12.2018
+Alex Sullivan-Edwards	Test message 2	Test event 1	-647,49	02.01.2018
+Dr. Leonard Hunt		Test event 2	-20,71	20.08.2018
+Shane Miller			-21,06	24.09.2018
+Joyce Harrison	Test message 2	Test event 2	-604,45	29.05.2018
+Helen Singh			-17,45	19.06.2018
+Dr. Leonard Hunt		Test event 2	-61,55	13.07.2018
+Michelle Mason-Marsh	Test message 2		-17,54	29.01.2018
+Alexander Martin	Test message 1	Test event 2	730,49	23.11.2018
+Alexander Martin		Test event 1	6,24	27.12.2018
+Alexander Martin		Test event 2	1845,39	23.02.2018
+Alexander Martin			1275,16	21.12.2018
+Helen Singh		Test event 2	-35,2	24.01.2018
+Joyce Harrison			-445,73	19.04.2018
+Joyce Harrison			-342,99	25.09.2018
+Shane Miller			-14,34	23.10.2018
+Shane Miller	Test message 2		-7,9	23.08.2018
+Dr. Julie Hunter			-10,57	24.09.2018
+Kimberley Fisher	Test message 2		13,34	02.05.2018
+Joyce Harrison			-250,95	23.11.2018
+Josephine Clarke		Test event 1	-475,95	29.01.2018
+Dr. Leonard Hunt	Test message 2	Test event 2	-62,28	24.07.2018
+Joyce Harrison	Test message 1		-551,91	25.09.2018
+Alexander Martin	Test message 1		18,51	29.06.2018
+Alex Sullivan-Edwards			-369,61	03.04.2018
+Joyce Harrison			-403,79	27.12.2018
+Alexander Martin			10,28	05.03.2018
+Michelle Mason-Marsh			-52,16	27.03.2018
+Dr. Leonard Hunt	Test message 2		-50,82	21.05.2018
+Alexander Martin			14,99	15.01.2018
+Helen Singh			-21,81	31.12.2018
+Frederick Mellor		Test event 2	-220,33	03.09.2018
+Josephine Clarke			-692,76	28.03.2018
+Alex Sullivan-Edwards		Test event 1	-915,1	30.08.2018
+Michelle Mason-Marsh	Test message 1		-50,48	28.05.2018
+Kimberley Fisher			8,12	03.12.2018
+Shane Miller		Test event 1	-28,21	03.04.2018
+Michelle Mason-Marsh		Test event 2	-41,08	27.08.2018
+Garry Stevens			-10,3	24.09.2018
+Julian Ellis			-19,88	16.02.2018
+Maureen Harper	Test message 2		-75,48	16.04.2018
+Alexander Martin			1299,63	25.07.2018
+Joyce Harrison			-263,22	27.08.2018
+Ms. Amelia Mills		Test event 2	-56,19	16.07.2018
+Elliott Henderson		Test event 1	-77,81	11.06.2018
+Kimberley Fisher		Test event 1	9,18	02.02.2018

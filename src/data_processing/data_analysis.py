@@ -1,9 +1,13 @@
-from typing import List
+import os
+from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
+from functools import partial, wraps
+from typing import List, Callable
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 from src.data_processing.data_filtering import filter_data
+from src.data_processing.parallelization import process_df_parallel
 
 
 def calculate_incomes_and_outcomes(data: pd.DataFrame,
@@ -68,17 +72,17 @@ def _group_data_by_columns(data: pd.DataFrame, group_by: str) -> pd.DataFrame:
     return grouped_data
 
 
-def categorize(df: pd.DataFrame, specifications: dict) -> np.array:
+def _categorize(df: pd.DataFrame, specifications: dict) -> List[str]:
     dfc = df.copy()
     dfc.reset_index(inplace=True, drop=True)
     dfc["category"] = "Other"
     for name, filter_values in specifications.items():
         filtered = filter_data(dfc, **filter_values)
         dfc["category"].loc[filtered.index.values] = name
-    return dfc["category"].values
+    return dfc["category"].values.tolist()
 
 
-def extract_labels(df: pd.DataFrame, specifications: dict) -> np.array:
+def _extract_labels(df: pd.DataFrame, specifications: dict) -> List[List[str]]:
     dfc = df.copy()
     dfc.reset_index(inplace=True, drop=True)
     indices_map = {}
@@ -86,9 +90,21 @@ def extract_labels(df: pd.DataFrame, specifications: dict) -> np.array:
         filtered_data = filter_data(dfc, **label_specs)
         indices_map[label] = filtered_data.index.tolist()
 
-    dfc["labels"] = [[] for r in range(dfc.shape[0])]
+    index_labels = {index: [] for index in dfc.index}
     for label, indices in indices_map.items():
         for i in indices:
-            dfc["labels"].loc[i].append(label)
+            index_labels[i].append(label)
 
-    return dfc["labels"].values
+    return list(index_labels.values())
+
+
+def extract_labels(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[List[str]]:
+    f_extract_labels = partial(_extract_labels, specifications=specifications)
+    results = process_df_parallel(df, f_extract_labels, n_tasks)
+    return [item for sublist in results for item in sublist]
+
+
+def categorize(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[str]:
+    f_categorize = partial(_categorize, specifications=specifications)
+    results = process_df_parallel(df, f_categorize, n_tasks)
+    return [item for sublist in results for item in sublist]

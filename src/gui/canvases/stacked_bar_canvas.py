@@ -10,12 +10,11 @@ class StackedBarsCanvas(BaseBarCanvas):
 
     def __init__(self, figure_title='', x_axis_title='', y_axis_title=''):
         super().__init__(figure_title, x_axis_title, y_axis_title, add_grid=False)
-        self._initialize_figure()
         self.figure.canvas.mpl_connect('pick_event', self._handle_selection)
         self.colors = None
 
     def plot(self, data: pd.DataFrame):
-        self._initialize_figure()
+        self.axes.cla()
         self.data = data
 
         self.colors = generate_colors(self.data.shape[1])

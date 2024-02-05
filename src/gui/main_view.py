@@ -1,6 +1,5 @@
 import glob
 import logging
-import os
 
 import pandas as pd
 from PyQt5.QtWidgets import QWidget, QHBoxLayout

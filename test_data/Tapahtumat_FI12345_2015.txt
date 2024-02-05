@@ -1,6 +1,6 @@
 Tilinumero	FI12345
 Saaja/Maksaja	Viesti	Tapahtuma	Määrä	Kirjauspäivä
-Andrea Graham-Hewitt			-116.26	03.06.2015
-Geoffrey Moore			-453.66	30.06.2015
-Geoffrey Moore			-856.38	01.06.2015
-Christopher Slater		Test event 1	-532.8	22.06.2015
+Andrea Graham-Hewitt			-116,26	03.06.2015
+Geoffrey Moore			-453,66	30.06.2015
+Geoffrey Moore			-856,38	01.06.2015
+Christopher Slater		Test event 1	-532,8	22.06.2015

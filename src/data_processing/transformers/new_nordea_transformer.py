@@ -18,28 +18,10 @@ class NewNordeaTransformer(TransformerInterface):
         transformed_data = pd.DataFrame()
         for col_target, col_source in self.mapping.items():
             transformed_data[col_target] = data[col_source]
-        transformed_data["value"] = transformed_data["value"].apply(self._convert_string_to_float)
-        transformed_data["time"] = transformed_data["time"].apply(self._convert_string_to_datetime)
+        transformed_data["value"] = pd.to_numeric(transformed_data["value"].str.replace(',', '.'))
+        transformed_data["time"] = pd.to_datetime(transformed_data["time"], errors="coerce", format='%Y/%m/%d')
         transformed_data["message"] = np.nan
         transformed_data["event"] = np.nan
         transformed_data["bank"] = "Nordea (new format)"
         transformed_data = transformed_data.dropna(subset=["time", "value"])
         return transformed_data
-
-    @staticmethod
-    def _convert_string_to_datetime(date_str: str) -> datetime:
-        if date_str == "Varaus":
-            return datetime.now()
-        try:
-            return datetime.strptime(date_str, '%d.%m.%Y')
-        except ValueError:
-            return datetime.strptime(date_str, '%Y/%m/%d')
-
-    @staticmethod
-    def _convert_string_to_float(value: str) -> float:
-        try:
-            value_str_dot_decimal = value.replace(',', '.')
-        except AttributeError:
-            value_str_dot_decimal = value
-        value_float = float(value_str_dot_decimal)
-        return value_float

@@ -8,7 +8,6 @@ class BaseBarCanvas(BaseCanvas):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._initialize_figure()
 
     def _add_hover(self):
         self.figure.canvas.mpl_connect('pick_event', self._handle_pick)
