@@ -100,11 +100,11 @@ def _extract_labels(df: pd.DataFrame, specifications: dict) -> List[List[str]]:
 
 def extract_labels(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[List[str]]:
     f_extract_labels = partial(_extract_labels, specifications=specifications)
-    f_conversion = lambda result: [item for sublist in result for item in sublist]
-    return process_df_parallel(df, f_extract_labels, f_conversion, n_tasks)
+    results = process_df_parallel(df, f_extract_labels, n_tasks)
+    return [item for sublist in results for item in sublist]
 
 
 def categorize(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[str]:
-    f_extract_labels = partial(_categorize, specifications=specifications)
-    f_conversion = lambda result: [item for sublist in result for item in sublist]
-    return process_df_parallel(df, f_extract_labels, f_conversion, n_tasks)
+    f_categorize = partial(_categorize, specifications=specifications)
+    results = process_df_parallel(df, f_categorize, n_tasks)
+    return [item for sublist in results for item in sublist]
