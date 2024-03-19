@@ -105,3 +105,34 @@ def categorize(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[str
     f_categorize = partial(_categorize, specifications=specifications)
     results = process_df_parallel(df, f_categorize, n_tasks)
     return [item for sublist in results for item in sublist]
+
+
+def yearly_analysis(df_input, fields=("outcome", "income", "total")):
+    df = df_input.copy()
+    df["year"] = df.index.year
+    df["month"] = df.index.month
+    df["day_of_year"] = df.index.dayofyear
+
+    output = {}
+    unique_years = np.unique(df.year)
+    for year in unique_years:
+        result_filtered = df[df.year == year]
+        for i, field in enumerate(fields):
+            result_filtered[field + "_cumulative"] = result_filtered[field].cumsum().values
+        output[year] = result_filtered
+
+    return output
+
+
+def estimate_year(data, field):
+    max_month = data.month.max()
+    n_periods = np.floor(12 / (max_month - 1)).astype(int)
+    x = np.arange(1, 366)
+    v = data[data.month < max_month][field]
+    fill = 365 - n_periods * len(v)
+    if fill < 0:
+        p = (n_periods * v.tolist())[:365]
+    else:
+        p = n_periods * v.tolist() + v[:fill].tolist()
+    y = np.cumsum(p)
+    return x, y
