@@ -13,7 +13,6 @@ from src.data_processing.parallelization import process_df_parallel
 def calculate_incomes_and_outcomes(data: pd.DataFrame,
                                    group_by: str = None) -> pd.DataFrame:
     data = _separate_incomes_and_outcomes(data)
-    data = _calculate_cumulative_values(data)
     if group_by is None:
         return _group_data_by_columns(data, "D")
     else:
@@ -67,8 +66,6 @@ def _group_data_by_columns(data: pd.DataFrame, group_by: str) -> pd.DataFrame:
     grouped_data['total'] = grouped_sums['value']
     grouped_data['income'] = grouped_sums['income']
     grouped_data['outcome'] = grouped_sums['outcome']
-    grouped_data['ratio'] = grouped_data['outcome'] / grouped_data['income']
-    grouped_data['total_cumulative'] = grouped_data['total'].cumsum()
     return grouped_data
 
 
