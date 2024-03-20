@@ -47,22 +47,21 @@ class YearComparisonTab(BaseTab):
         self.data = data
         years = data.time.dt.year.unique().astype(str).tolist()
         self.year_selector.addItems(years)
-        self.year_selector.setCurrentText(years[-1])
+        if len(years) > 0:
+            self.year_selector.setCurrentText(years[-1])
         self._analyze_data_and_update_canvas()
 
     def _analyze_data_and_update_canvas(self):
         if self.data is not None:
-            if self.data.shape[0] == 0:
-                return
             df = calculate_incomes_and_outcomes(self.data)
             self.year_data = yearly_analysis(df)
             self._update_canvas()
 
     def _update_canvas(self):
+        self.line_canvas.clear()
         field = self.output_selector.currentText()
         target_year = int(self.year_selector.currentText())
         if self.year_data is not None:
-            self.line_canvas.clear()
             for year, data in self.year_data.items():
                 x = data.day_of_year.values
                 y = data[field + "_cumulative"].values

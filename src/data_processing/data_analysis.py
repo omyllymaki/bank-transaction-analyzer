@@ -108,6 +108,8 @@ def categorize(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[str
 
 
 def yearly_analysis(df_input, fields=("outcome", "income", "total")):
+    if df_input.shape[0] == 0:
+        return {}
     df = df_input.copy()
     df["year"] = df.index.year
     df["month"] = df.index.month
