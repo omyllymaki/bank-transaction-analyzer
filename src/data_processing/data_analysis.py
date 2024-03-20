@@ -13,7 +13,6 @@ from src.data_processing.parallelization import process_df_parallel
 def calculate_incomes_and_outcomes(data: pd.DataFrame,
                                    group_by: str = None) -> pd.DataFrame:
     data = _separate_incomes_and_outcomes(data)
-    data = _calculate_cumulative_values(data)
     if group_by is None:
         return _group_data_by_columns(data, "D")
     else:
@@ -67,8 +66,6 @@ def _group_data_by_columns(data: pd.DataFrame, group_by: str) -> pd.DataFrame:
     grouped_data['total'] = grouped_sums['value']
     grouped_data['income'] = grouped_sums['income']
     grouped_data['outcome'] = grouped_sums['outcome']
-    grouped_data['ratio'] = grouped_data['outcome'] / grouped_data['income']
-    grouped_data['total_cumulative'] = grouped_data['total'].cumsum()
     return grouped_data
 
 
@@ -108,3 +105,22 @@ def categorize(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[str
     f_categorize = partial(_categorize, specifications=specifications)
     results = process_df_parallel(df, f_categorize, n_tasks)
     return [item for sublist in results for item in sublist]
+
+
+def yearly_analysis(df_input, fields=("outcome", "income", "total")):
+    if df_input.shape[0] == 0:
+        return {}
+    df = df_input.copy()
+    df["year"] = df.index.year
+    df["month"] = df.index.month
+    df["day_of_year"] = df.index.dayofyear
+
+    output = {}
+    unique_years = np.unique(df.year)
+    for year in unique_years:
+        result_filtered = df[df.year == year]
+        for i, field in enumerate(fields):
+            result_filtered[field + "_cumulative"] = result_filtered[field].cumsum().values
+        output[year] = result_filtered
+
+    return output
