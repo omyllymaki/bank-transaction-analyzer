@@ -122,17 +122,3 @@ def yearly_analysis(df_input, fields=("outcome", "income", "total")):
         output[year] = result_filtered
 
     return output
-
-
-def estimate_year(data, field):
-    max_month = data.month.max()
-    n_periods = np.floor(12 / (max_month - 1)).astype(int)
-    x = np.arange(1, 366)
-    v = data[data.month < max_month][field]
-    fill = 365 - n_periods * len(v)
-    if fill < 0:
-        p = (n_periods * v.tolist())[:365]
-    else:
-        p = n_periods * v.tolist() + v[:fill].tolist()
-    y = np.cumsum(p)
-    return x, y
