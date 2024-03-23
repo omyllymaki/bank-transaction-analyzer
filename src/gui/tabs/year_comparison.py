@@ -46,9 +46,12 @@ class YearComparisonTab(BaseTab):
     def handle_data(self, data: pd.DataFrame):
         self.data = data
         years = data.time.dt.year.unique().astype(str).tolist()
+        self.year_selector.currentIndexChanged.disconnect(self._update_canvas)
+        self.year_selector.clear()
         self.year_selector.addItems(years)
         if len(years) > 0:
             self.year_selector.setCurrentText(years[-1])
+        self.year_selector.currentIndexChanged.connect(self._update_canvas)
         self._analyze_data_and_update_canvas()
 
     def _analyze_data_and_update_canvas(self):
