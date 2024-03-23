@@ -8,7 +8,7 @@ from src.gui.tabs.base_tab import BaseTab
 
 class EventTableTab(BaseTab):
     notes_edited_signal = pyqtSignal(tuple)
-    COLUMNS = ["target", "account_number", "value", "time", "message", "event", "category", "labels", "bank", "id",
+    COLUMNS = ["target", "account_number", "value", "time", "year", "month", "message", "event", "category", "labels", "bank", "id",
                "notes", "is_duplicate"]
     EDITABLE_COLUMNS = ["notes"]
 
