@@ -2,7 +2,6 @@ import pandas as pd
 from PyQt5.QtGui import QPixmap, QColor
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QHBoxLayout, QTableView
 
-from src.data_processing.checks.custom_checks import CUSTOM_CHECKS
 from src.data_processing.checks.utils import get_checks
 from src.gui.dataframe_model import DataFrameModel
 from src.gui.tabs.base_tab import BaseTab
@@ -12,7 +11,7 @@ class ChecksTab(BaseTab):
     def __init__(self, check_specifications):
         self.table_view = QTableView()
         self.model = DataFrameModel(pd.DataFrame())
-        self.checks = get_checks(check_specifications) + CUSTOM_CHECKS
+        self.checks = get_checks(check_specifications)
         super().__init__()
 
     def _set_layout(self):

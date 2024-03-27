@@ -56,39 +56,64 @@
   },
   "checks": [
     {
-      "name": "Monthly sum",
-      "filtering": null,
-      "grouping": [
-        "year",
-        "month"
-      ],
-      "aggregation": "sum",
-      "reference_values": -900,
-      "criteria": "larger"
+      "type": "StandardCheck",
+      "arguments": {
+        "name": "Monthly sum",
+        "filtering": null,
+        "grouping": [
+          "year",
+          "month"
+        ],
+        "aggregation": "sum",
+        "reference_values": -900,
+        "criteria": "larger"
+      }
     },
     {
-      "name": "Duplicate count",
-      "filtering": {
-        "is_duplicate": true
-      },
-      "grouping": null,
-      "aggregation": "count",
-      "reference_values": 56,
-      "criteria": "smaller"
+      "type": "StandardCheck",
+      "arguments": {
+        "name": "Duplicate count",
+        "filtering": {
+          "is_duplicate": true
+        },
+        "grouping": null,
+        "aggregation": "count",
+        "reference_values": 10,
+        "criteria": "smaller"
+      }
     },
     {
-      "name": "Incomes > 2020",
-      "filtering": {
-        "min_date": "2020-01-01",
-        "category": "Income"
-      },
-      "grouping": [
-        "year",
-        "month"
-      ],
-      "aggregation": "sum",
-      "reference_values": 100,
-      "criteria": "larger"
+      "type": "StandardCheck",
+      "arguments": {
+        "name": "Monthly income > 2020",
+        "filtering": {
+          "min_date": "2020-01-01",
+          "category": "Income"
+        },
+        "grouping": [
+          "year",
+          "month"
+        ],
+        "aggregation": "sum",
+        "reference_values": 100,
+        "criteria": "larger"
+      }
+    },
+    {
+      "type": "TrendCheck",
+      "class": "TrendCheck",
+      "arguments": {
+        "name": "Monthly trend check",
+        "min_threshold": 1.0
+      }
+    },
+    {
+      "type": "MonthlyCountCheck",
+      "class": "MonthlyCountCheck",
+      "arguments": {
+        "name": "Monthly count check",
+        "min_count": 1
+      }
     }
   ],
   "notes": {

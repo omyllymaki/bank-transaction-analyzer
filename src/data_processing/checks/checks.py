@@ -1,5 +1,5 @@
-import logging
-from typing import Optional, Tuple, Union
+from datetime import datetime
+from typing import Tuple, Optional, Union
 
 import numpy as np
 import pandas as pd
@@ -7,7 +7,6 @@ import pandas as pd
 from src.data_processing.checks.base_check import Check
 from src.data_processing.data_filtering import filter_data
 
-logger = logging.getLogger(__name__)
 
 class StandardCheck(Check):
     """
@@ -54,7 +53,6 @@ class StandardCheck(Check):
             result.name = "value"
 
         if result.shape[0] == 0:
-            logger.warning("Result is empty")
             return True, pd.DataFrame()
 
         passed = self.f_comp(result, self.reference_values)
@@ -63,3 +61,43 @@ class StandardCheck(Check):
         result["reference"] = self.reference_values
         result["passed"] = passed
         return all_passed, result
+
+
+class TrendCheck(Check):
+
+    def __init__(self, name, min_threshold):
+        self.name = name
+        self.min_threshold = min_threshold
+
+    def apply(self, df: pd.DataFrame) -> Tuple[bool, pd.DataFrame]:
+        results = df.groupby(["year", "month"])["value"].aggregate("sum")
+        y = results.values
+        x = np.arange(len(y))
+        trend = np.polyfit(x, y, 1)[0]
+        passed = trend > self.min_threshold
+        output = pd.DataFrame({"value": [trend], "reference": [self.min_threshold], "passed": passed})
+        return passed, output
+
+
+class MonthlyCountCheck(Check):
+
+    def __init__(self, name, min_count):
+        self.name = name
+        self.min_count = min_count
+
+    def apply(self, df: pd.DataFrame) -> Tuple[bool, pd.DataFrame]:
+        results = df.groupby(["year", "month"])["value"].aggregate("count")
+        results = results.unstack(fill_value=0).unstack()
+        current_year = datetime.now().year
+        current_month = datetime.now().month
+        i1 = results.index.get_level_values('year') > current_year
+        i2 = results.index.get_level_values('year') == current_year
+        i3 = results.index.get_level_values('month') > current_month
+        i_future = i1 | (i2 & i3)
+        results = results.loc[~i_future]
+        results.name = "value"
+        results = results.to_frame()
+        results["reference"] = self.min_count
+        results["passed"] = results.value > self.min_count
+        results = results.sort_index(level=['year', 'month'])
+        return np.all(results.passed), results

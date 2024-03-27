@@ -1,13 +1,16 @@
 from typing import List
 
-from src.data_processing.checks.base_check import Check
-from src.data_processing.checks.standard_check import StandardCheck
+from src.data_processing.checks.checks import *
 
 
 def get_checks(specifications):
     checks = []
     for specification in specifications:
-        checks.append(StandardCheck(**specification))
+        check_type = specification.pop("type")
+        check_obj = globals()[check_type]
+        kwargs = specification["arguments"]
+        checks.append(check_obj(**kwargs))
+
     return checks
 
 

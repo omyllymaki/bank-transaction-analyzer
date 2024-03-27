@@ -17,7 +17,8 @@ class Check:
             df: data for checking.
 
         Returns:
-            Tuple[bool, pd.DataFrame]: check passes, results of the check
+            Tuple[bool, pd.DataFrame]: check passes, results of the check.
+            Results of the check needs to be dataframe, other than that it doesn't have to have any specific format.
         """
         raise NotImplementedError
 
