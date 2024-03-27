@@ -12,6 +12,7 @@ GENERAL_KEY = "general"
 DROP_DATA_KEY = "drop_data"
 LABELS_KEY = "labels"
 CATEGORIES_KEY = "categories"
+CHECKS_KEY = "checks"
 NOTES_KEY = "notes"
 
 logger = logging.getLogger(__name__)
