@@ -50,7 +50,8 @@ class StandardCheck(Check):
             result = result.aggregate(self.aggregation)
 
         if not hasattr(result, '__iter__'):
-            result = pd.Series({"value": result})
+            result = pd.Series([result])
+            result.name = "value"
 
         if result.shape[0] == 0:
             logger.warning("Result is empty")
