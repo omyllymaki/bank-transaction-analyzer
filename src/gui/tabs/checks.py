@@ -45,11 +45,10 @@ class ChecksTab(BaseTab):
 
             name_label = self.checks_layout.itemAt(i).itemAt(0).widget()
             status_label = self.checks_layout.itemAt(i).itemAt(1).widget()
+            pixmap = QPixmap(20, 20)
             if passed:
-                pixmap = QPixmap(20, 20)
                 pixmap.fill(QColor("green"))
             else:
-                pixmap = QPixmap(20, 20)
                 pixmap.fill(QColor("red"))
             status_label.setPixmap(pixmap)
 
