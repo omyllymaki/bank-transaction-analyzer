@@ -1,61 +1,100 @@
 {
-    "general": {
-        "default_data_dir": "test_data",
-        "auto_load": true,
-        "auto_load_match_patterns": ["./test_data/*.txt"]
+  "general": {
+    "default_data_dir": "test_data",
+    "auto_load": true,
+    "auto_load_match_patterns": [
+      "./test_data/*.txt"
+    ]
+  },
+  "drop_data": {
+    "target": [
+      "Alexandra Edwards",
+      "Aimee Dodd"
+    ]
+  },
+  "categories": {
+    "Income": {
+      "min_value": 0.0
     },
-    "drop_data": {
-        "target": [
-            "Alexandra Edwards",
-            "Aimee Dodd"
-        ]
+    "Outcome": {
+      "max_value": 0.0
     },
-    "categories": {
-        "Income": {
-            "min_value": 0.0
-        },
-        "Outcome": {
-            "max_value": 0.0
-        },
-        "Example label": {
-            "target": "elizabeth ball",
-            "message": "test message"
-        },
-        "Names starting with A": {
-            "target": "^a"
-        },
-        "Names starting with B": {
-            "target": "^b"
-        },
-        "Names starting with C": {
-            "target": "^c"
-        }
+    "Example label": {
+      "target": "elizabeth ball",
+      "message": "test message"
     },
-    "labels": {
-        "Income": {
-            "min_value": 0.0
-        },
-        "Outcome": {
-            "max_value": 0.0
-        },
-        "Example label": {
-            "target": "elizabeth ball",
-            "message": "test message"
-        },
-        "Names starting with A": {
-            "target": "^a"
-        },
-        "Names starting with B": {
-            "target": "^b"
-        },
-        "Names starting with C": {
-            "target": "^c"
-        }
+    "Names starting with A": {
+      "target": "^a"
     },
-    "notes": {
-        "6c2316dfa1f32efe4e90dfb4c6f8bde5": "Test note 1",
-        "0453e5b7101c4205b30ce4a2abcd75ae": "Test note 2",
-        "c6bbc2b48ad445cc390bb1781078beb1": "Test note 3",
-        "5722e1b6e1bb5f6c70fc90708074b0ab": "Test note 4"
+    "Names starting with B": {
+      "target": "^b"
+    },
+    "Names starting with C": {
+      "target": "^c"
     }
+  },
+  "labels": {
+    "Income": {
+      "min_value": 0.0
+    },
+    "Outcome": {
+      "max_value": 0.0
+    },
+    "Example label": {
+      "target": "elizabeth ball",
+      "message": "test message"
+    },
+    "Names starting with A": {
+      "target": "^a"
+    },
+    "Names starting with B": {
+      "target": "^b"
+    },
+    "Names starting with C": {
+      "target": "^c"
+    }
+  },
+  "checks": [
+    {
+      "name": "Monthly sum",
+      "filtering": null,
+      "grouping": [
+        "year",
+        "month"
+      ],
+      "aggregation": "sum",
+      "reference_values": -900,
+      "criteria": "larger"
+    },
+    {
+      "name": "Duplicate count",
+      "filtering": {
+        "is_duplicate": true
+      },
+      "grouping": null,
+      "aggregation": "count",
+      "reference_values": 56,
+      "criteria": "smaller"
+    },
+    {
+      "name": "Incomes > 2020",
+      "filtering": {
+        "min_date": "2020-01-01",
+        "category": "Income"
+      },
+      "grouping": [
+        "year",
+        "month"
+      ],
+      "aggregation": "sum",
+      "reference_values": 100,
+      "criteria": "larger"
+    }
+  ],
+  "notes": {
+    "6c2316dfa1f32efe4e90dfb4c6f8bde5": "Test note 1",
+    "0453e5b7101c4205b30ce4a2abcd75ae": "Test note 2",
+    "c6bbc2b48ad445cc390bb1781078beb1": "Test note 3",
+    "5722e1b6e1bb5f6c70fc90708074b0ab": "Test note 4"
+  }
 }
