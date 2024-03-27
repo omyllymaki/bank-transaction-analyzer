@@ -23,7 +23,7 @@ class MainView(QWidget):
         self.data_removed = None
         self.data_filtered = None
 
-        self.tab_handler = TabHandler()
+        self.tab_handler = TabHandler(self.config_manager.get_config())
         self.sidebar = SideBar(self.config_manager.config[GENERAL_KEY]["default_data_dir"])
         self._set_layout()
         self._set_connections()
