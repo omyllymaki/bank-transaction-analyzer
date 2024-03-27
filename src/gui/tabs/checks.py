@@ -41,7 +41,7 @@ class ChecksTab(BaseTab):
 
     def handle_data(self, data):
         for i, check in enumerate(self.checks):
-            passed, results = check.apply(data)
+            passed, results = check.apply(data.copy())
 
             name_label = self.checks_layout.itemAt(i).itemAt(0).widget()
             status_label = self.checks_layout.itemAt(i).itemAt(1).widget()
