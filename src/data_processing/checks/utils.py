@@ -6,9 +6,10 @@ from src.data_processing.checks.checks import *
 def get_checks(specifications):
     checks = []
     for specification in specifications:
-        check_type = specification.pop("type")
+        specification_copy = specification.copy()
+        check_type = specification_copy.pop("type")
         check_obj = globals()[check_type]
-        kwargs = specification["arguments"]
+        kwargs = specification_copy["arguments"]
         checks.append(check_obj(**kwargs))
 
     return checks
