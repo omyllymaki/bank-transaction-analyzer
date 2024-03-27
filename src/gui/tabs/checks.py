@@ -31,7 +31,7 @@ class ChecksTab(BaseTab):
         self.layout.addLayout(self.checks_layout)
 
         table_layout = QVBoxLayout(self)
-        self.selected_test_label = QLabel("Selected Test: None")
+        self.selected_test_label = QLabel("Selected check: None")
         table_layout.addWidget(self.selected_test_label)
         table_layout.addWidget(self.table_view)
         self.layout.addLayout(table_layout)
