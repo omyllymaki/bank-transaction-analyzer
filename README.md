@@ -3,7 +3,7 @@
 Bank Transaction Analyzer provides versatile and flexible analysis and visualization of bank transaction data.
 
 By default, the analyzer works with Nordea internet bank data (both old and new format) but can be customized to work 
-with other banks and data formats too. User-defined configuration is used to adapt analysis od the data. 
+with other banks and data formats too. User-defined configuration is used to adapt analysis of the data. 
 
 # Before usage
 
