@@ -16,6 +16,20 @@ class ChecksTab(BaseTab):
 
     def _set_layout(self):
         self.layout = QHBoxLayout(self)
+
+        self.checks_layout = QVBoxLayout()
+        for check in self.checks:
+            item_layout = QHBoxLayout()
+            name_label = QLabel(check.name)
+            item_layout.addWidget(name_label)
+            pixmap = QPixmap(20, 20)
+            pixmap.fill(QColor("white"))
+            status_label = QLabel()
+            status_label.setPixmap(pixmap)
+            item_layout.addWidget(status_label)
+            self.checks_layout.addLayout(item_layout)
+        self.layout.addLayout(self.checks_layout)
+
         table_layout = QVBoxLayout(self)
         self.selected_test_label = QLabel("Selected Test: None")
         table_layout.addWidget(self.selected_test_label)
@@ -26,30 +40,22 @@ class ChecksTab(BaseTab):
         pass
 
     def handle_data(self, data):
-        layout = QVBoxLayout()
-
         for i, check in enumerate(self.checks):
             passed, results = check.apply(data)
 
-            item_layout = QHBoxLayout()
-            name_label = QLabel(check.name)
-            item_layout.addWidget(name_label)
+            name_label = self.checks_layout.itemAt(i).itemAt(0).widget()
+            status_label = self.checks_layout.itemAt(i).itemAt(1).widget()
             if passed:
                 pixmap = QPixmap(20, 20)
                 pixmap.fill(QColor("green"))
             else:
                 pixmap = QPixmap(20, 20)
                 pixmap.fill(QColor("red"))
-            status_label = QLabel()
             status_label.setPixmap(pixmap)
-            item_layout.addWidget(status_label)
-            layout.addLayout(item_layout)
 
             name_label.mousePressEvent = lambda event, check=check, results=results: self.render_table(check, results)
             if i == 0:
                 self.render_table(check, results)
-
-        self.layout.addLayout(layout)
 
     def render_table(self, check, results):
         results["key"] = results.index
