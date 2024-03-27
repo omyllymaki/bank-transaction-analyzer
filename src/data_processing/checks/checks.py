@@ -65,11 +65,14 @@ class StandardCheck(Check):
 
 class TrendCheck(Check):
 
-    def __init__(self, name, min_threshold):
+    def __init__(self, name, min_threshold, filtering=None):
         self.name = name
         self.min_threshold = min_threshold
+        self.filtering = filtering
 
     def apply(self, df: pd.DataFrame) -> Tuple[bool, pd.DataFrame]:
+        if self.filtering is not None:
+            df = filter_data(df, **self.filtering)
         results = df.groupby(["year", "month"])["value"].aggregate("sum")
         y = results.values
         x = np.arange(len(y))
@@ -81,11 +84,14 @@ class TrendCheck(Check):
 
 class MonthlyCountCheck(Check):
 
-    def __init__(self, name, min_count):
+    def __init__(self, name, min_count, filtering=None):
         self.name = name
         self.min_count = min_count
+        self.filtering = filtering
 
     def apply(self, df: pd.DataFrame) -> Tuple[bool, pd.DataFrame]:
+        if self.filtering is not None:
+            df = filter_data(df, **self.filtering)
         results = df.groupby(["year", "month"])["value"].aggregate("count")
         results = results.unstack(fill_value=0).unstack()
         current_year = datetime.now().year
