@@ -22,48 +22,48 @@ class ConfigManager:
 
     def __init__(self, path: str) -> None:
         self.path = path
-        self.config = None
+        self._config = None
         self.load_config()
 
     def load_config(self) -> None:
         try:
-            self.config = load_json(self.path)
+            self._config = load_json(self.path)
         except Exception as e:
             logger.error(f"Cannot load config from file. Error: {e}")
             raise Exception("File I/O error")
 
     def save_config(self) -> None:
         try:
-            save_json(self.path, self.config)
+            save_json(self.path, self._config)
         except Exception as e:
             logger.error(f"Cannot save config to file. Error: {e}")
             raise Exception("File I/O error")
 
     def add_category(self, name: str, data: Category) -> None:
-        self.config[CATEGORIES_KEY][name] = data
+        self._config[CATEGORIES_KEY][name] = data
 
     def add_label(self, name: str, data: Label) -> None:
-        self.config[LABELS_KEY][name] = data
+        self._config[LABELS_KEY][name] = data
 
     def add_drop_data(self, name: str, data: DropData) -> None:
-        drop_data = self.config[DROP_DATA_KEY]
+        drop_data = self._config[DROP_DATA_KEY]
         values = drop_data.get(name)
         if values is None:
             values = [data]
         else:
             values += [data]
         drop_data[name] = values
-        self.config[DROP_DATA_KEY] = drop_data
+        self._config[DROP_DATA_KEY] = drop_data
 
     def add_notes(self, notes: Notes) -> None:
         for event_id, note in notes.items():
-            self.config[NOTES_KEY][event_id] = note
+            self._config[NOTES_KEY][event_id] = note
 
     def update_note(self, event_id, note: str) -> None:
-        self.config[NOTES_KEY][event_id] = note
+        self._config[NOTES_KEY][event_id] = note
 
     def remove_note_if_exist(self, event_id) -> None:
-        self.config[NOTES_KEY].pop(event_id, None)
+        self._config[NOTES_KEY].pop(event_id, None)
 
     def get_config(self) -> dict:
-        return self.config.copy()
+        return self._config.copy()

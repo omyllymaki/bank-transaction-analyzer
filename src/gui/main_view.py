@@ -23,14 +23,15 @@ class MainView(QWidget):
         self.data_removed = None
         self.data_filtered = None
 
-        self.tab_handler = TabHandler(self.config_manager.get_config())
-        self.sidebar = SideBar(self.config_manager.config[GENERAL_KEY]["default_data_dir"])
+        config = self.config_manager.get_config()
+        self.tab_handler = TabHandler(config)
+        self.sidebar = SideBar(config[GENERAL_KEY]["default_data_dir"])
         self._set_layout()
         self._set_connections()
 
-        if self.config_manager.config[GENERAL_KEY]["auto_load"]:
+        if config[GENERAL_KEY]["auto_load"]:
             logger.info(f"Auto load selected. Loading the data")
-            patterns = self.config_manager.config[GENERAL_KEY]["auto_load_match_patterns"]
+            patterns = config[GENERAL_KEY]["auto_load_match_patterns"]
             paths = []
             for pattern in patterns:
                 paths += glob.glob(pattern)
@@ -57,10 +58,10 @@ class MainView(QWidget):
 
     def _handle_load_data(self, file_paths):
         self.data_all = self.data_processor.get_data(file_paths)
-        self.data_processor.update_extra_columns(self.data_all, self.config_manager.config)
+        config = self.config_manager.get_config()
+        self.data_processor.update_extra_columns(self.data_all, config)
         self.data_not_removed, self.data_removed = self.data_processor.drop_data(self.data_all,
-                                                                                 self.config_manager.config[
-                                                                                     DROP_DATA_KEY])
+                                                                                 config[DROP_DATA_KEY])
         self.data_filtered = self.data_not_removed.copy()
         self.tab_handler.handle_data(self.data_filtered)
         self.tab_handler.handle_removed_data(self.data_removed)
