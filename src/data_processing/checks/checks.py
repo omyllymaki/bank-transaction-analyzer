@@ -78,6 +78,8 @@ class TrendCheck(Check):
             df = filter_data(df, **self.filtering)
         results = df.groupby(["year", "month"])["value"].aggregate("sum")
         y = results.values
+        if len(y) < 2:
+            return True, pd.DataFrame()
         x = np.arange(len(y))
         trend = np.polyfit(x, y, 1)[0]
         passed = trend > self.min_threshold
