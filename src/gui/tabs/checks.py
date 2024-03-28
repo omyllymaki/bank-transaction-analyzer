@@ -10,7 +10,8 @@ class ChecksTab(BaseTab):
     def __init__(self, check_specifications):
         self.summary_table_view = QTableView()
         self.details_table_view = QTableView()
-        self.details_model = DataFrameModel(pd.DataFrame())
+        self.summary_model = DataFrameModel(pd.DataFrame(), boolean_cell_background=True)
+        self.details_model = DataFrameModel(pd.DataFrame(), boolean_cell_background=True)
         self.checks = get_checks(check_specifications)
         self.results = []
         super().__init__()
@@ -28,7 +29,7 @@ class ChecksTab(BaseTab):
         for check in self.checks:
             items.append({"name": check.name, "passed": False})
         df = pd.DataFrame(items)
-        self.summary_model = DataFrameModel(df)
+        self.summary_model.data = df
         self.summary_table_view.setModel(self.summary_model)
 
         details_table_layout = QVBoxLayout(self)
@@ -57,6 +58,6 @@ class ChecksTab(BaseTab):
         check_name = self.checks[row_index].name
         results = self.results[row_index]
         results["key"] = results.index
-        self.details_model = DataFrameModel(results)
+        self.details_model = DataFrameModel(results, boolean_cell_background=True)
         self.details_table_view.setModel(self.details_model)
         self.selected_check_label.setText(f"Selected check: {check_name}")

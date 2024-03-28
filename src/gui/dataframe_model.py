@@ -1,8 +1,7 @@
-import math
-
 import numpy as np
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtGui import QColor
 
 
 class DataFrameModel(QtCore.QAbstractTableModel):
@@ -12,7 +11,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
 
     data_edited_signal = pyqtSignal(tuple)
 
-    def __init__(self, data, parent=None, columns_for_edition=None):
+    def __init__(self, data, parent=None, columns_for_edition=None, boolean_cell_background=False):
         QtCore.QAbstractTableModel.__init__(self, parent)
         self.data = data
         self._max_values = self.data.max()
@@ -21,6 +20,7 @@ class DataFrameModel(QtCore.QAbstractTableModel):
             self.columns_for_edition = columns_for_edition
         else:
             self.columns_for_edition = []
+        self.boolean_cell_background = boolean_cell_background
 
     def rowCount(self, parent=None):
         return self.data.shape[0]
@@ -32,6 +32,13 @@ class DataFrameModel(QtCore.QAbstractTableModel):
         if index.isValid():
             if role == QtCore.Qt.DisplayRole:
                 return str(self.data.iloc[index.row(), index.column()])
+            elif role == QtCore.Qt.BackgroundRole and self.boolean_cell_background:
+                value = self.data.iloc[index.row(), index.column()]
+                if isinstance(value, bool) or isinstance(value, np.bool_):
+                    if value:
+                        return QtGui.QBrush(QtGui.QColor(0, 255, 0))
+                    else:
+                        return QtGui.QBrush(QtGui.QColor(255, 0, 0))
         return None
 
     def headerData(self, col, orientation, role):
