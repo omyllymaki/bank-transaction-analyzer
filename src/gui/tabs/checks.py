@@ -1,5 +1,4 @@
 import pandas as pd
-from PyQt5.QtGui import QPixmap, QColor
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QHBoxLayout, QTableView
 
 from src.data_processing.checks.utils import get_checks
@@ -9,55 +8,55 @@ from src.gui.tabs.base_tab import BaseTab
 
 class ChecksTab(BaseTab):
     def __init__(self, check_specifications):
-        self.table_view = QTableView()
-        self.model = DataFrameModel(pd.DataFrame())
+        self.summary_table_view = QTableView()
+        self.details_table_view = QTableView()
+        self.details_model = DataFrameModel(pd.DataFrame())
         self.checks = get_checks(check_specifications)
+        self.results = []
         super().__init__()
 
     def _set_layout(self):
-        self.layout = QHBoxLayout(self)
+        layout = QHBoxLayout(self)
 
-        self.checks_layout = QVBoxLayout()
+        summary_table_layout = QVBoxLayout(self)
+        summary_label = QLabel("Check summary")
+        summary_table_layout.addWidget(summary_label)
+        summary_table_layout.addWidget(self.summary_table_view)
+        layout.addLayout(summary_table_layout)
+
+        items = []
         for check in self.checks:
-            item_layout = QHBoxLayout()
-            name_label = QLabel(check.name)
-            item_layout.addWidget(name_label)
-            pixmap = QPixmap(20, 20)
-            pixmap.fill(QColor("white"))
-            status_label = QLabel()
-            status_label.setPixmap(pixmap)
-            item_layout.addWidget(status_label)
-            self.checks_layout.addLayout(item_layout)
-        self.layout.addLayout(self.checks_layout)
+            items.append({"name": check.name, "passed": False})
+        df = pd.DataFrame(items)
+        self.summary_model = DataFrameModel(df)
+        self.summary_table_view.setModel(self.summary_model)
 
-        table_layout = QVBoxLayout(self)
-        self.selected_test_label = QLabel("Selected check: None")
-        table_layout.addWidget(self.selected_test_label)
-        table_layout.addWidget(self.table_view)
-        self.layout.addLayout(table_layout)
+        details_table_layout = QVBoxLayout(self)
+        self.selected_check_label = QLabel("Selected check: None")
+        details_table_layout.addWidget(self.selected_check_label)
+        details_table_layout.addWidget(self.details_table_view)
+        layout.addLayout(details_table_layout)
+
+        self.setLayout(layout)
 
     def _set_connections(self):
-        pass
+        self.summary_table_view.clicked.connect(self._show_check_results)
 
     def handle_data(self, data):
-        for i, check in enumerate(self.checks):
+        passed_list = []
+        results_list = []
+        for check in self.checks:
             passed, results = check.apply(data.copy())
+            passed_list.append(passed)
+            results_list.append(results)
+        self.summary_model._data["passed"] = passed_list
+        self.results = results_list
 
-            name_label = self.checks_layout.itemAt(i).itemAt(0).widget()
-            status_label = self.checks_layout.itemAt(i).itemAt(1).widget()
-            pixmap = QPixmap(20, 20)
-            if passed:
-                pixmap.fill(QColor("green"))
-            else:
-                pixmap.fill(QColor("red"))
-            status_label.setPixmap(pixmap)
-
-            name_label.mousePressEvent = lambda event, check=check, results=results: self.render_table(check, results)
-            if i == 0:
-                self.render_table(check, results)
-
-    def render_table(self, check, results):
+    def _show_check_results(self, index):
+        row_index = index.row()
+        check_name = self.checks[row_index].name
+        results = self.results[row_index]
         results["key"] = results.index
-        self.model = DataFrameModel(results)
-        self.table_view.setModel(self.model)
-        self.selected_test_label.setText(f"Selected Test: {check.name}")
+        self.details_model = DataFrameModel(results)
+        self.details_table_view.setModel(self.details_model)
+        self.selected_check_label.setText(f"Selected check: {check_name}")
