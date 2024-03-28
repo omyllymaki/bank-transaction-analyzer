@@ -104,4 +104,4 @@ class EventTableTab(BaseTab):
             file_filter,
         )
         if file_path:
-            self.model._data.to_csv(file_path)
+            self.model.df.to_csv(file_path)

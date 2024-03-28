@@ -1,9 +1,9 @@
 # Bank Transaction Analyzer
 
-Bank Transaction Analyzer provides versatile and flexible analysis and visualization of bank transaction data.
+Bank Transaction Analyzer provides configurable analysis and visualization of bank transaction data.
 
 By default, the analyzer works with Nordea internet bank data (both old and new format) but can be customized to work 
-with other banks and data formats too. User-defined configuration is used to adapt analysis of the data. 
+with other banks and data formats too. User-defined configuration is used to configure analysis of the data. 
 
 # Before usage
 
@@ -28,7 +28,7 @@ For Ubuntu users there is installation script: ```./install.sh```.
 * Add free form notes to events in Events tab; these are saved automatically.
 
 **Checks**
-* Left click check name to see more detailed check results in table format.  
+* Left click check name (left table) to see more detailed check results in table format (right table).  
 
 Note:
 Some simulated test data is also provided (in test_data folder). This data can be used to test application.
