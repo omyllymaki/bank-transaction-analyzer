@@ -62,6 +62,9 @@ class StandardCheck(Check):
         result["passed"] = passed
         return all_passed, result
 
+    def get_name(self) -> str:
+        return self.name
+
 
 class TrendCheck(Check):
 
@@ -80,6 +83,9 @@ class TrendCheck(Check):
         passed = trend > self.min_threshold
         output = pd.DataFrame({"value": [trend], "reference": [self.min_threshold], "passed": passed})
         return passed, output
+
+    def get_name(self) -> str:
+        return self.name
 
 
 class MonthlyCountCheck(Check):
@@ -107,3 +113,6 @@ class MonthlyCountCheck(Check):
         results["passed"] = results.value > self.min_count
         results = results.sort_index(level=['year', 'month'])
         return np.all(results.passed), results
+
+    def get_name(self) -> str:
+        return self.name

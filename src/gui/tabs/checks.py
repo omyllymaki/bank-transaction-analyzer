@@ -27,7 +27,7 @@ class ChecksTab(BaseTab):
 
         items = []
         for check in self.checks:
-            items.append({"name": check.name, "passed": False})
+            items.append({"name": check.get_name(), "passed": False})
         df = pd.DataFrame(items)
         self.summary_model.df = df
         self.summary_table_view.setModel(self.summary_model)
@@ -59,7 +59,7 @@ class ChecksTab(BaseTab):
 
     def _show_check_results(self, index):
         row_index = index.row()
-        check_name = self.checks[row_index].name
+        check_name = self.checks[row_index].get_name()
         results = self.results[row_index]
         results["key"] = results.index
         self.details_model = DataFrameModel(results, boolean_cell_background=True)
