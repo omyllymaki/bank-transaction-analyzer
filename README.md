@@ -1,9 +1,25 @@
 # Bank Transaction Analyzer
 
+It was a dark and rainy night, Jan 3 2019, when I decided to finally get rid of misc set of excel files that I used
+to analyze and monitor my bank transactions. As a result of that decision, this tool was born. I still use this tool,
+and also add new features every now and then. Hopefully this will be helpful for others as well. 
+
+# What is this?
+
 Bank Transaction Analyzer provides configurable analysis and visualization of bank transaction data.
 
 By default, the analyzer works with Nordea internet bank data (both old and new format) but can be customized to work 
-with other banks and data formats too. User-defined configuration is used to configure analysis of the data. 
+with other banks and data formats too.
+
+User-defined configuration is used to configure analysis of the data. 
+
+Main features of the tool include:
+* Combining data from multiple files to one dataset
+* Flexible regexp search
+* User-defined categories and labels for transactions
+* User-defined automated checks
+* Adding notes to transactions
+* All kinds of data visualizations
 
 # Before usage
 
