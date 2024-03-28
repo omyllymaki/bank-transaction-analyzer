@@ -23,7 +23,7 @@ class ChecksTab(BaseTab):
         summary_label = QLabel("Check summary")
         summary_table_layout.addWidget(summary_label)
         summary_table_layout.addWidget(self.summary_table_view)
-        layout.addLayout(summary_table_layout)
+        layout.addLayout(summary_table_layout, 1)
 
         items = []
         for check in self.checks:
@@ -36,7 +36,7 @@ class ChecksTab(BaseTab):
         self.selected_check_label = QLabel("Selected check: None")
         details_table_layout.addWidget(self.selected_check_label)
         details_table_layout.addWidget(self.details_table_view)
-        layout.addLayout(details_table_layout)
+        layout.addLayout(details_table_layout, 2)
 
         self.setLayout(layout)
 
