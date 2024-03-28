@@ -8,11 +8,12 @@ class Check:
     """
     Interface for check. This needs bo implemented by actual checks.
     """
-    name = ""
 
     @abstractmethod
     def apply(self, df: pd.DataFrame) -> Tuple[bool, pd.DataFrame]:
-        """Apply check.
+        """
+        Apply check.
+
         Args:
             df: data for checking.
 
@@ -22,5 +23,12 @@ class Check:
         """
         raise NotImplementedError
 
+    @abstractmethod
+    def get_name(self) -> str:
+        """
+        Get name of the check.
+        """
+        raise NotImplementedError
+
     def __repr__(self):
-        return self.name
+        return self.get_name()
