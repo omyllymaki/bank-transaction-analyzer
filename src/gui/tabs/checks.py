@@ -52,6 +52,10 @@ class ChecksTab(BaseTab):
             results_list.append(results)
         self.summary_model.df["passed"] = passed_list
         self.results = results_list
+        selected_indexes = self.summary_table_view.selectedIndexes()
+        if selected_indexes:
+            selected_index = selected_indexes[0]
+            self._show_check_results(selected_index)
 
     def _show_check_results(self, index):
         row_index = index.row()
