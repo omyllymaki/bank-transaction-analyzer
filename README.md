@@ -74,7 +74,34 @@ pressing "Create label from existing filters" button.
 Checks can be used to create automate checks for your data.
 
 You can make a check by creating new item in config file. Every check needs type (class name) and arguments. All the 
-possible check types are listed in file src/data_processing/checks/checks.py.
+possible check types are listed in file src/data_processing/checks/checks.py. As an example, 
+
+```
+ {
+      "type": "StandardCheck",
+      "arguments": {
+        "name": "Monthly sum",
+        "filtering": null,
+        "grouping": [
+          "year",
+          "month"
+        ],
+        "aggregation": "sum",
+        "reference_values": -900,
+        "criteria": "larger"
+      }
+ }
+```
+
+would define check called "Monthly sum". This check would group data by year and month, calculate sum for every
+(year, month) pair, and then compares each value to reference_values (-900). Criteria is "larger", so every value
+needs to be larger than reference value in order to pass the check.
+
+StandardCheck is suitable for checking many things. It contains:
+* optional filtering (use any field accepted by src/data_processing/data_filtering/filter_data)
+* optional grouping (use any column name)
+* optional aggregation (use any string accepted by pandas aggregate, e.g. "sum", "count" or "median")
+* comparison between calculated values and reference values (accepted options are "larger", "smaller" and "equal")
 
 **Notes**
 
