@@ -49,7 +49,7 @@ class ChecksTab(BaseTab):
             passed, results = check.apply(data.copy())
             passed_list.append(passed)
             results_list.append(results)
-        self.summary_model._data["passed"] = passed_list
+        self.summary_model.data["passed"] = passed_list
         self.results = results_list
 
     def _show_check_results(self, index):
