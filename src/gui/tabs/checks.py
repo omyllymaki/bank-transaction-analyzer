@@ -29,7 +29,7 @@ class ChecksTab(BaseTab):
         for check in self.checks:
             items.append({"name": check.name, "passed": False})
         df = pd.DataFrame(items)
-        self.summary_model.data = df
+        self.summary_model.df = df
         self.summary_table_view.setModel(self.summary_model)
 
         details_table_layout = QVBoxLayout(self)
@@ -50,7 +50,7 @@ class ChecksTab(BaseTab):
             passed, results = check.apply(data.copy())
             passed_list.append(passed)
             results_list.append(results)
-        self.summary_model.data["passed"] = passed_list
+        self.summary_model.df["passed"] = passed_list
         self.results = results_list
 
     def _show_check_results(self, index):
