@@ -7,17 +7,31 @@ from src.gui.widgets import FloatLineEdit, IntLineEdit
 
 
 class HeatmapTab(QTabWidget):
-    options = ["target", "category"]
+    time_grouping_options = {
+        "Year": ["year"],
+        "Month": ["year", "month"],
+        "Week": ["year", "week"],
+        "Day": ["year", "month", "day"],
+    }
+    index_grouping_options = {
+        "Target": "target",
+        "Category": "category",
+    }
 
     def __init__(self):
         super().__init__()
+
         self.data = None
         self.pivot_df = None
         self.pivot_df_subset = None
-        self.current_output_option = "target"
+
+        self.time_grouping_selector = QComboBox()
+        self.time_grouping_selector.addItems(list(self.time_grouping_options.keys()))
+
+        self.index_grouping_selector = QComboBox()
+        self.index_grouping_selector.addItems(list(self.index_grouping_options.keys()))
+
         self.heatmap_canvas = HeatmapCanvas(y_axis_title="", x_axis_title="Year, Month")
-        self.output_selector = QComboBox()
-        self.output_selector.addItems(self.options)
         self.heatmap_bounds = FloatLineEdit()
         self.max_rows_to_show = IntLineEdit()
         self.max_rows_to_show.setText("30")
@@ -28,10 +42,11 @@ class HeatmapTab(QTabWidget):
     def _set_layout(self):
         self.layout = QVBoxLayout()
 
-        output_layout = QHBoxLayout()
-        output_layout.addWidget(QLabel("Output"))
-        output_layout.addWidget(self.output_selector)
-        self.layout.addLayout(output_layout)
+        grouping_layout = QHBoxLayout()
+        grouping_layout.addWidget(QLabel("Grouping"))
+        grouping_layout.addWidget(self.time_grouping_selector)
+        grouping_layout.addWidget(self.index_grouping_selector)
+        self.layout.addLayout(grouping_layout)
 
         items_to_show_layout = QHBoxLayout()
         items_to_show_layout.addWidget(QLabel("Max rows to show"))
@@ -47,7 +62,8 @@ class HeatmapTab(QTabWidget):
         self.setLayout(self.layout)
 
     def _set_connections(self):
-        self.output_selector.currentIndexChanged.connect(self._analysis)
+        self.index_grouping_selector.currentIndexChanged.connect(self._analysis)
+        self.time_grouping_selector.currentIndexChanged.connect(self._analysis)
         self.heatmap_bounds.returnPressed.connect(self._update_canvas)
         self.max_rows_to_show.returnPressed.connect(self._handle_max_rows_to_show_changed)
 
@@ -60,18 +76,20 @@ class HeatmapTab(QTabWidget):
         self._get_pivot_table_subset()
         self._set_limits()
         self._update_canvas()
-    
+
     def _handle_max_rows_to_show_changed(self):
         self._get_pivot_table_subset()
         self._set_limits()
         self._update_canvas()
 
     def _calculate_pivot_table(self):
-        df = self.data.copy()
-        df['year_month'] = list(zip(df['year'], df['month']))
-        group_by = self.output_selector.currentText()
-        self.pivot_df = df.pivot_table(index=group_by, columns='year_month', aggfunc='sum', fill_value=0,
-                                       values="value")
+        index = self.index_grouping_options[self.index_grouping_selector.currentText()]
+        columns = self.time_grouping_options[self.time_grouping_selector.currentText()]
+        self.pivot_df = self.data.pivot_table(index=index,
+                                              columns=columns,
+                                              aggfunc='sum',
+                                              fill_value=0,
+                                              values="value")
 
     def _get_pivot_table_subset(self):
         row_sum = abs(self.pivot_df).sum(axis=1)
