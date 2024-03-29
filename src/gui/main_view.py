@@ -80,8 +80,9 @@ class MainView(QWidget):
         value = data[1]
 
         self.config_manager.add_drop_data(name, value)
-        self.data_processor.update_extra_columns(self.data_all, self.config_manager.config)
-        drop_data = self.config_manager.config[DROP_DATA_KEY]
+        config = self.config_manager.get_config()
+        self.data_processor.update_extra_columns(self.data_all, config)
+        drop_data = config[DROP_DATA_KEY]
         self.data_not_removed, self.data_removed = self.data_processor.drop_data(self.data_all, drop_data)
         current_filter_values = self.sidebar.get_filter_values()
         filter_values_nulls_removed = self._remove_null_values_from_dict(current_filter_values)
