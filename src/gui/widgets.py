@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from typing import Union, Tuple
 
 from PyQt5.QtWidgets import QLineEdit
@@ -21,22 +22,22 @@ class TextLineEdit(QLineEdit):
             return text
 
 
-class FloatLineEdit(QLineEdit):
+class NumericLineEdit(QLineEdit):
 
     def __init__(self, *args, min_value=None, max_value=None):
         self.min_value = min_value
         self.max_value = max_value
         super().__init__(*args)
 
-    def get_value(self) -> Tuple[Union[float, None], bool]:
+    def get_value(self) -> Tuple[Union[float, int, None], bool]:
         """
-        Get content of field as float.
-        Return float value and is_valid boolean
+        Get content of field as numeric value.
+        Return numeric value and is_valid boolean
 
         Empty string -> None, True
         Invalid string -> none, False
-        Float not within boundaries -> None, False
-        Float within boundaries -> float, True
+        Value not within boundaries -> None, False
+        Value within boundaries -> float, True
         """
 
         text = super().text()
@@ -45,8 +46,9 @@ class FloatLineEdit(QLineEdit):
             return None, True
 
         try:
-            value = float(text)
-        except Exception:
+            value = self.text_to_value(text)
+        except Exception as e:
+            print(e)
             self._set_red_background()
             return None, False
 
@@ -63,6 +65,10 @@ class FloatLineEdit(QLineEdit):
         self._set_white_background()
         return value, True
 
+    @abstractmethod
+    def text_to_value(self, text):
+        raise NotImplementedError
+
     def _set_red_background(self):
         self.setStyleSheet("QLineEdit"
                            "{"
@@ -74,3 +80,21 @@ class FloatLineEdit(QLineEdit):
                            "{"
                            "background : white;"
                            "}")
+
+
+class FloatLineEdit(NumericLineEdit):
+
+    def __init__(self, *args, min_value=None, max_value=None):
+        super().__init__(*args, min_value=min_value, max_value=max_value)
+
+    def text_to_value(self, text):
+        return float(text)
+
+
+class IntLineEdit(NumericLineEdit):
+
+    def __init__(self, *args, min_value=None, max_value=None):
+        super().__init__(*args, min_value=min_value, max_value=max_value)
+
+    def text_to_value(self, text):
+        return int(text)
