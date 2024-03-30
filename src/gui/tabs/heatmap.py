@@ -17,6 +17,10 @@ class HeatmapTab(QTabWidget):
         "Target": "target",
         "Category": "category",
     }
+    aggregation_options = {
+        "Sum": "sum",
+        "Count": "count",
+    }
 
     def __init__(self):
         super().__init__()
@@ -30,6 +34,9 @@ class HeatmapTab(QTabWidget):
 
         self.index_grouping_selector = QComboBox()
         self.index_grouping_selector.addItems(list(self.index_grouping_options.keys()))
+
+        self.aggregation_selector = QComboBox()
+        self.aggregation_selector.addItems(list(self.aggregation_options.keys()))
 
         self.heatmap_canvas = HeatmapCanvas(y_axis_title="", x_axis_title="Year, Month")
         self.heatmap_bounds = FloatLineEdit()
@@ -48,6 +55,11 @@ class HeatmapTab(QTabWidget):
         grouping_layout.addWidget(self.index_grouping_selector)
         self.layout.addLayout(grouping_layout)
 
+        aggregation_layout = QHBoxLayout()
+        aggregation_layout.addWidget(QLabel("Aggregation"))
+        aggregation_layout.addWidget(self.aggregation_selector)
+        self.layout.addLayout(aggregation_layout)
+
         items_to_show_layout = QHBoxLayout()
         items_to_show_layout.addWidget(QLabel("Max rows to show"))
         items_to_show_layout.addWidget(self.max_rows_to_show)
@@ -64,6 +76,7 @@ class HeatmapTab(QTabWidget):
     def _set_connections(self):
         self.index_grouping_selector.currentIndexChanged.connect(self._analysis)
         self.time_grouping_selector.currentIndexChanged.connect(self._analysis)
+        self.aggregation_selector.currentIndexChanged.connect(self._analysis)
         self.heatmap_bounds.returnPressed.connect(self._update_canvas)
         self.max_rows_to_show.returnPressed.connect(self._handle_max_rows_to_show_changed)
 
@@ -85,9 +98,10 @@ class HeatmapTab(QTabWidget):
     def _calculate_pivot_table(self):
         index = self.index_grouping_options[self.index_grouping_selector.currentText()]
         columns = self.time_grouping_options[self.time_grouping_selector.currentText()]
+        agg = self.aggregation_options[self.aggregation_selector.currentText()]
         self.pivot_df = self.data.pivot_table(index=index,
                                               columns=columns,
-                                              aggfunc='sum',
+                                              aggfunc=agg,
                                               fill_value=0,
                                               values="value")
 
