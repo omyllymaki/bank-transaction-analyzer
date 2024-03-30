@@ -124,3 +124,22 @@ def yearly_analysis(df_input, fields=("outcome", "income", "total")):
         output[year] = result_filtered
 
     return output
+
+
+def calculate_time_filled_pivot_table(df, index, columns, agg, values, time_column="time", freq="D"):
+    all_dates = pd.DataFrame(
+        {'time': pd.date_range(start=df[time_column].min(), end=df[time_column].max(), freq=freq)})
+
+    filled_data = pd.merge(all_dates, df, on="time", how="left").fillna(0)
+    filled_data['year'] = filled_data['time'].dt.year
+    filled_data['month'] = filled_data['time'].dt.month
+    filled_data['week'] = filled_data['time'].dt.isocalendar().week
+    filled_data['day'] = filled_data['time'].dt.day
+
+    pivot_df = filled_data.pivot_table(index=index,
+                                       columns=columns,
+                                       aggfunc=agg,
+                                       fill_value=0,
+                                       values=values)
+    pivot_df.drop(0, inplace=True)
+    return pivot_df

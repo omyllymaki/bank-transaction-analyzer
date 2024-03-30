@@ -140,6 +140,10 @@ existing notes are shown in GUI.
 </p>
 
 <p align="center">
+<img src="screenshots/heatmap.jpg" width="800px" />
+</p>
+
+<p align="center">
 <img src="screenshots/events.jpg" width="800px" />
 </p>
 
