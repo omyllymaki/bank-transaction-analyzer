@@ -17,7 +17,9 @@ def calculate_incomes_and_outcomes(data: pd.DataFrame,
         return _group_data_by_columns(data, group_by)
 
 
-def calculate_pivot_table(df, group_by, columns="category", threshold=100):
+def truncated_pivot_analysis(df, group_by, columns="category", threshold=100, time_fill=True):
+    if time_fill:
+        df = fill_by_time(df)
     df_pivot = df.pivot_table(columns=columns,
                               index=group_by,
                               aggfunc='sum',

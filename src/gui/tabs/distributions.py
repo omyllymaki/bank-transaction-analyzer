@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 
-from src.data_processing.data_analysis import calculate_pivot_table
+from src.data_processing.data_analysis import truncated_pivot_analysis
 from src.gui.canvases.pie_canvas import PieCanvas
 from src.gui.canvases.stacked_bar_canvas import StackedBarsCanvas
 from src.gui.tabs.base_tab import BaseTab
@@ -111,10 +111,10 @@ class DistributionsTab(BaseTab):
                 data_to_analyze = self.data[self.data.value < 0]
                 data_to_analyze["value"] = abs(data_to_analyze["value"])
 
-            pivot_table = calculate_pivot_table(data_to_analyze,
-                                                group_by=self.time_group_by,
-                                                columns=self.column_group_by,
-                                                threshold=self.threshold_value)
+            pivot_table = truncated_pivot_analysis(data_to_analyze,
+                                                   group_by=self.time_group_by,
+                                                   columns=self.column_group_by,
+                                                   threshold=self.threshold_value)
 
             if pivot_table.shape[0] > 0:
                 self.bar_canvas.plot(pivot_table)
