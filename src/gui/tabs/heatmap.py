@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel, QTabWidget
 
-from src.data_processing.data_analysis import calculate_time_filled_pivot_table
+from src.data_processing.data_analysis import fill_by_time
 from src.gui.canvases.heatmap_canvas import HeatmapCanvas
 from src.gui.widgets import FloatLineEdit, IntLineEdit
 
@@ -100,7 +100,13 @@ class HeatmapTab(QTabWidget):
         index = self.index_grouping_options[self.index_grouping_selector.currentText()]
         columns = self.time_grouping_options[self.time_grouping_selector.currentText()]
         agg = self.aggregation_options[self.aggregation_selector.currentText()]
-        self.pivot_df = calculate_time_filled_pivot_table(self.data, index, columns, agg, "value")
+        df = fill_by_time(self.data)
+        self.pivot_df = df.pivot_table(index=index,
+                                       columns=columns,
+                                       aggfunc=agg,
+                                       fill_value=0,
+                                       values="value")
+        self.pivot_df.drop("FILLED", inplace=True)
 
     def _get_pivot_table_subset(self):
         row_sum = abs(self.pivot_df).sum(axis=1)

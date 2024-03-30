@@ -1,7 +1,5 @@
-import os
-from concurrent.futures import ThreadPoolExecutor, ProcessPoolExecutor
-from functools import partial, wraps
-from typing import List, Callable
+from functools import partial
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -126,20 +124,22 @@ def yearly_analysis(df_input, fields=("outcome", "income", "total")):
     return output
 
 
-def calculate_time_filled_pivot_table(df, index, columns, agg, values, time_column="time", freq="D"):
-    all_dates = pd.DataFrame(
-        {'time': pd.date_range(start=df[time_column].min(), end=df[time_column].max(), freq=freq)})
+def fill_by_time(df, time_column="time", freq="D", start=None, end=None):
+    if start is None:
+        start = df[time_column].min()
+    if end is None:
+        end = df[time_column].max()
+    all_dates = pd.DataFrame({time_column: pd.date_range(start=start, end=end, freq=freq)})
+    filled_data = pd.merge(all_dates, df, on=time_column, how="left")
 
-    filled_data = pd.merge(all_dates, df, on="time", how="left").fillna(0)
+    numeric_columns = filled_data.select_dtypes(include='number').columns
+    non_numeric_columns = filled_data.select_dtypes(exclude='number').columns
+    filled_data[numeric_columns] = filled_data[numeric_columns].fillna(0)
+    filled_data[non_numeric_columns] = filled_data[non_numeric_columns].fillna("FILLED")
+
     filled_data['year'] = filled_data['time'].dt.year
     filled_data['month'] = filled_data['time'].dt.month
     filled_data['week'] = filled_data['time'].dt.isocalendar().week
     filled_data['day'] = filled_data['time'].dt.day
 
-    pivot_df = filled_data.pivot_table(index=index,
-                                       columns=columns,
-                                       aggfunc=agg,
-                                       fill_value=0,
-                                       values=values)
-    pivot_df.drop(0, inplace=True)
-    return pivot_df
+    return filled_data
