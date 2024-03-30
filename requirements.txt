@@ -20,6 +20,7 @@ pytest==7.4.2
 python-dateutil==2.8.2
 pytz==2023.3.post1
 regex==2023.8.8
+seaborn==0.13.2
 six==1.16.0
 tomli==2.0.1
 tzdata==2023.3
