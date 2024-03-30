@@ -44,7 +44,7 @@ class BaseCanvas(QWidget):
         self.axes.set_ylabel(self.y_axis_title)
         if self.add_grid:
             self.axes.grid(True)
-        self.figure.subplots_adjust(bottom=0.3)
+        self.figure.subplots_adjust(bottom=0.2)
         self.canvas.draw()
 
     def clear(self):
