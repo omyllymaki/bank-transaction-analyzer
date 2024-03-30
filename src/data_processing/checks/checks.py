@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 
 from src.data_processing.checks.base_check import Check
+from src.data_processing.data_analysis import fill_by_time
 from src.data_processing.data_filtering import filter_data
 
 
@@ -100,15 +101,8 @@ class MonthlyCountCheck(Check):
     def apply(self, df: pd.DataFrame) -> Tuple[bool, pd.DataFrame]:
         if self.filtering is not None:
             df = filter_data(df, **self.filtering)
-        results = df.groupby(["year", "month"])["value"].aggregate("count")
-        results = results.unstack(fill_value=0).unstack()
-        current_year = datetime.now().year
-        current_month = datetime.now().month
-        i1 = results.index.get_level_values('year') > current_year
-        i2 = results.index.get_level_values('year') == current_year
-        i3 = results.index.get_level_values('month') > current_month
-        i_future = i1 | (i2 & i3)
-        results = results.loc[~i_future]
+        df = fill_by_time(df)
+        results = df.groupby(["year", "month"])["value"].aggregate(lambda x: (abs(x) > 0).sum())
         results.name = "value"
         results = results.to_frame()
         results["reference"] = self.min_count
