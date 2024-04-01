@@ -127,6 +127,8 @@ def yearly_analysis(df_input, fields=("outcome", "income", "total")):
 
 
 def fill_by_time(df, time_column="time", freq="D", start=None, end=None):
+    if df.empty:
+        return df
     if start is None:
         start = df[time_column].min()
     if end is None:

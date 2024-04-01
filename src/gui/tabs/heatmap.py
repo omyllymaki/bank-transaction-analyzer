@@ -106,7 +106,8 @@ class HeatmapTab(QTabWidget):
                                        aggfunc=agg,
                                        fill_value=0,
                                        values="value")
-        self.pivot_df.drop("FILLED", inplace=True)
+        if not self.pivot_df.empty:
+            self.pivot_df.drop("FILLED", inplace=True)
 
     def _get_pivot_table_subset(self):
         row_sum = abs(self.pivot_df).sum(axis=1)
@@ -115,8 +116,9 @@ class HeatmapTab(QTabWidget):
         self.pivot_df_subset = self.pivot_df.iloc[i]
 
     def _set_limits(self):
-        limit = int(3 * abs(self.pivot_df_subset).mean().mean())
-        self.heatmap_bounds.setText(str(limit))
+        if not self.pivot_df.empty:
+            limit = int(3 * abs(self.pivot_df_subset).mean().mean())
+            self.heatmap_bounds.setText(str(limit))
 
     def _update_canvas(self):
         bound, is_valid = self.heatmap_bounds.get_value()
