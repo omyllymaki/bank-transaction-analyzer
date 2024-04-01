@@ -106,8 +106,7 @@ class HeatmapTab(QTabWidget):
                                        aggfunc=agg,
                                        fill_value=0,
                                        values="value")
-        if not self.pivot_df.empty:
-            self.pivot_df.drop("FILLED", inplace=True)
+        self.pivot_df.drop("FILLED", inplace=True, errors="ignore")
 
     def _get_pivot_table_subset(self):
         row_sum = abs(self.pivot_df).sum(axis=1)
