@@ -63,6 +63,8 @@ class TestFiltering(BaseTest):
 
     def _general_filtering_test(self, test_name, f, catch_error=False):
 
+        file_name = f"reference_data/{test_name}"
+
         if GENERATE_REFERENCE:
             inputs = f()
 
@@ -73,9 +75,9 @@ class TestFiltering(BaseTest):
                 output = output.to_dict()
                 outputs.append(output)
 
-            save_pickle(test_name, {"inputs": inputs, "outputs": outputs})
+            save_pickle(file_name, {"inputs": inputs, "outputs": outputs})
 
-        data = load_pickle(test_name)
+        data = load_pickle(file_name)
         inputs = data["inputs"]
         expected_outputs = data["outputs"]
 
