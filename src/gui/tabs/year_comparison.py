@@ -1,3 +1,4 @@
+import logging
 from datetime import datetime
 
 import numpy as np
@@ -7,6 +8,8 @@ from PyQt5.QtWidgets import QComboBox, QVBoxLayout, QHBoxLayout, QLabel
 from src.data_processing.data_analysis import calculate_incomes_and_outcomes, yearly_analysis
 from src.gui.canvases.line_canvas import LineCanvas
 from src.gui.tabs.base_tab import BaseTab
+
+logger = logging.getLogger(__name__)
 
 
 class YearComparisonTab(BaseTab):
@@ -63,7 +66,12 @@ class YearComparisonTab(BaseTab):
     def _update_canvas(self):
         self.line_canvas.clear()
         field = self.output_selector.currentText()
-        target_year = int(self.year_selector.currentText())
+        try:
+            target_year = int(self.year_selector.currentText())
+        except Exception as e:
+            logger.warning(f"Cannot convert year selector value to int, error {e}")
+            target_year = None
+
         if self.year_data is not None:
             for year, data in self.year_data.items():
                 x = data.day_of_year.values
