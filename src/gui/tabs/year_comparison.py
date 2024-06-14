@@ -60,24 +60,32 @@ class YearComparisonTab(BaseTab):
     def _analyze_data_and_update_canvas(self):
         if self.data is not None:
             df = calculate_incomes_and_outcomes(self.data)
-            self.year_data = yearly_analysis(df)
+            target_year = self._get_target_year()
+            self.year_data = yearly_analysis(df, forecast_year=target_year)
             self._update_canvas()
 
     def _update_canvas(self):
         self.line_canvas.clear()
         field = self.output_selector.currentText()
-        try:
-            target_year = int(self.year_selector.currentText())
-        except Exception as e:
-            logger.warning(f"Cannot convert year selector value to int, error {e}")
-            target_year = None
 
+        target_year = self._get_target_year()
         if self.year_data is not None:
             for year, data in self.year_data.items():
                 x = data.day_of_year.values
                 y = data[field + "_cumulative"].values
+                not_predicted = ~data.predicted
+                predicted = data.predicted
                 if year == target_year:
-                    self.line_canvas.plot(x, y, "r-", linewidth=2)
+                    self.line_canvas.plot(x[not_predicted], y[not_predicted], "r-", linewidth=2)
+                    self.line_canvas.plot(x[predicted], y[predicted], "r--", linewidth=2)
                 else:
-                    self.line_canvas.plot(x, y, "-", alpha=0.5, linewidth=1)
-                self.line_canvas.text(x[-1] + 1, y[-1], year)
+                    self.line_canvas.plot(x[not_predicted], y[not_predicted], "-", alpha=0.5, linewidth=1)
+                self.line_canvas.text(x[not_predicted][-1] + 1, y[not_predicted][-1], year)
+
+    def _get_target_year(self):
+        target_year = None
+        try:
+            target_year = int(self.year_selector.currentText())
+        except Exception as e:
+            logger.warning(f"Cannot convert year selector value to int, error {e}")
+        return target_year

@@ -1,5 +1,5 @@
 from functools import partial
-from typing import List
+from typing import List, Tuple
 
 import numpy as np
 import pandas as pd
@@ -107,18 +107,50 @@ def categorize(df: pd.DataFrame, specifications: dict, n_tasks=None) -> List[str
     return [item for sublist in results for item in sublist]
 
 
-def yearly_analysis(df_input, fields=("outcome", "income", "total")):
+def forecast_by_daily_means(data: pd.DataFrame, fields: Tuple[str]) -> pd.DataFrame:
+    daily_means = data.groupby('day_of_month')[list(fields)].mean().reset_index()
+
+    current_day_of_year = data['day_of_year'].max()
+    is_leap_year = data['year'][0] % 4 == 0 and (data['year'][0] % 100 != 0 or data['year'][0] % 400 == 0)
+    days_in_year = 366 if is_leap_year else 365
+    days_remaining = days_in_year - current_day_of_year
+
+    last_date = pd.to_datetime(data.index.max())
+    remaining_dates = pd.date_range(start=last_date + pd.Timedelta(days=1), periods=days_remaining)
+
+    predicted_data = pd.DataFrame({
+        'time': remaining_dates,
+        'day_of_year': remaining_dates.dayofyear,
+        'day_of_month': remaining_dates.day
+    })
+
+    predicted_data = predicted_data.merge(daily_means, on='day_of_month', how='left')
+    data['predicted'] = False
+    predicted_data['predicted'] = True
+    combined_data = pd.concat([data, predicted_data], ignore_index=True)
+
+    return combined_data
+
+
+def yearly_analysis(df_input,
+                    fields=("outcome", "income", "total"),
+                    forecast_year=None,
+                    min_amount_data_for_forecasting=31):
     if df_input.shape[0] == 0:
         return {}
     df = df_input.copy()
     df["year"] = df.index.year
     df["month"] = df.index.month
     df["day_of_year"] = df.index.dayofyear
+    df["day_of_month"] = df.index.day
 
     output = {}
     unique_years = np.unique(df.year)
     for year in unique_years:
         result_filtered = df[df.year == year]
+        result_filtered["predicted"] = False
+        if (year == forecast_year) and (result_filtered.shape[0] >= min_amount_data_for_forecasting):
+            result_filtered = forecast_by_daily_means(result_filtered, fields)
         for i, field in enumerate(fields):
             result_filtered[field + "_cumulative"] = result_filtered[field].cumsum().values
         output[year] = result_filtered
